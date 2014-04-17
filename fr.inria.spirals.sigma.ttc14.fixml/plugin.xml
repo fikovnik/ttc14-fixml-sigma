@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin
+      name="%pluginName"
+      id="fr.inria.spirals.sigma.ttc14.fixml"
+      version="1.0.0"
+      provider-name="%providerName">
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore" export="true"/>
+   </requires>
+
+   <runtime>
+      <library name=".">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmlmm -->
+      <package
+            uri="http://spirals.inria.fr/sigma/ttc14/fixml/xmlmm/1.0"
+            class="fr.inria.spirals.sigma.ttc14.fixml.xmlmm.XMLMMPackage"
+            genModel="model/xmlmm.genmodel"/>
+   </extension>
+
+</plugin>
