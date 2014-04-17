@@ -61,8 +61,23 @@ class FIXMLParserTest extends FlatSpec with Matchers with XMLMM {
     ordqty.tag shouldBe "OrdQty"
     ordqty.attributes(0).toString shouldBe "Qty=1000"
 
+    
+    for (file <- Set("test2.xml", "test5.xml", "test6.xml"))
+      FIXMLParser.parseFromURL(classOf[FIXMLParserTest].getResource(s"resources/$file")) match {
+      case Success(_) => 
+      case Failure(e) => fail(s"File $file is a file - should not fail", e)
+    }     
   }
 
+  it should "fail grecefully on FIXML DTD versions" in {
+    // all these appears to be invalid
+    for (file <- Set("test3.xml", "test4.xml"))
+      FIXMLParser.parseFromURL(classOf[FIXMLParserTest].getResource(s"resources/$file")) match {
+      case Success(_) => fail(s"File $file is FIXML DTD Version - should fail")
+      case Failure(e) => e.getMessage shouldBe "FIXML DTD Version is not supported"
+    }     
+  }
+  
   it should "fail gracefully on wrong input" in {
     // missing FIXML
     val xml1 = """<?xml version="1.0" encoding="ASCII"?>
@@ -77,7 +92,7 @@ class FIXMLParserTest extends FlatSpec with Matchers with XMLMM {
     } 
     
     // all these appears to be invalid
-    for (file <- Set("test3.xml", "test7.xml", "test8.xml"))
+    for (file <- Set("test7.xml", "test8.xml"))
       FIXMLParser.parseFromURL(classOf[FIXMLParserTest].getResource(s"resources/$file")) match {
       case Success(_) => fail(s"File $file is not a valid XML file - should fail")
       case Failure(e) => e.getCause shouldBe a[SAXParseException]

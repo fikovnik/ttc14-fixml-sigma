@@ -11,6 +11,7 @@ import scala.xml.Source
 import scala.xml.XML
 import org.xml.sax.InputSource
 import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support.XMLMM
+import scala.xml.Utility
 
 class FIXMLParserException(message: String, cause: Throwable = null) extends Exception(message, cause)
 
@@ -32,7 +33,8 @@ object FIXMLParser extends XMLMM {
     }
 
   def parse(root: Node): Try[Iterable[_xmlmm.XMLNode]] =
-    root match {
+    Utility.trim(root) match {
+      case <FIXML><FIXMLMessage>{ _* }</FIXMLMessage></FIXML> ⇒ Failure(new FIXMLParserException("FIXML DTD Version is not supported"))
       case <FIXML>{ tags @ _* }</FIXML> ⇒ Success(parseNodes(tags))
       case _ ⇒ Failure(new FIXMLParserException("No matching FIXML tag found"))
     }
