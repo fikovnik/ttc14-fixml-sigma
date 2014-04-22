@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -71,7 +70,7 @@ public class XMLNodeImpl extends MinimalEObjectImpl.Container implements XMLNode
 	protected EList<XMLNode> subnodes;
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAttributes()
@@ -147,7 +146,7 @@ public class XMLNodeImpl extends MinimalEObjectImpl.Container implements XMLNode
 	{
 		if (attributes == null)
 		{
-			attributes = new EObjectResolvingEList<XMLAttribute>(XMLAttribute.class, this, XMLMMPackage.XML_NODE__ATTRIBUTES);
+			attributes = new EObjectContainmentEList<XMLAttribute>(XMLAttribute.class, this, XMLMMPackage.XML_NODE__ATTRIBUTES);
 		}
 		return attributes;
 	}
@@ -164,6 +163,8 @@ public class XMLNodeImpl extends MinimalEObjectImpl.Container implements XMLNode
 		{
 			case XMLMMPackage.XML_NODE__SUBNODES:
 				return ((InternalEList<?>)getSubnodes()).basicRemove(otherEnd, msgs);
+			case XMLMMPackage.XML_NODE__ATTRIBUTES:
+				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

@@ -87,7 +87,7 @@ public interface XMLMMPackage extends EPackage
 	int XML_NODE__SUBNODES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -202,10 +202,10 @@ public interface XMLMMPackage extends EPackage
 	EReference getXMLNode_Subnodes();
 
 	/**
-	 * Returns the meta object for the reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.xmlmm.XMLNode#getAttributes <em>Attributes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.xmlmm.XMLNode#getAttributes <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Attributes</em>'.
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.xmlmm.XMLNode#getAttributes()
 	 * @see #getXMLNode()
 	 * @generated
@@ -305,7 +305,7 @@ public interface XMLMMPackage extends EPackage
 		EReference XML_NODE__SUBNODES = eINSTANCE.getXMLNode_Subnodes();
 
 		/**
-		 * The meta object literal for the '<em><b>Attributes</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
