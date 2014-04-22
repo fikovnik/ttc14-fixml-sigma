@@ -36,6 +36,7 @@ object GenerateModelSupport extends WorkflowApp {
       genModelURI = model
       useOption = true
       useSeparateNamespace = true
+      generateExtractors = true
     }
   }
 
