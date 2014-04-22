@@ -12,7 +12,10 @@ object GenerateModelSupport extends WorkflowApp {
   val runtimeProject = s"../$projectName"
   val srcGen = s"$runtimeProject/src-gen"
 
-  val ecoreModel = s"platform:/resource/$projectName/model/xmlmm.genmodel"
+  val ecoreModels = Seq(
+    s"platform:/resource/$projectName/model/xmlmm.genmodel",
+    s"platform:/resource/$projectName/model/objlang.genmodel"
+  )
 
   !new StandaloneSetup {
     platformPath = s"$runtimeProject/.."
@@ -22,16 +25,18 @@ object GenerateModelSupport extends WorkflowApp {
     path = srcGen
   }
 
-  !new GenerateEcore {
-    genModelURI = ecoreModel
-    srcPath(s"platform:/resource/${projectName}/src")
-  }
+  for (model ← ecoreModels) {
+    !new GenerateEcore {
+      genModelURI = model
+      srcPath(s"platform:/resource/${projectName}/src")
+    }
 
-  !new GenerateEMFScalaSupport {
-    baseDir = srcGen
-    genModelURI = ecoreModel
-    useOption = true
-    useSeparateNamespace = true
+    !new GenerateEMFScalaSupport {
+      baseDir = srcGen
+      genModelURI = model
+      useOption = true
+      useSeparateNamespace = true
+    }
   }
 
 }
