@@ -23,6 +23,9 @@ trait XMLNodeScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: XMLNode): Option[(String,EList[XMLNode],EList[XMLAttribute])] =
+      Some((that.getTag,that.getSubnodes,that.getAttributes))
   }
 }
 

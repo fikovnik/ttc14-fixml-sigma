@@ -19,6 +19,9 @@ trait XMLAttributeScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: XMLAttribute): Option[(String,String)] =
+      Some((that.getName,that.getValue))
   }
 }
 

@@ -21,6 +21,9 @@ trait FieldInitialisiationScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: FieldInitialisiation): Option[(Field,Expression)] =
+      Some((that.getField,that.getExpression))
   }
 }
 

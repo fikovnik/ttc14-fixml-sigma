@@ -8,6 +8,8 @@ trait ParameterScalaSupport extends EMFScalaSupport {
   type Parameter = fr.inria.spirals.sigma.ttc14.fixml.objlang.Parameter
   
   object Parameter {
+    def unapply(that: Parameter): Option[(String)] =
+      Some((that.getName))
   }
 }
 

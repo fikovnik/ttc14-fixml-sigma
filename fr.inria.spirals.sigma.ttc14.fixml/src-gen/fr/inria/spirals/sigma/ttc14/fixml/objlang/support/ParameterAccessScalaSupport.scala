@@ -19,6 +19,9 @@ trait ParameterAccessScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: ParameterAccess): Option[(Parameter)] =
+      Some((that.getParameter))
   }
 }
 

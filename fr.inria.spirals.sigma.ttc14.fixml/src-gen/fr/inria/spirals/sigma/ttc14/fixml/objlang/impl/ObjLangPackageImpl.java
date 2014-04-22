@@ -504,7 +504,7 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConstructorCall_Type()
+	public EReference getConstructorCall_Constructor()
 	{
 		return (EReference)constructorCallEClass.getEStructuralFeatures().get(0);
 	}
@@ -514,19 +514,9 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConstructorCall_Constructor()
-	{
-		return (EReference)constructorCallEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getConstructorCall_Arguments()
 	{
-		return (EReference)constructorCallEClass.getEStructuralFeatures().get(2);
+		return (EReference)constructorCallEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -640,7 +630,6 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
 
 		constructorCallEClass = createEClass(CONSTRUCTOR_CALL);
-		createEReference(constructorCallEClass, CONSTRUCTOR_CALL__TYPE);
 		createEReference(constructorCallEClass, CONSTRUCTOR_CALL__CONSTRUCTOR);
 		createEReference(constructorCallEClass, CONSTRUCTOR_CALL__ARGUMENTS);
 
@@ -738,7 +727,6 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		initEAttribute(getStringLiteral_Value(), ecorePackage.getEString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constructorCallEClass, ConstructorCall.class, "ConstructorCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConstructorCall_Type(), this.getClass_(), null, "type", null, 1, 1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstructorCall_Constructor(), this.getConstructor(), null, "constructor", null, 1, 1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstructorCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -8,6 +8,8 @@ trait NamedElementScalaSupport extends EMFScalaSupport {
   type NamedElement = fr.inria.spirals.sigma.ttc14.fixml.objlang.NamedElement
   
   object NamedElement {
+    def unapply(that: NamedElement): Option[(String)] =
+      Some((that.getName))
   }
 }
 

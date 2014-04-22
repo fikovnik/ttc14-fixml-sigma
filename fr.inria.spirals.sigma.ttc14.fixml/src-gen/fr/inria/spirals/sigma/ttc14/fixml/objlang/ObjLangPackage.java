@@ -676,22 +676,13 @@ public interface ObjLangPackage extends EPackage
 	int CONSTRUCTOR_CALL = 13;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTOR_CALL__TYPE = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Constructor</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTOR_CALL__CONSTRUCTOR = EXPRESSION_FEATURE_COUNT + 1;
+	int CONSTRUCTOR_CALL__CONSTRUCTOR = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -700,7 +691,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTOR_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 2;
+	int CONSTRUCTOR_CALL__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Constructor Call</em>' class.
@@ -709,7 +700,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTOR_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int CONSTRUCTOR_CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Constructor Call</em>' class.
@@ -1091,17 +1082,6 @@ public interface ObjLangPackage extends EPackage
 	EClass getConstructorCall();
 
 	/**
-	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type</em>'.
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getType()
-	 * @see #getConstructorCall()
-	 * @generated
-	 */
-	EReference getConstructorCall_Type();
-
-	/**
 	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getConstructor <em>Constructor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1439,14 +1419,6 @@ public interface ObjLangPackage extends EPackage
 		 * @generated
 		 */
 		EClass CONSTRUCTOR_CALL = eINSTANCE.getConstructorCall();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONSTRUCTOR_CALL__TYPE = eINSTANCE.getConstructorCall_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Constructor</b></em>' reference feature.

@@ -8,6 +8,8 @@ trait MemberScalaSupport extends EMFScalaSupport {
   type Member = fr.inria.spirals.sigma.ttc14.fixml.objlang.Member
   
   object Member {
+    def unapply(that: Member): Option[(fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)] =
+      Some((that.getParent))
   }
 }
 

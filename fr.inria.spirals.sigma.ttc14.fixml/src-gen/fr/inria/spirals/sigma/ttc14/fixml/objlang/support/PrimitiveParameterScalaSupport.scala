@@ -20,6 +20,9 @@ trait PrimitiveParameterScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: PrimitiveParameter): Option[(String,PrimitiveType)] =
+      Some((that.getName,that.getType))
   }
 }
 

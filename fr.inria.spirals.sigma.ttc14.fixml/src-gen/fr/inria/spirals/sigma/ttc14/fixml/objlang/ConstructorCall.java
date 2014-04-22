@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getType <em>Type</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getConstructor <em>Constructor</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getArguments <em>Arguments</em>}</li>
  * </ul>
@@ -24,32 +23,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ConstructorCall extends Expression
 {
-	/**
-	 * Returns the value of the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' reference.
-	 * @see #setType(fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getConstructorCall_Type()
-	 * @model required="true"
-	 * @generated
-	 */
-	fr.inria.spirals.sigma.ttc14.fixml.objlang.Class getType();
-
-	/**
-	 * Sets the value of the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall#getType <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' reference.
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(fr.inria.spirals.sigma.ttc14.fixml.objlang.Class value);
-
 	/**
 	 * Returns the value of the '<em><b>Constructor</b></em>' reference.
 	 * <!-- begin-user-doc -->

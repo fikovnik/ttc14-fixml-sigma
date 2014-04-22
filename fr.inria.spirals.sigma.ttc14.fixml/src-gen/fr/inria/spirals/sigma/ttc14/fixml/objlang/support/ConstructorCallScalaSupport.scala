@@ -15,15 +15,17 @@ trait ConstructorCallScalaSupport extends EMFScalaSupport {
   protected implicit val _constructorcallProxyBuilder = new EMFProxyBuilder[ConstructorCall](ObjLang._objlangBuilder)
   
   object ConstructorCall {
-    def apply(type_ : fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = null, constructor: Constructor = null, arguments: EList[Expression] = null): ConstructorCall = {
+    def apply(constructor: Constructor = null, arguments: EList[Expression] = null): ConstructorCall = {
       val _instance = ObjLang._objlangBuilder.create[ConstructorCall]
       
-      if (type_  != null) _instance.setType(type_ )
       if (constructor != null) _instance.setConstructor(constructor)
       if (arguments != null) _instance.getArguments.addAll(arguments)
       
       _instance
     }
+    
+    def unapply(that: ConstructorCall): Option[(Constructor,EList[Expression])] =
+      Some((that.getConstructor,that.getArguments))
   }
 }
 

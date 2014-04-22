@@ -18,6 +18,9 @@ trait StringLiteralScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: StringLiteral): Option[(String)] =
+      Some((that.getValue))
   }
 }
 

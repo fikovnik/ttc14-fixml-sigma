@@ -22,6 +22,9 @@ trait AttributeScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: Attribute): Option[(String,fr.inria.spirals.sigma.ttc14.fixml.objlang.Class,Expression,PrimitiveType)] =
+      Some((that.getName,that.getParent,that.getInitialValue,that.getType))
   }
 }
 

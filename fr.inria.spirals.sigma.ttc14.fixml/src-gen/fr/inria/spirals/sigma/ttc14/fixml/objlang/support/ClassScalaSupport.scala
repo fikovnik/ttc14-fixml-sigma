@@ -22,6 +22,9 @@ trait ClassScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: Class): Option[(String,EList[Member],fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)] =
+      Some((that.getName,that.getMembers,that.getSuperclass))
   }
 }
 

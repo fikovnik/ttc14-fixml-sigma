@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ConstructorCallImpl#getType <em>Type</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ConstructorCallImpl#getConstructor <em>Constructor</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ConstructorCallImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
@@ -39,16 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCall
 {
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected fr.inria.spirals.sigma.ttc14.fixml.objlang.Class type;
-
 	/**
 	 * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -88,49 +77,6 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
 	protected EClass eStaticClass()
 	{
 		return ObjLangPackage.Literals.CONSTRUCTOR_CALL;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Class getType()
-	{
-		if (type != null && type.eIsProxy())
-		{
-			InternalEObject oldType = (InternalEObject)type;
-			type = (fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)eResolveProxy(oldType);
-			if (type != oldType)
-			{
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ObjLangPackage.CONSTRUCTOR_CALL__TYPE, oldType, type));
-			}
-		}
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Class basicGetType()
-	{
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setType(fr.inria.spirals.sigma.ttc14.fixml.objlang.Class newType)
-	{
-		fr.inria.spirals.sigma.ttc14.fixml.objlang.Class oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ObjLangPackage.CONSTRUCTOR_CALL__TYPE, oldType, type));
 	}
 
 	/**
@@ -216,9 +162,6 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
 	{
 		switch (featureID)
 		{
-			case ObjLangPackage.CONSTRUCTOR_CALL__TYPE:
-				if (resolve) return getType();
-				return basicGetType();
 			case ObjLangPackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
 				if (resolve) return getConstructor();
 				return basicGetConstructor();
@@ -239,9 +182,6 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
 	{
 		switch (featureID)
 		{
-			case ObjLangPackage.CONSTRUCTOR_CALL__TYPE:
-				setType((fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)newValue);
-				return;
 			case ObjLangPackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
 				setConstructor((Constructor)newValue);
 				return;
@@ -263,9 +203,6 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
 	{
 		switch (featureID)
 		{
-			case ObjLangPackage.CONSTRUCTOR_CALL__TYPE:
-				setType((fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)null);
-				return;
 			case ObjLangPackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
 				setConstructor((Constructor)null);
 				return;
@@ -286,8 +223,6 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
 	{
 		switch (featureID)
 		{
-			case ObjLangPackage.CONSTRUCTOR_CALL__TYPE:
-				return type != null;
 			case ObjLangPackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
 				return constructor != null;
 			case ObjLangPackage.CONSTRUCTOR_CALL__ARGUMENTS:

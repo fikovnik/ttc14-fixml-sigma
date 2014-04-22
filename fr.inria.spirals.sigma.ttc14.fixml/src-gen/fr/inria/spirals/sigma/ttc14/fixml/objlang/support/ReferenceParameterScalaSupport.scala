@@ -19,6 +19,9 @@ trait ReferenceParameterScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: ReferenceParameter): Option[(String,fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)] =
+      Some((that.getName,that.getType))
   }
 }
 

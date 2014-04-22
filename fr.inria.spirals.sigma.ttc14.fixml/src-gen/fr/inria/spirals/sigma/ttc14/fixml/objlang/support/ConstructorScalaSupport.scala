@@ -23,6 +23,9 @@ trait ConstructorScalaSupport extends EMFScalaSupport {
       
       _instance
     }
+    
+    def unapply(that: Constructor): Option[(fr.inria.spirals.sigma.ttc14.fixml.objlang.Class,EList[Parameter],EList[FieldInitialisiation])] =
+      Some((that.getParent,that.getParameters,that.getInitialisations))
   }
 }
 

@@ -109,11 +109,6 @@ trait ObjLang
     }
     
     implicit class ConstructorCall2Sigma(that: ConstructorCall) {
-      def type_ : fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = that.getType
-      def type__=(value: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class): Unit = that.setType(value)
-      def type__=(value: Transformable): Unit = value.transform[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class].foreach(that.setType(_))
-      def type__=(value: ⇒ Option[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class]): Unit =
-        that.setType(ObjLang._objlangBuilder.ref(value))
       def constructor: Constructor = that.getConstructor
       def constructor_=(value: Constructor): Unit = that.setConstructor(value)
       def constructor_=(value: Transformable): Unit = value.transform[Constructor].foreach(that.setConstructor(_))
