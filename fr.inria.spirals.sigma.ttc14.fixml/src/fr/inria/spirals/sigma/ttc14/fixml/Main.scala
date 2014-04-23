@@ -21,7 +21,7 @@ object Main extends App with Logging with ScalaSigmaSupport with ObjLang {
       (new ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" })
     )),
     ("cpp", new XMLMM2CPP, M2TF(
-      (new ObjLang2CPPWithInitializerList, { s: Class ⇒ s"${s.name}.cpp" }),
+      (new ObjLang2CPP, { s: Class ⇒ s"${s.name}.cpp" }),
       (new ObjLang2HPP, { s: Class ⇒ s"${s.name}.h" })
     ))
   )
