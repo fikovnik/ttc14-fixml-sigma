@@ -13,6 +13,7 @@ import org.xml.sax.InputSource
 import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support.XMLMM
 import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support.XMLMM._xmlmm._
 import scala.xml.Utility
+import java.io.File
 
 class FIXMLParserException(message: String, cause: Throwable = null) extends Exception(message, cause)
 
@@ -23,6 +24,9 @@ object FIXMLParser extends XMLMM {
 
   def parseFromFile(filename: String): Try[Iterable[XMLNode]] =
     parseFromInputSource(Source.fromFile(filename))
+    
+  def parseFromFile(file: File): Try[Iterable[XMLNode]] =
+    parseFromInputSource(Source.fromFile(file))
 
   def parseFromURL(url: URL): Try[Iterable[XMLNode]] =
     parseFromInputSource(Source.fromInputStream(url.openStream()))
