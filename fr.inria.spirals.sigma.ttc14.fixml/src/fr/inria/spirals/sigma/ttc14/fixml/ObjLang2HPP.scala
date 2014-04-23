@@ -26,9 +26,9 @@ class ObjLang2HPP extends ObjLang2CPPBase {
 
     super.main
     !";"
-    
+
     !endl
-    
+
     !s"#endif // _${source.name}_H_"
   }
 
@@ -53,8 +53,8 @@ class ObjLang2HPP extends ObjLang2CPPBase {
   }
 
   override def genAttribute(c: Attribute) =
-    !s"${toCode(c.type_)} ${c.name};"  
-  
+    !s"${toCode(c.type_)} ${c.name};"
+
   override def genReference(c: Reference) =
     !s"${c.type_.name}* ${c.name};"
 

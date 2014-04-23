@@ -12,12 +12,12 @@ class ObjLang2CPPWithInitializerList extends ObjLang2CPP {
 
     if (c.initialisations.nonEmpty)
       !s"${source.name}::${source.name}($args) :" indent {
-        !(c.initialisations map toFieldInitialization mkString(", "))
+        !(c.initialisations map toFieldInitialization mkString (", "))
       }
 
     !s"{"
     !s"}"
-    
+
     !endl
   }
 

@@ -43,7 +43,7 @@ object Main extends App with Logging with ScalaSigmaSupport with ObjLang {
 
       val output = new File(dest, ext)
       IOUtils.mkdirs(output)
-      
+
       val targets = m2m.transform(fixml)
       targets collect { case c: Class ⇒ c } foreach { m2tf.transform(_, output) }
     }

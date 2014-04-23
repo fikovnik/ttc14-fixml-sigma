@@ -12,7 +12,7 @@ import fr.unice.i3s.sigma.m2m.annotations.LazyUnique
 abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
   val ReservedKeywords: Seq[String]
-  
+
   sourceMetaModels = _xmlmm
   targetMetaModels = _objlang
 
@@ -29,7 +29,7 @@ abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
     t.members ++= ~s.allAttributes
     // nested nodes become class references
     t.members ++= s.allSubnodes.sTarget[Reference]
-    
+
     // fix reference duplicate names - only concerns references since attributes have unique names
     fixNames(t.members collect { case e: Reference ⇒ e })
   }
@@ -114,9 +114,9 @@ abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
   // HELPERS
 
-  def checkName(name: String): String = 
-    if (ReservedKeywords contains name) "_" + name else name 
-  
+  def checkName(name: String): String =
+    if (ReservedKeywords contains name) "_" + name else name
+
   def fixNames(seq: Seq[NamedElement]) {
     for {
       (name, elems) ← seq groupBy (_.name) if elems.size > 1

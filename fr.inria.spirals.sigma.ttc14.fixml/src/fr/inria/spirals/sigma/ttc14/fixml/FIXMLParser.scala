@@ -24,7 +24,7 @@ object FIXMLParser extends XMLMM {
 
   def parseFromFile(filename: String): Try[Iterable[XMLNode]] =
     parseFromInputSource(Source.fromFile(filename))
-    
+
   def parseFromFile(file: File): Try[Iterable[XMLNode]] =
     parseFromInputSource(Source.fromFile(file))
 
