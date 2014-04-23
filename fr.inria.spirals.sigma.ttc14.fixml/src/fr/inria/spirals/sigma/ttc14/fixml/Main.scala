@@ -1,22 +1,21 @@
 package fr.inria.spirals.sigma.ttc14.fixml
 
 import java.io.File
-import scala.util.Failure
-import scala.util.Success
-import fr.unice.i3s.sigma.util.IOUtils
-import fr.unice.i3s.sigma.support.ScalaSigmaSupport
+
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Class
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.unice.i3s.sigma.m2t.M2TF
+import fr.unice.i3s.sigma.support.ScalaSigmaSupport
+import fr.unice.i3s.sigma.util.IOUtils
 
 object Main extends App with ScalaSigmaSupport with ObjLang {
 
   // currently implemented drivers
   val drivers = Seq(
-    ("java", new XMLMM2Java, M2TF(
+    ("java", new XMLMM2ObjLang, M2TF(
       (new ObjLang2Java, { s: Class ⇒ s"${s.name}.java" })
     )),
-    ("cs", new XMLMM2CSharp, M2TF(
+    ("cs", new XMLMM2ObjLang, M2TF(
       (new ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" })
     )),
     ("cpp", new XMLMM2CPP, M2TF(

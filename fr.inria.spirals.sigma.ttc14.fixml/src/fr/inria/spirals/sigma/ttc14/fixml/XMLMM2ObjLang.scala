@@ -9,9 +9,7 @@ import fr.unice.i3s.sigma.m2m.M2MT
 import fr.unice.i3s.sigma.m2m.annotations.Lazy
 import fr.unice.i3s.sigma.m2m.annotations.LazyUnique
 
-abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
-
-  val ReservedKeywords: Seq[String]
+class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
   sourceMetaModels = _xmlmm
   targetMetaModels = _objlang
@@ -87,19 +85,19 @@ abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
   @Lazy
   def ruleXMLAttribute2ConstructorParameter(s: XMLAttribute, t: PrimitiveParameter) {
-    t.name = s.name
+    t.name = checkName(s.name)
     t.type_ = PrimitiveType.STRING
   }
 
   @Lazy
   def ruleXMLNode2ConstructorParameter(s: XMLNode, t: ReferenceParameter) {
-    t.name = s.tag + "_"
+    t.name = checkName(s.tag)
     t.type_ = ~s
   }
 
   @LazyUnique
   def ruleXMLAttribute2Attribute(s: XMLAttribute, t: Attribute) {
-    t.name = s.name
+    t.name = checkName(s.name)
     // currently they are all strings now
     t.type_ = PrimitiveType.STRING
     t.initialValue = StringLiteral(s.value)
@@ -114,8 +112,7 @@ abstract class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
   // HELPERS
 
-  def checkName(name: String): String =
-    if (ReservedKeywords contains name) "_" + name else name
+  def checkName(name: String): String = "_" + name
 
   def fixNames(seq: Seq[NamedElement]) {
     for {

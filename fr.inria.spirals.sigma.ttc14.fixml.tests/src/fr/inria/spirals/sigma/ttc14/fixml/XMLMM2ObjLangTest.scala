@@ -34,7 +34,7 @@ class XMLMM2ObjLangTest extends FlatSpec with Matchers with XMLMM with ScalaSigm
     val fixml = FIXMLParser.parse(test).get
     fixml foreach (_.sDump())
 
-    val m2m = new XMLMM2Java
+    val m2m = new XMLMM2ObjLang
 
     val targets = m2m.transform(fixml.head)
 
