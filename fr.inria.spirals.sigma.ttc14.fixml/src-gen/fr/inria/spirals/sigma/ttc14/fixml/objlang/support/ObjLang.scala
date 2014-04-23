@@ -37,12 +37,15 @@ trait ObjLang
     }
     
     implicit class Class2Sigma(that: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class) {
-      def members: EList[Member] = that.getMembers
       def superclass: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = that.getSuperclass
       def superclass_=(value: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class): Unit = that.setSuperclass(value)
       def superclass_=(value: Transformable): Unit = value.transform[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class].foreach(that.setSuperclass(_))
       def superclass_=(value: ⇒ Option[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class]): Unit =
         that.setSuperclass(ObjLang._objlangBuilder.ref(value))
+      def members: EList[Member] = that.getMembers
+      def constructors: EList[Constructor] = that.getConstructors
+      def attributes: EList[Attribute] = that.getAttributes
+      def references: EList[Reference] = that.getReferences
     }
     
     implicit class Member2Sigma(that: Member) {

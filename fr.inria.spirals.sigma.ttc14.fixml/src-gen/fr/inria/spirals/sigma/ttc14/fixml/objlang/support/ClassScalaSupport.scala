@@ -1,6 +1,9 @@
 package fr.inria.spirals.sigma.ttc14.fixml.objlang.support
 
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.Attribute;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Member;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.Reference;
 
 import fr.unice.i3s.sigma.support.EMFProxyBuilder;
 import fr.unice.i3s.sigma.support.EMFScalaSupport;
@@ -13,18 +16,18 @@ trait ClassScalaSupport extends EMFScalaSupport {
   protected implicit val _classProxyBuilder = new EMFProxyBuilder[Class](ObjLang._objlangBuilder)
   
   object Class {
-    def apply(name: String = null, members: EList[Member] = null, superclass: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = null): Class = {
+    def apply(name: String = null, superclass: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = null, members: EList[Member] = null): Class = {
       val _instance = ObjLang._objlangBuilder.create[Class]
       
       if (name != null) _instance.setName(name)
-      if (members != null) _instance.getMembers.addAll(members)
       if (superclass != null) _instance.setSuperclass(superclass)
+      if (members != null) _instance.getMembers.addAll(members)
       
       _instance
     }
     
-    def unapply(that: Class): Option[(String,EList[Member],fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)] =
-      Some((that.getName,that.getMembers,that.getSuperclass))
+    def unapply(that: Class): Option[(String,fr.inria.spirals.sigma.ttc14.fixml.objlang.Class,EList[Member],EList[Constructor],EList[Attribute],EList[Reference])] =
+      Some((that.getName,that.getSuperclass,that.getMembers,that.getConstructors,that.getAttributes,that.getReferences))
   }
 }
 

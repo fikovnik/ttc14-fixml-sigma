@@ -254,7 +254,7 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Members()
+	public EReference getClass_Superclass()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(0);
 	}
@@ -264,9 +264,39 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Superclass()
+	public EReference getClass_Members()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClass_Constructors()
+	{
+		return (EReference)classEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClass_Attributes()
+	{
+		return (EReference)classEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClass_References()
+	{
+		return (EReference)classEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -593,8 +623,11 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
 
 		classEClass = createEClass(CLASS);
-		createEReference(classEClass, CLASS__MEMBERS);
 		createEReference(classEClass, CLASS__SUPERCLASS);
+		createEReference(classEClass, CLASS__MEMBERS);
+		createEReference(classEClass, CLASS__CONSTRUCTORS);
+		createEReference(classEClass, CLASS__ATTRIBUTES);
+		createEReference(classEClass, CLASS__REFERENCES);
 
 		memberEClass = createEClass(MEMBER);
 		createEReference(memberEClass, MEMBER__PARENT);
@@ -690,8 +723,11 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(classEClass, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getClass_Members(), this.getMember(), this.getMember_Parent(), "members", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Superclass(), this.getClass_(), null, "superclass", null, 1, 1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_Members(), this.getMember(), this.getMember_Parent(), "members", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_Constructors(), this.getConstructor(), null, "constructors", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_References(), this.getReference(), null, "references", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(memberEClass, Member.class, "Member", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMember_Parent(), this.getClass_(), this.getClass_Members(), "parent", null, 1, 1, Member.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

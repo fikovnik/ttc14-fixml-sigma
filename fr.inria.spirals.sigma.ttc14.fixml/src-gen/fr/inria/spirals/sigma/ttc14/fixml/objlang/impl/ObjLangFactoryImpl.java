@@ -134,7 +134,7 @@ public class ObjLangFactoryImpl extends EFactoryImpl implements ObjLangFactory
 	 */
 	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Class createClass()
 	{
-		ClassImpl class_ = new ClassImpl();
+		ClassImplDelegate class_ = new ClassImplDelegate();
 		return class_;
 	}
 

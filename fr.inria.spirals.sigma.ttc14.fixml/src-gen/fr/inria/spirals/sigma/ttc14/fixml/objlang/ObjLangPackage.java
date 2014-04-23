@@ -115,22 +115,49 @@ public interface ObjLangPackage extends EPackage
 	int CLASS__NAME = NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Members</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__MEMBERS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Superclass</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__SUPERCLASS = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int CLASS__SUPERCLASS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Members</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__MEMBERS = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Constructors</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__CONSTRUCTORS = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__ATTRIBUTES = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>References</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__REFERENCES = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Class</em>' class.
@@ -139,7 +166,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int CLASS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Class</em>' class.
@@ -819,6 +846,17 @@ public interface ObjLangPackage extends EPackage
 	EClass getClass_();
 
 	/**
+	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Superclass</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass()
+	 * @see #getClass_()
+	 * @generated
+	 */
+	EReference getClass_Superclass();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -830,15 +868,37 @@ public interface ObjLangPackage extends EPackage
 	EReference getClass_Members();
 
 	/**
-	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}'.
+	 * Returns the meta object for the reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getConstructors <em>Constructors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Superclass</em>'.
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass()
+	 * @return the meta object for the reference list '<em>Constructors</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getConstructors()
 	 * @see #getClass_()
 	 * @generated
 	 */
-	EReference getClass_Superclass();
+	EReference getClass_Constructors();
+
+	/**
+	 * Returns the meta object for the reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Attributes</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getAttributes()
+	 * @see #getClass_()
+	 * @generated
+	 */
+	EReference getClass_Attributes();
+
+	/**
+	 * Returns the meta object for the reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getReferences <em>References</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>References</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getReferences()
+	 * @see #getClass_()
+	 * @generated
+	 */
+	EReference getClass_References();
 
 	/**
 	 * Returns the meta object for class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member <em>Member</em>}'.
@@ -1197,6 +1257,14 @@ public interface ObjLangPackage extends EPackage
 		EClass CLASS = eINSTANCE.getClass_();
 
 		/**
+		 * The meta object literal for the '<em><b>Superclass</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLASS__SUPERCLASS = eINSTANCE.getClass_Superclass();
+
+		/**
 		 * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1205,12 +1273,28 @@ public interface ObjLangPackage extends EPackage
 		EReference CLASS__MEMBERS = eINSTANCE.getClass_Members();
 
 		/**
-		 * The meta object literal for the '<em><b>Superclass</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Constructors</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CLASS__SUPERCLASS = eINSTANCE.getClass_Superclass();
+		EReference CLASS__CONSTRUCTORS = eINSTANCE.getClass_Constructors();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLASS__ATTRIBUTES = eINSTANCE.getClass_Attributes();
+
+		/**
+		 * The meta object literal for the '<em><b>References</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLASS__REFERENCES = eINSTANCE.getClass_References();
 
 		/**
 		 * The meta object literal for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.MemberImpl <em>Member</em>}' class.

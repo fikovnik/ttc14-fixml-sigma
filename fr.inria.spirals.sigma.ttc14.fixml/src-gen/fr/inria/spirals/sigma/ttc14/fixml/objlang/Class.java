@@ -12,8 +12,11 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}</li>
+ *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}</li>
+ *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getConstructors <em>Constructors</em>}</li>
+ *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,24 +26,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Class extends NamedElement
 {
-	/**
-	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member}.
-	 * It is bidirectional and its opposite is '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member#getParent <em>Parent</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Members</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Members</em>' containment reference list.
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_Members()
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Member#getParent
-	 * @model opposite="parent" containment="true"
-	 * @generated
-	 */
-	EList<Member> getMembers();
-
 	/**
 	 * Returns the value of the '<em><b>Superclass</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -66,5 +51,71 @@ public interface Class extends NamedElement
 	 * @generated
 	 */
 	void setSuperclass(Class value);
+
+	/**
+	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member}.
+	 * It is bidirectional and its opposite is '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Members</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Members</em>' containment reference list.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_Members()
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Member#getParent
+	 * @model opposite="parent" containment="true"
+	 * @generated
+	 */
+	EList<Member> getMembers();
+
+	/**
+	 * Returns the value of the '<em><b>Constructors</b></em>' reference list.
+	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constructors</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constructors</em>' reference list.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_Constructors()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<Constructor> getConstructors();
+
+	/**
+	 * Returns the value of the '<em><b>Attributes</b></em>' reference list.
+	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Attribute}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Attributes</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Attributes</em>' reference list.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_Attributes()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<Attribute> getAttributes();
+
+	/**
+	 * Returns the value of the '<em><b>References</b></em>' reference list.
+	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Reference}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>References</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>References</em>' reference list.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_References()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<Reference> getReferences();
 
 } // Class
