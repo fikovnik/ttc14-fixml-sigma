@@ -48,18 +48,24 @@ abstract class ObjLang2Code extends M2T with ObjLang {
   def genFieldInitialization(fi: FieldInitialisiation) =
     !s"this.${fi.field.name} = ${toCode(fi.expression)};"
 
-  protected def toCode(e: Expression): String = e match {
-    case StringLiteral(value) ⇒ value.quoted
-    case ParameterAccess(param) ⇒ param.name
-    case ConstructorCall(c, args) ⇒ s"new ${c.parent.name}(${args map toCode mkString (", ")})"
-    case _: NullLiteral ⇒ "null"
-  }
+  protected def toCode(e: StringLiteral): String = e.value.quoted
+  protected def toCode(e: ParameterAccess): String = e.parameter.name
+  protected def toCode(e: NullLiteral): String = "null"
+  protected def toCode(e: ConstructorCall): String =
+    s"new ${e.constructor.parent.name}(${e.arguments map toCode mkString (", ")})"
 
   protected def toCode(p: PrimitiveParameter): String =
     s"${toCode(p.type_)} ${p.name}"
 
   protected def toCode(p: ReferenceParameter): String =
     s"${p.type_.name} ${p.name}"
+
+  protected def toCode(e: Expression): String = e match {
+    case x: StringLiteral ⇒ toCode(x)
+    case x: ParameterAccess ⇒ toCode(x)
+    case x: ConstructorCall ⇒ toCode(x)
+    case x: NullLiteral ⇒ toCode(x)
+  }
 
   protected def toCode(p: Parameter): String = p match {
     case x: PrimitiveParameter ⇒ toCode(x)

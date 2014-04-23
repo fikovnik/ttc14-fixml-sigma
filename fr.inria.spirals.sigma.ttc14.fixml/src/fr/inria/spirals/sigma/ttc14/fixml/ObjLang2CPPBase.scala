@@ -12,9 +12,11 @@ trait ObjLang2CPPBase extends ObjLang2Code {
     def cppHeaderFile = s"${that.name}.${cppHeaderSuffix}"
   }
 
-  override def toCode(p: ReferenceParameter): String =
+  override def toCode(p: ReferenceParameter) =
     s"${p.type_.name}* ${p.name}"
 
+  override def toCode(e: NullLiteral) = "NULL"  
+    
   protected def toCode(p: PrimitiveType) = p match {
     case PrimitiveType.STRING ⇒ "std::string"
   }
