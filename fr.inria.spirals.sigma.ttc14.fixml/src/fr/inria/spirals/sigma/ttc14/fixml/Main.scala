@@ -3,14 +3,13 @@ package fr.inria.spirals.sigma.ttc14.fixml
 import java.io.File
 import scala.util.Failure
 import scala.util.Success
-import com.typesafe.scalalogging.log4j.Logging
 import fr.unice.i3s.sigma.util.IOUtils
 import fr.unice.i3s.sigma.support.ScalaSigmaSupport
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Class
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.unice.i3s.sigma.m2t.M2TF
 
-object Main extends App with Logging with ScalaSigmaSupport with ObjLang {
+object Main extends App with ScalaSigmaSupport with ObjLang {
 
   // currently implemented drivers
   val drivers = Seq(
@@ -29,19 +28,28 @@ object Main extends App with Logging with ScalaSigmaSupport with ObjLang {
   def execute(src: File, dest: File) {
 
     if (dest.isDirectory) {
-      logger info s"Cleaning directory ${dest}"
+      println(s"Cleaning directory ${dest}")
       IOUtils.rmdir(dest, false, true)
     } else {
-      logger info s"Creating output directory ${dest}"
+      println(s"Creating output directory ${dest}")
       IOUtils.mkdirs(dest)
     }
 
-    val fixml = FIXMLParser.parseFromFile(src) orCrash s"Unable to load FIXML from ${src}"
+    val files = if (src.isDirectory) { 
+      src.listFiles filter (_.getName.endsWith("xml")) 
+    } else {
+      Array(src)
+    }
 
-    for ((ext, m2m, m2tf) ← drivers) {
-      logger info s"Generating $ext"
+    for {
+      file ← files
+      (ext, m2m, m2tf) ← drivers
+    } {
+      println(s"Processing $file")
 
-      val output = new File(dest, ext)
+      val fixml = FIXMLParser.parseFromFile(file) orCrash s"Unable to load FIXML from ${src}"
+
+      val output = new File(new File(dest, file.getName), ext)
       IOUtils.mkdirs(output)
 
       val targets = m2m.transform(fixml)
@@ -53,8 +61,8 @@ object Main extends App with Logging with ScalaSigmaSupport with ObjLang {
     s"""|Usage: Main <src> <dest>
         |
         |where:
-        |- src     is is FIXML 4.4 message file.
-	    |- dest    is the output dir where the source code should generated.""".stripMargin
+        |- src     is is FIXML 4.4 message file or a directory with multiple FIXML 4.4 messages
+	    |- dest    is the output directory where the source code should generated.""".stripMargin
 
   if (args.size != 2) {
     println(Usage)
