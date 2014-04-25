@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ttc14-fixml</groupId>
+		<artifactId>ttc14-fixml-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../ttc14-fixml-parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>ttc14-fixml-base</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<classpathScope>compile</classpathScope>
+					<mainClass>fr.inria.spirals.sigma.ttc14.fixml.Main</mainClass>
+					<arguments>
+						<argument>resources/messages</argument>
+						<argument>output</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

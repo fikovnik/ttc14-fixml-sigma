@@ -3,3 +3,5 @@ bin
 fr.inria.spirals.sigma.ttc14.fixml/output
 ttc14-fixml/ttc14-fixml-extension-1/output
 ttc14-fixml/ttc14-fixml-extension-1/target
+ttc14-fixml/ttc14-fixml-base/output
+ttc14-fixml/ttc14-fixml-base/target
