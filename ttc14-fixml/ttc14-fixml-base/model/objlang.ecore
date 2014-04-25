@@ -7,8 +7,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//Classifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superclass" lowerBound="1"
-        eType="#//Class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
         eType="#//Member" containment="true" eOpposite="#//Member/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"

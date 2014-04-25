@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getConstructors <em>Constructors</em>}</li>
  *   <li>{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getFields <em>Fields</em>}</li>
@@ -25,32 +24,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Class extends Classifier
 {
-	/**
-	 * Returns the value of the '<em><b>Superclass</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Superclass</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Superclass</em>' reference.
-	 * @see #setSuperclass(Class)
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.ObjLangPackage#getClass_Superclass()
-	 * @model required="true"
-	 * @generated
-	 */
-	Class getSuperclass();
-
-	/**
-	 * Sets the value of the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Superclass</em>' reference.
-	 * @see #getSuperclass()
-	 * @generated
-	 */
-	void setSuperclass(Class value);
-
 	/**
 	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
 	 * The list contents are of type {@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Member}.

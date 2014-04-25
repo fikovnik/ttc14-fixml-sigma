@@ -15,18 +15,17 @@ trait ClassScalaSupport extends EMFScalaSupport {
   protected implicit val _classProxyBuilder = new EMFProxyBuilder[Class](ObjLang._objlangBuilder)
   
   object Class {
-    def apply(name: String = null, superclass: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class = null, members: EList[Member] = null): Class = {
+    def apply(name: String = null, members: EList[Member] = null): Class = {
       val _instance = ObjLang._objlangBuilder.create[Class]
       
       if (name != null) _instance.setName(name)
-      if (superclass != null) _instance.setSuperclass(superclass)
       if (members != null) _instance.getMembers.addAll(members)
       
       _instance
     }
     
-    def unapply(that: Class): Option[(String,fr.inria.spirals.sigma.ttc14.fixml.objlang.Class,EList[Member],EList[Constructor],EList[Field])] =
-      Some((that.getName,that.getSuperclass,that.getMembers,that.getConstructors,that.getFields))
+    def unapply(that: Class): Option[(String,EList[Member],EList[Constructor],EList[Field])] =
+      Some((that.getName,that.getMembers,that.getConstructors,that.getFields))
   }
 }
 

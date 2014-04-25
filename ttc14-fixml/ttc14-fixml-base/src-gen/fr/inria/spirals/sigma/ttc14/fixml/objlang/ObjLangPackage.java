@@ -151,22 +151,13 @@ public interface ObjLangPackage extends EPackage
 	int CLASS__NAME = CLASSIFIER__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Superclass</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__SUPERCLASS = CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Members</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__MEMBERS = CLASSIFIER_FEATURE_COUNT + 1;
+	int CLASS__MEMBERS = CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Constructors</b></em>' reference list.
@@ -175,7 +166,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__CONSTRUCTORS = CLASSIFIER_FEATURE_COUNT + 2;
+	int CLASS__CONSTRUCTORS = CLASSIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Fields</b></em>' reference list.
@@ -184,7 +175,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__FIELDS = CLASSIFIER_FEATURE_COUNT + 3;
+	int CLASS__FIELDS = CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Class</em>' class.
@@ -193,7 +184,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
+	int CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Class</em>' class.
@@ -827,17 +818,6 @@ public interface ObjLangPackage extends EPackage
 	EClass getClass_();
 
 	/**
-	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Superclass</em>'.
-	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass()
-	 * @see #getClass_()
-	 * @generated
-	 */
-	EReference getClass_Superclass();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1215,14 +1195,6 @@ public interface ObjLangPackage extends EPackage
 		 * @generated
 		 */
 		EClass CLASS = eINSTANCE.getClass_();
-
-		/**
-		 * The meta object literal for the '<em><b>Superclass</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CLASS__SUPERCLASS = eINSTANCE.getClass_Superclass();
 
 		/**
 		 * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.

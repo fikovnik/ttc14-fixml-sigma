@@ -279,7 +279,7 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Superclass()
+	public EReference getClass_Members()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(0);
 	}
@@ -289,7 +289,7 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Members()
+	public EReference getClass_Constructors()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(1);
 	}
@@ -299,19 +299,9 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Constructors()
-	{
-		return (EReference)classEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getClass_Fields()
 	{
-		return (EReference)classEClass.getEStructuralFeatures().get(3);
+		return (EReference)classEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -680,7 +670,6 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		classifierEClass = createEClass(CLASSIFIER);
 
 		classEClass = createEClass(CLASS);
-		createEReference(classEClass, CLASS__SUPERCLASS);
 		createEReference(classEClass, CLASS__MEMBERS);
 		createEReference(classEClass, CLASS__CONSTRUCTORS);
 		createEReference(classEClass, CLASS__FIELDS);
@@ -788,7 +777,6 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		initEClass(classifierEClass, Classifier.class, "Classifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(classEClass, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getClass_Superclass(), this.getClass_(), null, "superclass", null, 1, 1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Members(), this.getMember(), this.getMember_Parent(), "members", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Constructors(), this.getConstructor(), null, "constructors", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Fields(), this.getField(), null, "fields", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
