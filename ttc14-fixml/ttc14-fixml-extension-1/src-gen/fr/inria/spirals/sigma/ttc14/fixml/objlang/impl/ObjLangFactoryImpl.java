@@ -45,7 +45,7 @@ public class ObjLangFactoryImpl extends EFactoryImpl implements ObjLangFactory
 	{
 		try
 		{
-			ObjLangFactory theObjLangFactory = (ObjLangFactory)EPackage.Registry.INSTANCE.getEFactory(ObjLangPackage.eNS_URI);
+			ObjLangFactory theObjLangFactory = (ObjLangFactory)EPackage.Registry.INSTANCE.getEFactory("http://spirals.inria.fr/sigma/ttc14/fixml/objlang/1.0"); 
 			if (theObjLangFactory != null)
 			{
 				return theObjLangFactory;

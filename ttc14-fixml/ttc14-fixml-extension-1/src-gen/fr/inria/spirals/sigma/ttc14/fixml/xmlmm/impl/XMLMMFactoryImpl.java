@@ -30,7 +30,7 @@ public class XMLMMFactoryImpl extends EFactoryImpl implements XMLMMFactory
 	{
 		try
 		{
-			XMLMMFactory theXMLMMFactory = (XMLMMFactory)EPackage.Registry.INSTANCE.getEFactory(XMLMMPackage.eNS_URI);
+			XMLMMFactory theXMLMMFactory = (XMLMMFactory)EPackage.Registry.INSTANCE.getEFactory("http://spirals.inria.fr/sigma/ttc14/fixml/xmlmm/1.0"); 
 			if (theXMLMMFactory != null)
 			{
 				return theXMLMMFactory;

@@ -72,7 +72,7 @@ public class FieldImpl extends TypedElementImpl implements Field
 	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Class getParent()
 	{
 		if (eContainerFeatureID() != ObjLangPackage.FIELD__PARENT) return null;
-		return (fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)eInternalContainer();
+		return (fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)eContainer();
 	}
 
 	/**

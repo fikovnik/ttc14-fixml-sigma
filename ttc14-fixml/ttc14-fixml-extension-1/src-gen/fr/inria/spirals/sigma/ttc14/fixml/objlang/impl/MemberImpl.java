@@ -60,7 +60,7 @@ public abstract class MemberImpl extends MinimalEObjectImpl.Container implements
 	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Class getParent()
 	{
 		if (eContainerFeatureID() != ObjLangPackage.MEMBER__PARENT) return null;
-		return (fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)eInternalContainer();
+		return (fr.inria.spirals.sigma.ttc14.fixml.objlang.Class)eContainer();
 	}
 
 	/**

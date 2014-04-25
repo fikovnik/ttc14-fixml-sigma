@@ -8,7 +8,7 @@ import fr.unice.i3s.sigma.workflow.lib.GenerateEMFScalaSupport
 
 object GenerateModelSupport extends WorkflowApp {
 
-  val projectName = "fr.inria.spirals.sigma.ttc14.fixml"
+  val projectName = "ttc14-fixml-extension-1"
   val runtimeProject = s"../$projectName"
   val srcGen = s"$runtimeProject/src-gen"
 
