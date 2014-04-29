@@ -55,7 +55,7 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
           }
 
           val objlang = timeStamp(s"\t$file: Trasformed XMLMM -> ObjLang (M2M)") {
-            new XMLMM2ObjLang().transform(fixml)
+            new XMLMM2ObjLang().transformAll(fixml)
           }
 
           for ((ext, m2tf) ← drivers) {

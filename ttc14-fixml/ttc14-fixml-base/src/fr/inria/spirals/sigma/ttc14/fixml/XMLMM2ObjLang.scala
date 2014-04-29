@@ -4,7 +4,8 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support.XMLMM
 import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support.XMLMM._xmlmm._
-import fr.unice.i3s.sigma.m2m.M2MT
+import fr.unice.i3s.sigma.m2m._
+import fr.unice.i3s.sigma.m2m.emf._
 import fr.unice.i3s.sigma.m2m.annotations.Lazy
 import fr.unice.i3s.sigma.m2m.annotations.LazyUnique
 import scala.util.Try
@@ -34,7 +35,7 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
     t.name = s.tag
     t.members ++= s.sTargets[Constructor]
-    t.members ++= ~s.allAttributes
+    t.members ++= s.allAttributes.sTarget[Field]
     t.members ++= s.allSubnodes.sTarget[Field]
   }
 
@@ -42,8 +43,10 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
   def ruleXMLNode2ConstructorCall(s: XMLNode, t: ConstructorCall) {
     val constructor = s.sTargets[Constructor]
       .find { c ⇒
-        (c.parameters.isEmpty && s.isEmptyLeaf) || // default one
-          (c.parameters.nonEmpty && !s.isEmptyLeaf) // non-default one 
+        // default one 
+        (c.parameters.isEmpty && s.isEmptyLeaf) ||
+          // non-default one
+          (c.parameters.nonEmpty && !s.isEmptyLeaf)
       }
       .get // since there must be such a constructor
 
@@ -53,18 +56,17 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
     val paramSources = constructor.parameters map { p => (p.type_, p.sSource.get) }
 
     // resolve the arguments using the source of constructor parameters
-
     val attrLen = s.allAttributes.size
 
     t.arguments ++= {
       for {
-        (p, idx) <- constructor.parameters.zipWithIndex
-        source = p.sSource.get
+        param <- constructor.parameters
+        source = param.sSource.get
       } yield {
         source match {
           case attr: XMLAttribute =>
             // we can cast since attributes have always primitive types
-            val dataType = p.type_.asInstanceOf[DataType]
+            val dataType = param.type_.asInstanceOf[DataType]
 
             s.attributes
               .find(_.name == attr.name)
@@ -73,12 +75,20 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
           case node: XMLNode =>
             s.subnodes.filter(_.tag == node.tag) match {
-              case Seq() => NullLiteral()
-              case Seq(x) if !p.many => x.sTarget[ConstructorCall].get
-              case Seq(xs@_*) => 
-                val init = ArrayLiteral()
-                init.type_ = p.type_
-                init.elements ++= ~xs
+
+              case Seq() if !param.many =>
+                NullLiteral()
+
+              case Seq(x) if !param.many =>
+                x.sTarget[ConstructorCall]
+
+              case Seq(xs @ _*) =>
+                val groups = (node +: node.allSameSiblings) groupBy (_.eContainer)
+                val max = groups.values map (_.size) max
+                
+                val init = ArrayLiteral(type_ = param.type_)
+                init.elements ++= xs.sTarget[ConstructorCall]
+                init.elements ++= 0 until (max - xs.size) map (_ => NullLiteral())
                 init
             }
         }
@@ -100,8 +110,8 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
     s.allSameSiblings foreach (associate(_, t))
 
     for (e ← (s.allAttributes ++ s.allSubnodes.distinctBy(_.tag))) {
-      val param = e.sTarget[Parameter].get
-      val field = e.sTarget[Field].get
+      val param = e.sTarget[Parameter]
+      val field = e.sTarget[Field]
 
       t.parameters += param
       t.initialisations += FieldInitialisiation(
@@ -114,12 +124,12 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
   def ruleXMLAttribute2ConstructorParameter(s: XMLAttribute, t: Parameter) {
     t.name = checkName(s.name)
     // use the already guessed type
-    t.type_ = s.sTarget[Field].get.type_
+    t.type_ = s.sTarget[Field].type_
   }
 
   @Lazy
   def ruleXMLNode2ConstructorParameter(s: XMLNode, t: Parameter) {
-    val field = s.sTarget[Field].get
+    val field = s.sTarget[Field]
 
     t.name = field.name
     t.many = field.many
@@ -139,25 +149,24 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
     val allSiblings = s.allSameSiblings
     allSiblings foreach (associate(_, t))
 
+    t.type_ = s.sTarget[Class]
+
     val groups = (s +: allSiblings) groupBy (_.eContainer)
     val max = groups.values map (_.size) max
 
     if (max > 1) {
       t.name = s.tag + "_objects"
       t.many = true
-      val init = ArrayLiteral()
-      init.type_ = ~s
-
+      val init = ArrayLiteral(type_ = s.sTarget[Class])
       val siblings = groups(s.eContainer)
-      init.elements ++= ~siblings
+      
+      init.elements ++= siblings.sTarget[ConstructorCall]
       init.elements ++= 0 until (max - siblings.size) map (_ => NullLiteral())
       t.initialValue = init
     } else {
       t.name = s.tag + "_object"
-      t.initialValue = ~s
+      t.initialValue = s.sTarget[ConstructorCall]
     }
-
-    t.type_ = ~s
   }
 
   // HELPERS
