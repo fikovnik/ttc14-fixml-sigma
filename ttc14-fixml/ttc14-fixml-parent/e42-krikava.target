@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="e42-krikava" sequenceNumber="41">
+<?pde version="3.8"?><target name="e42-krikava" sequenceNumber="43">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.scala-ide.sdt.feature.feature.group" version="4.0.0.m1-2_10-201311011355-8ed264f"/>
@@ -11,10 +11,6 @@
 <unit id="org.eclipse.jdt.feature.group" version="3.8.2.v20130116-090414-8-8nFu3FNOfwKLRuqgXKIy9z0I83"/>
 <repository location="file:/Users/krikava/Development/p2-mirrors/repository/eclipse-juno/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.unice.i3s.sigma.feature.source.feature.group" version="1.0.0.201404251214"/>
-<unit id="fr.unice.i3s.sigma.feature.feature.group" version="1.0.0.201404251214"/>
-<repository location="file:/Users/krikava/Projects/sigma/releng/fr.unice.i3s.sigma.site/target/repository/"/>
-</location>
+<location path="/Users/krikava/Projects/sigma/releng/fr.unice.i3s.sigma.site/target/repository" type="Directory"/>
 </locations>
 </target>
