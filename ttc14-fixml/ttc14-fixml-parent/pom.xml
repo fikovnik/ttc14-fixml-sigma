@@ -19,6 +19,7 @@
 	<modules>
 		<module>../ttc14-fixml-base</module>
 		<module>../ttc14-fixml-extension-1</module>
+		<module>../ttc14-fixml-extension-3</module>
 	</modules>
 
 	<repositories>
