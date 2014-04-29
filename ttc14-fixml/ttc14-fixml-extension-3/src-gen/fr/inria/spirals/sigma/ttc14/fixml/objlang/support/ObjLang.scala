@@ -5,6 +5,7 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Classifier;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DoubleLiteral;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Expression;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Field;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.FieldInitialisiation;
@@ -37,11 +38,28 @@ trait ObjLang
     
     
     implicit class Class2Sigma(that: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class) {
+      def abstract_ : Boolean = that.isAbstract
+      def abstract__=(value: Boolean): Unit = that.setAbstract(value)
+      def superclass: Option[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class] = Option(that.getSuperclass)
+      def superclass_=(value: fr.inria.spirals.sigma.ttc14.fixml.objlang.Class): Unit = that.setSuperclass(value)
+      def superclass_=(value: ⇒ Option[fr.inria.spirals.sigma.ttc14.fixml.objlang.Class]): Unit =
+        that.setSuperclass(ObjLang._objlangBuilder.ref(value))
       def members: EList[Member] = that.getMembers
       def constructors: EList[Constructor] = that.getConstructors
       def fields: EList[Field] = that.getFields
     }
     
+    
+    implicit class Enum2Sigma(that: fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum) {
+      def items: EList[EnumItem] = that.getItems
+    }
+    
+    implicit class EnumItem2Sigma(that: EnumItem) {
+      def parent: fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum = that.getParent
+      def parent_=(value: fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum): Unit = that.setParent(value)
+      def parent_=(value: ⇒ Option[fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum]): Unit =
+        that.setParent(ObjLang._objlangBuilder.ref(value))
+    }
     
     implicit class TypedElement2Sigma(that: TypedElement) {
       def type_ : Classifier = that.getType
@@ -130,6 +148,8 @@ trait ObjLang
       ClassifierScalaSupport with
       ClassScalaSupport with
       DataTypeScalaSupport with
+      EnumScalaSupport with
+      EnumItemScalaSupport with
       TypedElementScalaSupport with
       MemberScalaSupport with
       ConstructorScalaSupport with

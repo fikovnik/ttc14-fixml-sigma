@@ -8,6 +8,7 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DataType;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DoubleLiteral;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Expression;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Field;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.FieldInitialisiation;
@@ -111,6 +112,16 @@ public class ObjLangAdapterFactory extends AdapterFactoryImpl
 			public Adapter caseDataType(DataType object)
 			{
 				return createDataTypeAdapter();
+			}
+			@Override
+			public Adapter caseEnum(fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum object)
+			{
+				return createEnumAdapter();
+			}
+			@Override
+			public Adapter caseEnumItem(EnumItem object)
+			{
+				return createEnumItemAdapter();
 			}
 			@Override
 			public Adapter caseTypedElement(TypedElement object)
@@ -265,6 +276,36 @@ public class ObjLangAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createDataTypeAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum <em>Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum
+	 * @generated
+	 */
+	public Adapter createEnumAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem <em>Enum Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem
+	 * @generated
+	 */
+	public Adapter createEnumItemAdapter()
 	{
 		return null;
 	}

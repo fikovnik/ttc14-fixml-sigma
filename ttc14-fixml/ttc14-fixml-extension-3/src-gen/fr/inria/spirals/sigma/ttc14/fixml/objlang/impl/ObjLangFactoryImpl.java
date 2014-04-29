@@ -7,6 +7,7 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DataType;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DoubleLiteral;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Field;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.FieldInitialisiation;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.IntegerLiteral;
@@ -81,6 +82,8 @@ public class ObjLangFactoryImpl extends EFactoryImpl implements ObjLangFactory
 		{
 			case ObjLangPackage.CLASS: return createClass();
 			case ObjLangPackage.DATA_TYPE: return createDataType();
+			case ObjLangPackage.ENUM: return createEnum();
+			case ObjLangPackage.ENUM_ITEM: return createEnumItem();
 			case ObjLangPackage.TYPED_ELEMENT: return createTypedElement();
 			case ObjLangPackage.CONSTRUCTOR: return createConstructor();
 			case ObjLangPackage.PARAMETER: return createParameter();
@@ -119,6 +122,28 @@ public class ObjLangFactoryImpl extends EFactoryImpl implements ObjLangFactory
 	{
 		DataTypeImpl dataType = new DataTypeImpl();
 		return dataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum createEnum()
+	{
+		EnumImpl enum_ = new EnumImpl();
+		return enum_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumItem createEnumItem()
+	{
+		EnumItemImpl enumItem = new EnumItemImpl();
+		return enumItem;
 	}
 
 	/**

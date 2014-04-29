@@ -7,6 +7,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//Classifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superclass" eType="#//Class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
         eType="#//Member" containment="true" eOpposite="#//Member/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
@@ -16,6 +19,14 @@
         eType="#//Field" changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataType" eSuperTypes="#//Classifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="#//Classifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" lowerBound="1" upperBound="-1"
+        eType="#//EnumItem" eOpposite="#//EnumItem/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumItem" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//Enum" eOpposite="#//Enum/items"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedElement" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//Classifier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

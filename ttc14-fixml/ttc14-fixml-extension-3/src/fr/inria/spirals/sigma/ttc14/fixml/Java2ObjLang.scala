@@ -13,22 +13,38 @@ import javax.xml.bind.annotation.XmlAttribute
 import javax.xml.bind.annotation.XmlType
 import javax.xml.bind.annotation.XmlElement
 import java.lang.reflect.ParameterizedType
+import javax.xml.bind.annotation.XmlEnum
+import javax.xml.bind.annotation.XmlElementRef
+import java.lang.reflect.WildcardType
+import fr.unice.i3s.sigma.m2m.annotations.Abstract
 
 class Java2ObjLang extends M2MT with ObjLang {
+
+  val ListClass = classOf[java.util.List[_]]
 
   sourceMetaModels = JavaMetaModel("java.lang")
   targetMetaModels = _objlang
 
-  def ruleClass2Class(s: Class[_], t: _objlang.Class) {
+  def ruleClass2Class(s: Class[_], t: _objlang.Class) = guardedBy {
+    !s.isEnum && s.isAnnotationPresent(classOf[XmlType])
+  } transform {
     t.name = s.simpleName
+    t.abstract_ = s.isAbstract
     
+    t.superclass = Option(s.getSuperclass) match {
+      case Some(c) if c.isAnnotationPresent(classOf[XmlType]) => c.sTarget[_objlang.Class]
+      case _ => null
+    } 
+
     t.members ++= s.sTargets[_objlang.Constructor]
     t.members ++= s.allDeclaredField.sTarget[_objlang.Field]
   }
 
+  @LazyUnique
   def ruleClass2DefaultConstructor(s: Class[_], t: _objlang.Constructor) {
   }
 
+  @LazyUnique
   def ruleClass2NonDefaultConstructor(s: Class[_], t: _objlang.Constructor) = guardedBy {
     s.allDeclaredField.nonEmpty
   } transform {
@@ -56,26 +72,58 @@ class Java2ObjLang extends M2MT with ObjLang {
   def ruleAttribute2Field(s: Field, t: _objlang.Field) = guardedBy {
     s.isAnnotationPresent(classOf[XmlAttribute])
   } transform {
-    t.name = s.getAnnotation(classOf[XmlAttribute]).name
-    t.type_ = s.getType.sTarget[_objlang.DataType]
+    t.name = checkName(s.getAnnotation(classOf[XmlAttribute]).name)
+    // can be both DataType or Enum
+    t.type_ = s.getType.sTarget[_objlang.Classifier]
+  }
+
+  @Abstract
+  def ruleAbstractElement2Field(s: Field, t: _objlang.Field) = guardedBy {
+    s.isAnnotationPresent(classOf[XmlElement]) ||
+      s.isAnnotationPresent(classOf[XmlElementRef])
+  } transform {
+
+    val name = Option(s getAnnotation (classOf[XmlElement])) match {
+      case Some(a) => a.name
+      case None => s.getAnnotation(classOf[XmlElementRef]).name
+    }
+
+    s.getType match {
+      case ListClass =>
+        t.many = true
+        t.name = name + "_objects"
+      case x =>
+        t.name = name + "_object"
+    }
   }
 
   def ruleElement2Field(s: Field, t: _objlang.Field) = guardedBy {
     s.isAnnotationPresent(classOf[XmlElement])
   } transform {
-    t.name = s.getAnnotation(classOf[XmlElement]).name
+    s.getType match {
+      case ListClass =>
+        t.type_ = s.typeParameters(0).sTarget[_objlang.Classifier]
+      case x =>
+        t.type_ = x.sTarget[_objlang.Classifier]
+    }
+  }
 
-    val ListClass = classOf[java.util.List[_]]
+  def ruleElementRef2Field(s: Field, t: _objlang.Field) = guardedBy {
+    s.isAnnotationPresent(classOf[XmlElementRef])
+  } transform {
 
     s.getType match {
       case ListClass =>
-        val genType = s.getGenericType.asInstanceOf[ParameterizedType]
-        val params = genType.getActualTypeArguments
+        // e.g.: protected List<JAXBElement<? extends AbstractMessageT>> message;
 
-        t.many = true
-        t.type_ = params(0).sTarget[_objlang.Classifier]
+        val listParam = s.typeParameters(0).asInstanceOf[ParameterizedType]
+        val jaxbParam = listParam.getActualTypeArguments()(0).asInstanceOf[WildcardType]
+        t.type_ = jaxbParam.getUpperBounds()(0).sTarget[_objlang.Classifier]
       case x =>
-        t.type_ = x.sTarget[_objlang.Classifier]
+        // e.g.: protected JAXBElement<? extends AbstractMessageT> message;
+
+        val jaxbParam = s.typeParameters(0).asInstanceOf[WildcardType]
+        t.type_ = jaxbParam.getUpperBounds()(0).sTarget[_objlang.Classifier]
     }
   }
 
@@ -86,7 +134,24 @@ class Java2ObjLang extends M2MT with ObjLang {
     t.name = s.name
   }
 
+  @LazyUnique
+  def ruleClass2Enum(s: Class[_], t: _objlang.Enum) = guardedBy {
+    s.isAnnotationPresent(classOf[XmlEnum]) && s.isEnum
+  } transform {
+    t.name = s.simpleName
+    t.items ++= s.getEnumConstants() map { e => _objlang.EnumItem(name = e.toString) }
+  }
+
   // HELPERS
+
+  def checkName(name: String): String = "_" + name
+
+  implicit class FieldExtras(that: Field) {
+    def typeParameters = that.getGenericType match {
+      case x: ParameterizedType => x.getActualTypeArguments
+      case _ => Array()
+    }
+  }
 
   implicit class ClassExtras(that: Class[_]) {
 

@@ -4,6 +4,7 @@ import java.io.File
 import java.net.URLClassLoader
 
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Class
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.unice.i3s.sigma.m2t.M2TF
 import fr.unice.i3s.sigma.support.ScalaSigmaSupport
@@ -20,15 +21,29 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
   val Java = JavaBin + "java"
   val Javac = JavaBin + "javac"
 
+  case class Driver(name: String, m2class: M2TF[Class], m2enum: M2TF[Enum])
+
   // currently implemented drivers
   val drivers = Seq(
-    ("java", M2TF(
-      (new ObjLang2Java, { s: Class ⇒ s"${s.name}.java" }))),
-    ("cs", M2TF(
-      (new ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" }))),
-    ("cpp", M2TF(
-      (new ObjLang2CPP, { s: Class ⇒ s"${s.name}.cpp" }),
-      (new ObjLang2HPP, { s: Class ⇒ s"${s.name}.h" }))))
+    Driver(
+      "java",
+      M2TF((new BaseObjLang2Class with ObjLang2Java, { s: Class ⇒ s"${s.name}.java" })),
+      M2TF((new BaseObjLang2Enum with ObjLang2Java, { s: Enum ⇒ s"${s.name}.java" }))
+    ),
+    Driver(
+      "cs",
+      M2TF((new BaseObjLang2Class with ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" })),
+      M2TF((new BaseObjLang2Enum with ObjLang2CSharp, { s: Enum ⇒ s"${s.name}.cs" }))
+    ),
+    Driver(
+      "cpp",
+      M2TF(
+        (new ObjLang2CPPClassHeader, { s: Class ⇒ s"${s.name}.h" }),
+        (new ObjLang2CPPClassImpl, { s: Class ⇒ s"${s.name}.cpp" })
+      ),
+      M2TF((new ObjLang2CPPEnumHeader, { s: Enum ⇒ s"${s.name}.h" }))
+    )
+  )
 
   def executeCommand(cmd: String) {
     println("Executing: " + cmd)
@@ -88,16 +103,20 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
     }
 
     timeStamp(s"Transforming all") {
-      val objlang = new Java2ObjLang().transformAll(classes)
+      val objlang = timeStamp(s"Trasformed Java -> ObjLang (M2M)") {
+        new Java2ObjLang().transformAll(classes)
+      }
 
-      for ((ext, m2tf) ← drivers) {
+      for (Driver(ext, m2class, m2enum) ← drivers) {
         val output = new File(new File(dest, "results"), ext)
-        IOUtils.mkdirs(output)
+        //        IOUtils.mkdirs(output)
 
         val classes = objlang collect { case c: Class ⇒ c }
+        val enums = objlang collect { case c: Enum ⇒ c }
 
         timeStamp(s"Transformed ObjLang to $ext (M2T)") {
-          classes foreach (m2tf.transform(_, output))
+          classes foreach (m2class.transform(_, output))
+          enums foreach (m2enum.transform(_, output))
         }
       }
     }

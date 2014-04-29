@@ -8,6 +8,7 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DataType;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DoubleLiteral;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Expression;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Field;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.FieldInitialisiation;
@@ -120,6 +121,23 @@ public class ObjLangSwitch<T> extends Switch<T>
 				T result = caseDataType(dataType);
 				if (result == null) result = caseClassifier(dataType);
 				if (result == null) result = caseNamedElement(dataType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ObjLangPackage.ENUM:
+			{
+				fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum enum_ = (fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum)theEObject;
+				T result = caseEnum(enum_);
+				if (result == null) result = caseClassifier(enum_);
+				if (result == null) result = caseNamedElement(enum_);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ObjLangPackage.ENUM_ITEM:
+			{
+				EnumItem enumItem = (EnumItem)theEObject;
+				T result = caseEnumItem(enumItem);
+				if (result == null) result = caseNamedElement(enumItem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -307,6 +325,38 @@ public class ObjLangSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseDataType(DataType object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnum(fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumItem(EnumItem object)
 	{
 		return null;
 	}

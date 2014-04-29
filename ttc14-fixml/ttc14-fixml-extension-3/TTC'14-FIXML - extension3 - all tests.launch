@@ -6,6 +6,9 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
+<mapAttribute key="org.eclipse.debug.core.preferred_launchers">
+<mapEntry key="[debug]" value="scala.application"/>
+</mapAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="fr.inria.spirals.sigma.ttc14.fixml.Main"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="fixml-4.4/Schema output"/>

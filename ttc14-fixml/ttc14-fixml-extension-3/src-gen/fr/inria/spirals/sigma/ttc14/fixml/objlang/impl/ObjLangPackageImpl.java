@@ -8,6 +8,7 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Constructor;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.ConstructorCall;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DataType;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.DoubleLiteral;
+import fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Expression;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Field;
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.FieldInitialisiation;
@@ -65,6 +66,20 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * @generated
 	 */
 	private EClass dataTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumItemEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -279,9 +294,9 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Members()
+	public EAttribute getClass_Abstract()
 	{
-		return (EReference)classEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)classEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -289,7 +304,7 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Constructors()
+	public EReference getClass_Superclass()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(1);
 	}
@@ -299,9 +314,29 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_Fields()
+	public EReference getClass_Members()
 	{
 		return (EReference)classEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClass_Constructors()
+	{
+		return (EReference)classEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClass_Fields()
+	{
+		return (EReference)classEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -312,6 +347,46 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 	public EClass getDataType()
 	{
 		return dataTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnum()
+	{
+		return enumEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnum_Items()
+	{
+		return (EReference)enumEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnumItem()
+	{
+		return enumItemEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumItem_Parent()
+	{
+		return (EReference)enumItemEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -670,11 +745,19 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		classifierEClass = createEClass(CLASSIFIER);
 
 		classEClass = createEClass(CLASS);
+		createEAttribute(classEClass, CLASS__ABSTRACT);
+		createEReference(classEClass, CLASS__SUPERCLASS);
 		createEReference(classEClass, CLASS__MEMBERS);
 		createEReference(classEClass, CLASS__CONSTRUCTORS);
 		createEReference(classEClass, CLASS__FIELDS);
 
 		dataTypeEClass = createEClass(DATA_TYPE);
+
+		enumEClass = createEClass(ENUM);
+		createEReference(enumEClass, ENUM__ITEMS);
+
+		enumItemEClass = createEClass(ENUM_ITEM);
+		createEReference(enumItemEClass, ENUM_ITEM__PARENT);
 
 		typedElementEClass = createEClass(TYPED_ELEMENT);
 		createEReference(typedElementEClass, TYPED_ELEMENT__TYPE);
@@ -756,6 +839,8 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		classifierEClass.getESuperTypes().add(this.getNamedElement());
 		classEClass.getESuperTypes().add(this.getClassifier());
 		dataTypeEClass.getESuperTypes().add(this.getClassifier());
+		enumEClass.getESuperTypes().add(this.getClassifier());
+		enumItemEClass.getESuperTypes().add(this.getNamedElement());
 		typedElementEClass.getESuperTypes().add(this.getNamedElement());
 		constructorEClass.getESuperTypes().add(this.getMember());
 		parameterEClass.getESuperTypes().add(this.getTypedElement());
@@ -777,11 +862,19 @@ public class ObjLangPackageImpl extends EPackageImpl implements ObjLangPackage
 		initEClass(classifierEClass, Classifier.class, "Classifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(classEClass, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getClass_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 1, 1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_Superclass(), this.getClass_(), null, "superclass", null, 0, 1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Members(), this.getMember(), this.getMember_Parent(), "members", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Constructors(), this.getConstructor(), null, "constructors", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Fields(), this.getField(), null, "fields", null, 0, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Class.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataTypeEClass, DataType.class, "DataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(enumEClass, fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum.class, "Enum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnum_Items(), this.getEnumItem(), this.getEnumItem_Parent(), "items", null, 1, -1, fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumItemEClass, EnumItem.class, "EnumItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnumItem_Parent(), this.getEnum(), this.getEnum_Items(), "parent", null, 1, 1, EnumItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typedElementEClass, TypedElement.class, "TypedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedElement_Type(), this.getClassifier(), null, "type", null, 1, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

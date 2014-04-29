@@ -33,7 +33,7 @@ object Java2ObjLangTest extends App with ScalaSigmaSupport {
   
   println()
   
-  val m2t = new ObjLang2Java
+  val m2t = new BaseObjLang2Class with ObjLang2Java
   val code = targets collect { case x: Class ⇒ m2t.transform(x) }
   println(code)
 }

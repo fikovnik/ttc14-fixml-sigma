@@ -1,35 +1,43 @@
 package fr.inria.spirals.sigma.ttc14.fixml
 
-import fr.unice.i3s.sigma.m2t.M2T
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 
-class ObjLang2CPP extends ObjLang2CPPBase {
+trait ObjLang2CPP extends BaseObjLangMTT {
 
-  override def main = {
-    !s"#include ${source.cppHeaderFile.quoted}"
+  var cppHeaderSuffix = "h"
 
-    !endl
-
-    source.constructors foreach genConstructor
+  implicit class ClassCPPUtil(that: Classifier) {
+    def cppHeaderFile = s"${that.name}.${cppHeaderSuffix}"
   }
 
-  override def genConstructor(c: Constructor) = {
-    val args = c.parameters map param2Code mkString (", ")
+  def getClassDefinition(clazz: Class) = {
+    val exten = clazz.superclass map (" : public " + _.name) getOrElse ""
 
-    !s"${source.name}::${source.name}($args)" curlyIndent {
-      for (field <- c.parent.fields) {
-        c.initialisations
-          .find(_.field == field) // try to find field initialization within a constructor
-          .map(_.expression) 
-          .orElse(field.initialValue) // if there is none try field itself
-          .foreach { e =>
-            !s"this->${field.name} = ${toCode(e)};"
-          }
-      }
-    }
-
-    !endl
+    s"class ${clazz.name}${exten}"
   }
 
+  override def toCode(e: NullLiteral) = "NULL"
+
+  override def type2Code(e: TypedElement): String = (e.type_.isInstanceOf[Class], e.many) match {
+    case (true, false) => class2Code(e.type_) + "*"
+    case (true, true) => class2Code(e.type_) + "**"
+    case (false, true) => class2Code(e.type_) + "[]"
+    case (false, false) => class2Code(e.type_)
+  }
+
+  override def toCode(a: ArrayLiteral): String =
+    s"new ${class2Code(a.type_)}*[${a.elements.size}] { ${a.elements map (toCode) mkString (", ")} }"
+
+  override def class2Code(p: DataType) = p.name match {
+    case "java.lang.Boolean" | "boolean" => "bool"
+    case "java.lang.Char" | "char" => "char"
+    case "java.lang.Byte" | "byte" => "char"
+    case "java.lang.Short" | "short" => "short"
+    case "java.lang.Integer" | "int" => "int"
+    case "java.lang.Long" | "long" => "long long"
+    case "java.lang.Float" | "float" => "float"
+    case "java.lang.Double" | "double" => "double"
+    case _ => "std::string"
+  }
 }

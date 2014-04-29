@@ -151,13 +151,31 @@ public interface ObjLangPackage extends EPackage
 	int CLASS__NAME = CLASSIFIER__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__ABSTRACT = CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Superclass</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__SUPERCLASS = CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Members</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__MEMBERS = CLASSIFIER_FEATURE_COUNT + 0;
+	int CLASS__MEMBERS = CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Constructors</b></em>' reference list.
@@ -166,7 +184,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__CONSTRUCTORS = CLASSIFIER_FEATURE_COUNT + 1;
+	int CLASS__CONSTRUCTORS = CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Fields</b></em>' reference list.
@@ -175,7 +193,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__FIELDS = CLASSIFIER_FEATURE_COUNT + 2;
+	int CLASS__FIELDS = CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Class</em>' class.
@@ -184,7 +202,7 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 3;
+	int CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Class</em>' class.
@@ -233,6 +251,98 @@ public interface ObjLangPackage extends EPackage
 	int DATA_TYPE_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumImpl <em>Enum</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumImpl
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getEnum()
+	 * @generated
+	 */
+	int ENUM = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM__NAME = CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM__ITEMS = CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Enum</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Enum</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumItemImpl <em>Enum Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumItemImpl
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getEnumItem()
+	 * @generated
+	 */
+	int ENUM_ITEM = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_ITEM__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_ITEM__PARENT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Enum Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_ITEM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Enum Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_ITEM_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.TypedElementImpl <em>Typed Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -240,7 +350,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getTypedElement()
 	 * @generated
 	 */
-	int TYPED_ELEMENT = 4;
+	int TYPED_ELEMENT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -295,7 +405,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getMember()
 	 * @generated
 	 */
-	int MEMBER = 5;
+	int MEMBER = 7;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -332,7 +442,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getConstructor()
 	 * @generated
 	 */
-	int CONSTRUCTOR = 6;
+	int CONSTRUCTOR = 8;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -387,7 +497,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 7;
+	int PARAMETER = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -442,7 +552,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getFieldInitialisiation()
 	 * @generated
 	 */
-	int FIELD_INITIALISIATION = 8;
+	int FIELD_INITIALISIATION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Field</b></em>' reference.
@@ -488,7 +598,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getField()
 	 * @generated
 	 */
-	int FIELD = 9;
+	int FIELD = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -561,7 +671,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 10;
+	int EXPRESSION = 12;
 
 	/**
 	 * The number of structural features of the '<em>Expression</em>' class.
@@ -589,7 +699,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 11;
+	int STRING_LITERAL = 13;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -626,7 +736,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getDoubleLiteral()
 	 * @generated
 	 */
-	int DOUBLE_LITERAL = 12;
+	int DOUBLE_LITERAL = 14;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -663,7 +773,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getLongLiteral()
 	 * @generated
 	 */
-	int LONG_LITERAL = 13;
+	int LONG_LITERAL = 15;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -700,7 +810,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 14;
+	int INTEGER_LITERAL = 16;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -737,7 +847,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getConstructorCall()
 	 * @generated
 	 */
-	int CONSTRUCTOR_CALL = 15;
+	int CONSTRUCTOR_CALL = 17;
 
 	/**
 	 * The feature id for the '<em><b>Constructor</b></em>' reference.
@@ -783,7 +893,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getParameterAccess()
 	 * @generated
 	 */
-	int PARAMETER_ACCESS = 16;
+	int PARAMETER_ACCESS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -820,7 +930,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getNullLiteral()
 	 * @generated
 	 */
-	int NULL_LITERAL = 17;
+	int NULL_LITERAL = 19;
 
 	/**
 	 * The number of structural features of the '<em>Null Literal</em>' class.
@@ -848,7 +958,7 @@ public interface ObjLangPackage extends EPackage
 	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getArrayLiteral()
 	 * @generated
 	 */
-	int ARRAY_LITERAL = 18;
+	int ARRAY_LITERAL = 20;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -929,6 +1039,28 @@ public interface ObjLangPackage extends EPackage
 	EClass getClass_();
 
 	/**
+	 * Returns the meta object for the attribute '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#isAbstract <em>Abstract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#isAbstract()
+	 * @see #getClass_()
+	 * @generated
+	 */
+	EAttribute getClass_Abstract();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass <em>Superclass</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Superclass</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getSuperclass()
+	 * @see #getClass_()
+	 * @generated
+	 */
+	EReference getClass_Superclass();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Class#getMembers <em>Members</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -970,6 +1102,48 @@ public interface ObjLangPackage extends EPackage
 	 * @generated
 	 */
 	EClass getDataType();
+
+	/**
+	 * Returns the meta object for class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum <em>Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum
+	 * @generated
+	 */
+	EClass getEnum();
+
+	/**
+	 * Returns the meta object for the reference list '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum#getItems <em>Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Items</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum#getItems()
+	 * @see #getEnum()
+	 * @generated
+	 */
+	EReference getEnum_Items();
+
+	/**
+	 * Returns the meta object for class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem <em>Enum Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Item</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem
+	 * @generated
+	 */
+	EClass getEnumItem();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Parent</em>'.
+	 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.EnumItem#getParent()
+	 * @see #getEnumItem()
+	 * @generated
+	 */
+	EReference getEnumItem_Parent();
 
 	/**
 	 * Returns the meta object for class '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.TypedElement <em>Typed Element</em>}'.
@@ -1371,6 +1545,22 @@ public interface ObjLangPackage extends EPackage
 		EClass CLASS = eINSTANCE.getClass_();
 
 		/**
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS__ABSTRACT = eINSTANCE.getClass_Abstract();
+
+		/**
+		 * The meta object literal for the '<em><b>Superclass</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLASS__SUPERCLASS = eINSTANCE.getClass_Superclass();
+
+		/**
 		 * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1403,6 +1593,42 @@ public interface ObjLangPackage extends EPackage
 		 * @generated
 		 */
 		EClass DATA_TYPE = eINSTANCE.getDataType();
+
+		/**
+		 * The meta object literal for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumImpl <em>Enum</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumImpl
+		 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getEnum()
+		 * @generated
+		 */
+		EClass ENUM = eINSTANCE.getEnum();
+
+		/**
+		 * The meta object literal for the '<em><b>Items</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM__ITEMS = eINSTANCE.getEnum_Items();
+
+		/**
+		 * The meta object literal for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumItemImpl <em>Enum Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.EnumItemImpl
+		 * @see fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.ObjLangPackageImpl#getEnumItem()
+		 * @generated
+		 */
+		EClass ENUM_ITEM = eINSTANCE.getEnumItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_ITEM__PARENT = eINSTANCE.getEnumItem_Parent();
 
 		/**
 		 * The meta object literal for the '{@link fr.inria.spirals.sigma.ttc14.fixml.objlang.impl.TypedElementImpl <em>Typed Element</em>}' class.

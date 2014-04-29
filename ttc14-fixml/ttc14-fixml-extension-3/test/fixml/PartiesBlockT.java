@@ -8,8 +8,11 @@
 
 package fixml;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -54,7 +57,8 @@ public class PartiesBlockT {
     protected String src;
     @XmlAttribute(name = "R")
     protected String r;
-
+    @XmlAttribute(name = "Unsol")
+    protected UnsolicitedIndicatorEnumT unsol;
     /**
      * Gets the value of the sub property.
      * 
