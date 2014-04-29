@@ -4,31 +4,18 @@ import fr.unice.i3s.sigma.m2t.M2T
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 
-class ObjLang2HPP extends ObjLang2CPPBase {
+class ObjLang2CPPClassHeader extends BaseObjLang2Class with ObjLang2CPP with ObjLang2CPPHeader {
 
-  override def main = {
-    !s"#ifndef _${source.name}_H_"
-    !s"#define _${source.name}_H_"
+  override def header = {
+    super.header
 
-    !endl
-
-    // to support PrimitiveType.STRING
-    !"#include <string>"
-
-    !endl
-
-    source.fields map (_.type_) collect { case x: Class => x } map (_.cppHeaderFile) foreach { hdr ⇒
+    source.fields map (_.type_) collect {
+      case x: Class => x
+    } map (_.cppHeaderFile) foreach { hdr ⇒
       !s"#include ${hdr.quoted}"
     }
 
     !endl
-
-    super.main
-    !";"
-
-    !endl
-
-    !s"#endif // _${source.name}_H_"
   }
 
   override def genFields = {
@@ -38,7 +25,7 @@ class ObjLang2HPP extends ObjLang2CPPBase {
   }
 
   override def genField(c: Field) =
-      !s"${type2Code(c)} ${c.name};"
+    !s"${type2Code(c)} ${c.name};"
 
   override def genConstructors = {
     !"public:" indent {

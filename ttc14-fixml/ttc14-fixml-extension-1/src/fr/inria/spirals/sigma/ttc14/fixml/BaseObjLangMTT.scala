@@ -4,53 +4,19 @@ import fr.unice.i3s.sigma.m2t.M2T
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 
-abstract class ObjLang2Code extends M2T with ObjLang {
+abstract class BaseObjLangMTT extends M2T with ObjLang {
 
-  type Source = Class
-
-  def main = {
-    !s"class ${source.name}" curlyIndent {
-      genFields
-
-      !endl
-
-      genConstructors
-    }
-  }
-
-  def genConstructors =
-    source.constructors foreach genConstructor
-
-  def genFields =
-    source.fields foreach genField
-    
-  def genField(c: Field) =
-      !s"public ${type2Code(c)} ${c.name}${toInitCode(c)};"
-
-  def toInitCode(f: Field) = 
-    " = " + (f.initialValue map toCode getOrElse (""))
-
-  def genConstructor(c: Constructor) = {
-    val args = c.parameters map param2Code mkString (", ")
-
-    !s"public ${source.name}($args)" curlyIndent {
-      c.initialisations foreach genFieldInitialization
-    }
-
-    !endl
-  }
-
-  def genFieldInitialization(fi: FieldInitialisiation) =
-    !s"this.${fi.field.name} = ${toCode(fi.expression)};"
-
-  protected def type2Code(e: TypedElement): String =  
+  protected def header: Unit = {}  
+  protected def footer: Unit = {}
+  
+  protected def type2Code(e: TypedElement): String =
     if (e.many)
       s"${class2Code(e.type_)}[]"
     else
       s"${class2Code(e.type_)}"
-    
+
   protected def param2Code(p: Parameter): String =
-     s"${type2Code(p)} ${p.name}"
+    s"${type2Code(p)} ${p.name}"
 
   protected def toCode(e: StringLiteral): String = e.value.quoted
   protected def toCode(e: ParameterAccess): String = e.parameter.name

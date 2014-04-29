@@ -10,15 +10,25 @@ import fr.inria.spirals.sigma.ttc14.fixml.xmlmm.XMLNode
 
 object Main extends App with ScalaSigmaSupport with ObjLang {
 
+  case class Driver(name: String, m2class: M2TF[Class])
+
   // currently implemented drivers
   val drivers = Seq(
-    ("java", M2TF(
-      (new ObjLang2Java, { s: Class ⇒ s"${s.name}.java" }))),
-    ("cs", M2TF(
-      (new ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" }))),
-    ("cpp", M2TF(
-      (new ObjLang2CPP, { s: Class ⇒ s"${s.name}.cpp" }),
-      (new ObjLang2HPP, { s: Class ⇒ s"${s.name}.h" }))))
+    Driver(
+      "java",
+      M2TF((new BaseObjLang2Class with ObjLang2Java, { s: Class ⇒ s"${s.name}.java" }))
+    ),
+    Driver(
+      "cs",
+      M2TF((new BaseObjLang2Class with ObjLang2CSharp, { s: Class ⇒ s"${s.name}.cs" }))
+    ),
+    Driver(
+      "cpp",
+      M2TF(
+        (new ObjLang2CPPClassHeader, { s: Class ⇒ s"${s.name}.h" }),
+        (new ObjLang2CPPClassImpl, { s: Class ⇒ s"${s.name}.cpp" }))
+    )
+  )
 
   def execute(src: File, dest: File) {
 
@@ -58,14 +68,14 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
             new XMLMM2ObjLang().transformAll(fixml)
           }
 
-          for ((ext, m2tf) ← drivers) {
+          for (Driver(ext, m2class) ← drivers) {
             val output = new File(new File(dest, file.getName), ext)
             IOUtils.mkdirs(output)
 
             val classes = objlang collect { case c: Class ⇒ c }
 
             timeStamp(s"\t$file: Transformed ObjLang to $ext (M2T)") {
-              classes foreach (m2tf.transform(_, output))
+              classes foreach (m2class.transform(_, output))
             }
           }
         }
