@@ -46,7 +46,7 @@ In total, the development effort could be estimated to be about 15 person-hours.
 %
 A high fault tolerance is in cases that the transformation can detect invalid XML input and produce accurate results.
 In our solution, the well-formedness of the XML document is verified by the underlying Scala XML parser that provides a rather verbose error message indicating at which input location it found errors.
-Our parser provides additional check that asserting the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FXIML DTD version.
+Our parser provides additional check that asserting the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FIXML DTD version.
 This check is however rather simple, but could be easily extended by attaching a \FIXML XML Schema location so the parser can verify the document correctness.
 
 \paragraph{Execution time.}
