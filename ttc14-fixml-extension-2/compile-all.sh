@@ -23,7 +23,7 @@ for msg in output/*; do
   if [[ -d cpp ]]; then
     echo "$msg: Compiling C++"
     cd cpp
-    g++ -std=c++0x -c *.cpp
+    g++ -fPIC -std=c++0x -c *.cpp
     g++ -shared -o lib`basename $msg`.so *.o
     cd ..
   fi
@@ -31,7 +31,7 @@ for msg in output/*; do
   if [[ -d c ]]; then
     echo "$msg: Compiling C"
     cd c
-   	gcc -c *.c
+   	gcc -fPIC -c *.c
 	  gcc -shared -o lib`basename $msg`.so *.o
 	  cd ..
 	fi

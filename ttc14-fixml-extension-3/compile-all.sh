@@ -22,7 +22,7 @@ if [[ -d $BASE/cpp ]]; then
   pushd . > /dev/null
   echo "Compiling C++"
   cd $BASE/cpp
-  g++ -std=c++0x -c *.cpp
+  g++ -fPIC -std=c++0x -c *.cpp
   g++ -shared -o libFIXML.so *.o
   popd > /dev/null
 fi
@@ -31,7 +31,7 @@ if [[ -d $BASE/c ]]; then
   pushd . > /dev/null
   echo "Compiling C"
   cd $BASE/c
- 	gcc -c *.c
+ 	gcc -fPIC -c *.c
   gcc -shared -o libFIXML.so *.o
   popd > /dev/null
 fi
