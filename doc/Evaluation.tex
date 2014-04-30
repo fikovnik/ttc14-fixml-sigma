@@ -21,9 +21,9 @@ By implementing the first extension, we have further improved the usefulness of 
 While we do not cover the complete XML Schema type system, the solution is extensible and adding a support for a new data type is just a matter of providing the correct mapping into the corresponding languages.
 Finally, we have also implemented the generic \FIXML Schema transformation that should result in a complete representation of \FIXML messages in the different languages.
 
-The case study did not require to provide additional features such as property getters and setters or C/C++ destructors.
+The case study did not require to provide additional features such as property getters and setters, or C/C++ destructors.
 As such the usability of the generated code is rather limited.
-However, the implementation of these features should be rather straight forward.
+However, the implementation of these features should be rather straightforward.
 
 \paragraph{Development effort.}
 
@@ -31,7 +31,7 @@ Providing a correct measure of the complete development effort is not easy since
 The solution for the code problem generating only Java code took about 4 person-hours in which about half was spent on designing the right ObjLang model by \emph{trial-and-error}.
 Extending the code generator facilities for \Csharp was almost for free as it involves only few lines of code.
 The C++ version was ready in less than one person-hour.
-The first extension was also finished in less than one hour since the ObjLanf meta-model already supported multiple data types.
+The first extension was also finished in less than one hour since the ObjLang meta-model already supported multiple data types.
 The second extension involved more effort to correctly synthesize C code.
 Finally, the most work has been spent on the last extensions.
 In total, the development effort could be estimated to be about 15 person-hours.
