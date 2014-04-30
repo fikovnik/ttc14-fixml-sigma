@@ -42,8 +42,6 @@ class ObjLang2CClassHeader extends BaseObjLang2Class with CHeader with ObjLang2C
     !(getNewDecl(source) + ";")
 
     super.genConstructors
-
-    !(getDeleteDecl(source) + ";")
   }
 
   override def genConstructor(c: Constructor) = {

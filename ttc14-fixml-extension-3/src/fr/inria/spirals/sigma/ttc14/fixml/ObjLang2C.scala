@@ -13,7 +13,6 @@ trait ObjLang2C extends BaseObjLangMTT {
 
   def getClassDefinition(clazz: Class) = ""
   def getNewDecl(clazz: Class) = s"${clazz.name}* ${clazz.name}_new()"
-  def getDeleteDecl(clazz: Class) = s"void ${clazz.name}_delete(${clazz.name}* this)"
   def getConstructorName(c: Constructor) = {
     val clazz = c.parent
 

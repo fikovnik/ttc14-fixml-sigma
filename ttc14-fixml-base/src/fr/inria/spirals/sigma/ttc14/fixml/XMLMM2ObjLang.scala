@@ -52,12 +52,6 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 
     t.constructor = constructor
 
-    // source elements used to create constructor parameters
-    val paramSources = constructor.parameters map { p => (p.type_, p.sSource.get) }
-
-    // resolve the arguments using the source of constructor parameters
-    val attrLen = s.allAttributes.size
-
     t.arguments ++= {
       for {
         param <- constructor.parameters
@@ -120,14 +114,14 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
     }
   }
 
-  @Lazy
+  @LazyUnique
   def ruleXMLAttribute2ConstructorParameter(s: XMLAttribute, t: Parameter) {
     t.name = checkName(s.name)
     // use the already guessed type
     t.type_ = s.sTarget[Field].type_
   }
 
-  @Lazy
+  @LazyUnique
   def ruleXMLNode2ConstructorParameter(s: XMLNode, t: Parameter) {
     val field = s.sTarget[Field]
 
@@ -202,6 +196,6 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
       .flatMap(_.subnodes)
       .filter { a ⇒ !that.subnodes.exists(_.tag == a.tag) }
 
-    lazy val isEmptyLeaf = that.attributes.isEmpty && that.subnodes.isEmpty
+    lazy val isEmptyLeaf = that.allAttributes.isEmpty && that.allSubnodes.isEmpty
   }
 }

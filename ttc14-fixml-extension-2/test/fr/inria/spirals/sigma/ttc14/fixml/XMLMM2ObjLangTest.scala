@@ -49,7 +49,8 @@ object XMLMM2ObjLangTest extends App with XMLMM with ScalaSigmaSupport {
   
   println()
   
-  val m2t = new BaseObjLang2Class with ObjLang2Java
-  val code = targets collect { case x: Class ⇒ m2t.transform(x) }
+  val m2th = new ObjLang2CClassHeader
+  val m2tc = new ObjLang2CClassImpl
+  val code = targets collect { case x: Class ⇒ m2th.transform(x) + m2tc.transform(x) }
   println(code)
 }

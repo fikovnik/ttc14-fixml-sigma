@@ -30,21 +30,11 @@ class ObjLang2CClassImpl extends BaseObjLang2Class with ObjLang2C {
     !endl
 
     super.genConstructors
-
-    !endl
-
-    genDelete
   }
 
   def genNew = {
     !getNewDecl(source) curlyIndent {
       !s"return (${source.name}*) malloc(sizeof(${source.name}));"
-    }
-  }
-
-  def genDelete {
-    !getDeleteDecl(source) curlyIndent {
-      !s"free(this);"
     }
   }
 
