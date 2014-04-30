@@ -4,7 +4,7 @@
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.unice.i3s.sigma.feature.feature.group" version="1.0.0.201404251054"/>
 <unit id="fr.unice.i3s.sigma.feature.source.feature.group" version="1.0.0.201404251054"/>
-<repository location="http://nyx.unice.fr/p2/sigma/latest"/>
+<repository location="http://nyx.unice.fr/p2/sigma/milestones/1.3"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.scala-ide.sdt.feature.feature.group" version="4.0.0.m1-2_10-201311011355-8ed264f"/>

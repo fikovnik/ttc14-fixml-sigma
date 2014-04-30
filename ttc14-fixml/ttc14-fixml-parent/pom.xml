@@ -19,6 +19,7 @@
 	<modules>
 		<module>../ttc14-fixml-base</module>
 		<module>../ttc14-fixml-extension-1</module>
+		<module>../ttc14-fixml-extension-2</module>
 		<module>../ttc14-fixml-extension-3</module>
 	</modules>
 
@@ -27,7 +28,7 @@
 			<id>sigma</id>
 			<name>SIGMA repository</name>
 			<layout>p2</layout>
-			<url>http://nyx.unice.fr/p2/sigma/latest</url>
+			<url>http://nyx.unice.fr/p2/sigma/milestones/1.3</url>
 		</repository>
 	</repositories>
 

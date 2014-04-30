@@ -87,26 +87,27 @@ object Main extends App with SigmaSupport with ObjLang {
 
   def execute(src: File, dest: File) {
 
-    //    if (dest.isDirectory) {
-    //      println(s"Cleaning directory ${dest}")
-    //      IOUtils.rmdir(dest, false, true)
-    //    } else {
-    //      println(s"Creating output directory ${dest}")
-    //      IOUtils.mkdirs(dest)
-    //    }
-    //
+    if (dest.isDirectory) {
+      println(s"Cleaning directory ${dest}")
+      IOUtils.rmdir(dest, false, true)
+    } else {
+      println(s"Creating output directory ${dest}")
+      IOUtils.mkdirs(dest)
+    }
+
     val xjcOut = new File(dest, "schema-src")
     val xjcClasses = new File(dest, "schema-classes")
-    //    IOUtils.mkdirs(xjcOut)
-    //    IOUtils.mkdirs(xjcClasses)
-    //    
-    //    timeStamp("Generated XML Schema Bindings") {
-    //      generateSchemaBinding(src, xjcOut)
-    //    }
-    //
-    //    timeStamp("Compiled XML Schema Bindings") {
-    //      compileSchemaBinding(xjcOut, xjcClasses)
-    //    }
+
+    IOUtils.mkdirs(xjcOut)
+    IOUtils.mkdirs(xjcClasses)
+
+    timeStamp("Generated XML Schema Bindings") {
+      generateSchemaBinding(src, xjcOut)
+    }
+
+    timeStamp("Compiled XML Schema Bindings") {
+      compileSchemaBinding(xjcOut, xjcClasses)
+    }
 
     // Load and instantiate compiled class.
     val classes = timeStamp(s"Loading classes") {
@@ -122,7 +123,7 @@ object Main extends App with SigmaSupport with ObjLang {
 
       for (Driver(ext, m2class, m2enum, resources) ← drivers) {
         val output = new File(new File(dest, "results"), ext)
-        //        IOUtils.mkdirs(output)
+        IOUtils.mkdirs(output)
 
         val classes = objlang collect { case c: Class ⇒ c }
         val enums = objlang collect { case c: Enum ⇒ c }

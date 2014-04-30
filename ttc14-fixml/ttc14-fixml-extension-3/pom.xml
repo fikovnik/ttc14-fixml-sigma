@@ -31,7 +31,7 @@
 					<classpathScope>compile</classpathScope>
 					<mainClass>fr.inria.spirals.sigma.ttc14.fixml.Main</mainClass>
 					<arguments>
-						<argument>resources/messages</argument>
+						<argument>fixml-4.4/Schema</argument>
 						<argument>output</argument>
 					</arguments>
 				</configuration>
