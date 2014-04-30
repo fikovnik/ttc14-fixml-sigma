@@ -4,7 +4,7 @@
 \label{sec:SolutionDescription}
 
 This section describes the solution for the core problem of transforming \FIXML messages into Java, \Csharp and C++ source code.
-As suggested, the solution is realized by a systematic model transformation that are broken in the following tasks:
+As suggested, the solution is realized by systematic model transformations that are broken in the following tasks:
 \begin{inparaenum}[(1)]
   \item XML text to XML model (T2M transformation),
   \item XML model to a model of an object oriented language (ObjLang) (M2M transformation), and
@@ -14,12 +14,12 @@ As suggested, the solution is realized by a systematic model transformation that
 \subsection{Overview}
 
 The input for the transformation chain is a file representing an \FIXML message in the \FIXML 4.4 version defined by the \FIXML XML Schema~\cite{FIXML2004}.
-The output is a corresponding Java, \Csharp and C++ source code that represent the data of the given \FIXML message. 
-The source concerning the code problem solution is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-base}{\texttt{ttc14-fixml-base}} directory.
+The output is the corresponding Java, \Csharp and C++ source codes that represent the data of the given \FIXML message. 
+The source concerning the solution to the core problem is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-base}{\texttt{ttc14-fixml-base}} directory.
 
 \subsection{\FIXML XML Message to XML Model (T2M)}
 
-The T2M transformation consists in paring an \FIXML XML document and creating an XML that conforms to the XML meta-model as specified in the case study description~\cite{Lano2014} (\Cf Figure~\ref{fig:XMLMetaModel}).
+The T2M transformation consists in parsing an \FIXML XML document and creating an XML that conforms to the XML meta-model as specified in the case study description~\cite{Lano2014} (\Cf Figure~\ref{fig:XMLMetaModel}).
 
 \begin{figure}[h!bt]
   \centering
@@ -44,7 +44,7 @@ This is addressed by generating extension traits that make EMF model elements in
 These traits implicitly extend all model classes with property accessors without the \Scala|get| prefix and convert EMF collections into the corresponding Scala ones.
 The conversion only happens at the interface level leaving the underlying data storage unchanged.
 In the same way, existing Scala types are extended with missing operations (\Eg \Scala|implies|).
-For example, the following is an excerpt\footnote{XML meta-model generated code is in \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-base/src-gen/fr/inria/spirals/sigma/ttc14/fixml/xmlmm/support}{\Scala|fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support|} package.} of the trait generated for the XML meta-model: 
+For example, the following is an excerpt\footnote{XML meta-model generated code is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-base/src-gen/fr/inria/spirals/sigma/ttc14/fixml/xmlmm/support}{\Scala|fr.inria.spirals.sigma.ttc14.fixml.xmlmm.support|} package.} of the trait generated for the XML meta-model: 
 %
 \begin{scalacode}
 trait XMLMM extends EMFScalaSupport { 
@@ -61,7 +61,7 @@ Furthermore, for each class in the meta-model, a Scala trait is generated that a
 
 The \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/support/GenerateModelSupport.scala}{\Scala|GenerateModelSupport|} class is responsible for generating the common infrastructure for the EMF models used in this solution.
 It is a Scala executable object that first launches the standard EMF code generator to generate Ecore Java classes which is followed by the \SIGMA common infrastructure generator.
-It in the way that the resulting sources goes into \Scala{src-gen} directory instead of the \Scala{src} so the generated code is separated from the user written one.
+It is done in the way that the resulting sources go into the \Scala{src-gen} directory instead of the \Scala{src}, so that the generated code is separated from the user written one.
 This class has to be re-run every time any of the models changes.
 
 \paragraph{Transformation.}
@@ -94,7 +94,7 @@ Additionally, we check for the presence of \xmlinline|<FIXML>| tag and provide a
 
 \subsection{XML Model to ObjLang Model (M2M)}
 
-This task involves transforming the XML model created in the previous section into a model of an object oriented language - ObjLang.
+This task involves transforming the XML model created in the previous section into a model of an object oriented language, ObjLang.
 
 \paragraph{ObjLang meta-model.}
 %
@@ -109,9 +109,9 @@ The meta-model of the ObjLang model used in this solution is shown in Figure~\re
 %
 It originates from the Featherweight Java model~\cite{Igarashi2001}, concretely from the version available at the EMFtext website\footnote{\url{http://www.emftext.org/index.php/EMFText_Concrete_Syntax_Zoo_Featherweight_Java}}.
 It provides a reasonable abstraction over the close yet different models of the concerned programming languages.
-The model supports basic classes with fields, data types that are organized in a similar fashion as in Ecore (\Ie separating external types from model classes) and a basic set of expressions that is used for field initializations.
-The model itself more closely resembles Java model than for example C++ model.
-For example, a \Scala|Field| can optionally have an initial value which is a feature not supported in C++\footnote{Initial values of fields in C++ are set in a constructor initializer list or in its body.}.
+The model supports basic classes with fields, data types that are organized in a similar fashion as in Ecore (\Ie separating external types from model classes), and a basic set of expressions that is used for field initializations.
+The model itself more closely resembles a Java model than for example a C++ model.
+For example, a \Scala|Field| can optionally have an initial value, which is a feature not supported in C++\footnote{Initial values of fields in C++ are set in a constructor initializer list or in its body.}.
 These differences are left to be handled by the M2T transformers since the aim is to have just a single language agnostic meta-model.
 
 \paragraph{Transformation.}
@@ -121,7 +121,7 @@ An imperative style of M2M transformation~\cite{Czarnecki2006} is already suppor
 On the other hand, the lower level of abstraction of the imperative transformation style leaves users to manually address issues such as orchestrating the transformation execution and resolving target elements against their source counterparts~\cite{Kolovos2008a}.
 Therefore, inspired by ETL and ATL, we provide a dedicated internal DSL that combines the imperative features with declarative rule-based execution scheme into a hybrid M2M transformation language.
 
-In \SIGMA a M2M transformation is represented as a Scala class that inherits from the \Scala|M2MT| base class which brings M2M DSL constructs into the class scope.
+In \SIGMA a M2M transformation is represented as a Scala class that inherits from the \Scala|M2MT| base class, which itself brings M2M DSL constructs into the class scope.
 Concretely, the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/XMLMM2ObjLang.scala}{\Scala|XMLMM2ObjLang|} class is defined as:
 %
 \begin{scalacode}
@@ -135,7 +135,7 @@ class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang {
 \end{scalacode}
 %
 Next to extending from the \Scala|M2MT| base class, it also mixes the \Scala|XMLMM| and \Scala|ObjLang| traits which are the generated support for the respective models participating in this transformation.
-On lines 3 and 4 it further specifies the transformation source and target models.
+In lines 3 and 4 it further specifies the transformation source and target models.
 In this case we translate one model into another one, but multiple models are supported.
 
 The transformation rules are specified as methods.
@@ -152,7 +152,7 @@ def ruleXMLNode2Class(s: XMLNode, t: Class) {
 }
 \end{scalacode}
 
-This method creates a rule named \Scala|XMLNode2Class| that transforms an \Scala|XMLNode| into \Scala|Class|.
+This method creates a rule named \Scala|XMLNode2Class| that transforms an \Scala|XMLNode| into a \Scala|Class|.
 A transformation rule in \SIGMA may optionally define additional targets, but there is always one primary source to the target relation.
 This rule represents a matched rule which is automatically applied for all matching elements.
 When such a rule is executed, the transformation engine first creates all the defined target elements and then calls the method whose body populates their content using arbitrary Scala code.
@@ -161,16 +161,16 @@ Inside the method body, additional target elements can be constructed (using the
 A matched rule is applied once and only once for each matching source element, creating a 1:1 or 1:N mapping.
 However, this is not the case in the current scenario where XML document may contain multiple sibling elements with the same tag name which all should be mapped into an exact same class.
 This is done by associating all the same-tag siblings to the very same class during the rule application on the first of them (line 2).
-The method \Scala|allSameSiblings| is a helper method that collects all the elements that have the same tag and that are on the same level.
+The method \Scala|allSameSiblings| is a helper method that collects all the elements that have the same tag and are at the same level.
 
 The next four lines (4-7) populates the content of the class.
 The expression on the line 5 \Scala|t.members ++= s.sTargets[Constructor]| assigns all constructors that can be transformed from the source XML node into the class.
 Similarly \Scala|t.members ++= s.allAttributes.sTarget[Field]| add fields that have been transformed from the XML node attributes.
-The two method \Scala|sTarget| and \Scala|sTargets| are defined on all model elements.
-They provide a way how to relate the corresponding target elements that have been already or that can be transformed from source elements.
-The difference between them is that \Scala|sTarget| should be used in the case 1:N relationship between the source and target as opposed to 1:1 in the case of \Scala|sTarget|.
+The two methods \Scala|sTarget| and \Scala|sTargets| are defined on all model elements.
+They provide a way to relate the corresponding target elements that have been already or can be transformed from source elements.
+The difference between them is that \Scala|sTarget| should be used in the case of 1:N relationship between the source and target as opposed to 1:1 in the case of \Scala|sTarget|.
 
-The constructors are transformed using the following two rules:
+As for constructors, they are transformed using the following two rules:
 %
 \begin{scalacode}
 def ruleXMLNode2DefaultConstructor(s: XMLNode, t: Constructor) {
@@ -195,19 +195,19 @@ def ruleXMLNode2NonDefaultConstructor(s: XMLNode, t: Constructor) = guardedBy {
 }
 \end{scalacode}
 %
-The first one denotes a default (zero-arguments) constructor.
+The first one denotes a default (zero-argument) constructor.
 As we have discussed earlier, the ObjLang favors field initialization to constructor initialization and therefore the rule body is almost empty.
-The single expression is the very same association that makes sure that all same-tag sibling nodes maps to the same default constructor.
+The single expression is the very same association that ensures that all same-tag sibling nodes maps to the same default constructor.
 
 Unlike the default constructor, the rule creating a non-default constructor should only be applicable in the case there is at least one field to be set.
 In \SIGMA this condition is represented by a rule guard that can further limit rule application using a boolean expression.
 The \Scala|!s.isEmptyLeaf| checks whether there is at least one attribute or a subnode in any of the same-tag siblings.
-It then creates a constructor parameter for each of the attributes and subnodes and use them to initialize the class fields.
+It then creates a constructor parameter for each of the attributes and subnodes and uses them to initialize the class fields.
 
 The constructor parameters are created using the following two rules, one for XML attribute and one for XML node.
 The \Scala|@LazyUnique| annotation denotes a lazy unique rule.
 Such rule is not automatically applied for matching elements and instead it has to be explicitly called using the \Scala|sTarget| or \Scala|sTargets| methods.
-Unlike lazy rule (annotated by \Scala|@Lazy|), it establishes a transformation trace between the source and targets and therefore it always returns the same targets for a give source.
+Unlike lazy rule (annotated by \Scala|@Lazy|), it establishes a transformation trace between the source and targets and therefore it always returns the same targets for a given source.
 %
 \begin{scalacode}
 @LazyUnique
@@ -265,17 +265,17 @@ def ruleXMLNode2Field(s: XMLNode, t: Field) {
 \end{scalacode}
 %
 The first one translates an XML attribute into a field.
-In the core problem specification, only strings data types are used and therefore it assigns string data type regardless what is the actually value of the attribute.
+In the core problem specification, only string data types are used and therefore it assigns string data type regardless of the actual value of the attribute.
 In order not to conflict with language programming keywords, we provide a check that simply prepends the name with an underscore.
 The name conflicts could also be handled later at the M2T level, where each transformer can include a list of its language keywords.
 However, this could result in a state in which different names would be used for the same fields making the code inconsistent.
 
 The second rule converts an XML node into a field.
 It has to handle the case of having a multiple same-tag siblings.
-The case description propose to use either multiple fields initialized by specific constructors or by an array/list of such objects.
+The case description proposes to use either multiple fields initialized by specific constructors or by an array/list of such objects.
 While the former is easier to implement (simply by making the rule lazy), it creates a scalability problem since in Java, there is a limit of the maximum number of method parameters.
 For example the test case \texttt{test5.xml} already exceeds this number.
-Therefore we have opted for the later solution and use arrays to represent multiple same-tag sibling nodes.
+Therefore we have opted for the latter solution and use arrays to represent multiple same-tag sibling nodes.
 The number of same-tag sibling nodes can vary within a parent node.
 For example:
 %
@@ -291,7 +291,7 @@ public Pty[] Pty_objects = new Pty[] {
 \end{javacode}
 Note that the first and second instances of \Scala|Pty| contains two and one \Scala|null| respectively in the place of missing \Scala|Sub| subnode.
 
-The \Scala|ConstructorCall| used for fields initializations in the \Scala|ruleXMLNode2Field| is created from an XML node using the last rule in the transformation:
+The \Scala|ConstructorCall| used for field initializations in the \Scala|ruleXMLNode2Field| is created from an XML node using the last rule in the transformation:
 %
 \begin{scalacode}
 @Lazy
@@ -342,11 +342,11 @@ def ruleXMLNode2ConstructorCall(s: XMLNode, t: ConstructorCall) {
 }
 \end{scalacode}  
 
-First we need to find which constructor shall be used depending if the given XML node (or any of its same-tag siblings) contains any attributes or subnodes.
+First we need to find which constructor shall be used depending whether the given XML node (or any of its same-tag siblings) contains any attributes or subnodes.
 Next, we need to resolve the arguments for the case of non-default constructor.
 We do this by using the sources, \Ie, the source elements (XML node or XML attribute) that were used to create the constructor parameters.
 \SIGMA provides \Scala|sSource| method that is the inverse of \Scala|sTarget| call with the difference that it will not trigger any rule execution.
-In the pattern matching we need to cover all possible cases such a an attribute defined locally or an attribute defined in a same-tag sibling and thus using \Scala|null| for its initialization.
+In the pattern matching we need to cover all possible cases such as an attribute defined locally or an attribute defined in a same-tag sibling, thus using \Scala|null| for its initialization.
 
 \subsection{ObjLang Model to Source code (M2T)}
 
