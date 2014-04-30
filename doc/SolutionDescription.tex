@@ -350,5 +350,77 @@ In the pattern matching we need to cover all possible cases such a an attribute 
 
 \subsection{ObjLang Model to Source code (M2T)}
 
-\Todo{M2T}
+This task involves transforming the ObjLang model into source code for various programming languages.
+In the core problem solution, Java, \Csharp and C++ are considered.
+
+M2T transformations translate models into text by mapping source model elements into corresponding textual fragments.
+\SIGMA provides a template-based approach whereby string patterns are extended with executable logic for code selection and iterative expansion~\cite{Czarnecki2006}.
+Unlike most of the external DSLs for M2T transformation, \SIGMA uses the code-explicit form, \Ie, it is the output text instead of the transformation code that is escaped.
+From our experience, in non-trivial code generations, the quantity of text producing logic usually outweighs the text being produced.
+For the parts where there is more text than logic we rely on Scala multi-line string literals and string interpolations allowing one to embed variable references and expressions directly into strings.
+
+Since we target multiple programming languages at the same time, we organize the code generation in a set of Scala classes and rely on Scala class inheritance and class mix-ins to modularly compose configuration for the respective languages.
+In the base class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLangMTT.scala}{\Scala{BaseObjLangMTT}} we define methods that synthesize expressions and data types.
+The default (Java) implementation can be then easily overwritten by other languages.
+Next we abstract a class generation into \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLang2Class.scala}{\Scala{BaseObjLang2Class}}.
+The code generation is split into a fine-grained templates, represented as regular Scala methods, that generates fields, constructors and the like:
+%
+\begin{scalacode}
+abstract class BaseObjLang2Class extends BaseObjLangMTT {
+
+  type Source = Class
+
+  def main = {
+    header
+    
+    !s"class ${source.name}" curlyIndent {
+      genFields
+
+      !endl
+
+      genConstructors
+    }
+    
+    footer
+  }
+  
+  def genConstructors =
+    source.constructors foreach genConstructor
+
+  def genFields =
+    source.fields foreach genField
+
+  def genField(c: Field) =
+    !s"public ${type2Code(c)} ${c.name}${toInitCode(c)};"
+
+  def toInitCode(f: Field) = 
+    " = " + (f.initialValue map toCode getOrElse (""))
+    
+  def genConstructor(c: Constructor) = {
+    val args = c.parameters map param2Code mkString (", ")
+
+    !s"public ${source.name}($args)" curlyIndent {
+      c.initialisations foreach genFieldInitialization
+    }
+
+    !endl
+  }
+
+  def genFieldInitialization(fi: FieldInitialisiation) =
+    !s"this.${fi.field.name} = ${toCode(fi.expression)};"
+    
+}  
+\end{scalacode}
+
+
+
+An important aspect of any M2T transformation language is the template readability, \Eg, layout and indentation.
+The internal DSL maintains it through dedicated support for decorators, smart whitespace handling and relaxed newlines.
+Decorators are nestable string operations that reformat a given block.
+For example, on line 4 we use \Codeinline{curlyIndent} decorator, that wraps its body into a pair of curly brackets and indent each line.
+Smart whitespace handler removes extra whitespace from multi-line strings that are there only for the template readability.
+For example the whitespaces prefixing the text on lines 14 and 15 will be discarded.
+Relaxed newlines loosen the necessity to output new line characters by doing it automatically after every text output.
+Both smart whitespace and newlines handlers are enabled by default, but can be turned off.
+
 
