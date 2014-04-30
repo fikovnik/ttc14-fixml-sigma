@@ -3,6 +3,8 @@
 \section{Extensions}
 \label{sec:Extensions}
 
+In this section we describe our solutions to the case study extensions.
+
 \subsection{Extension 1 - Selection of Appropriate Data Types}
 \label{sec:Extension1}
 
@@ -102,6 +104,7 @@ Pty* Pty_init(Pty* this);
 Pty* Pty_new() {
   return (Pty*) malloc(sizeof(Pty));
 }
+
 Pty* Pty_init_custom(Pty* this, char* _R, char* _ID, Sub** Sub_objects) {
   this->_R = _R;
   this->_ID = _ID;
@@ -125,7 +128,35 @@ The source concerning the extension 2 solution is in the \href{https://github.co
 \subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
 
-\Todo{Extension 3}
+The last extension aims at generic transformation between \FIXML Schema and ObjLang model.
+Providing such a generic transformation essentially means creating a generic XML schema to ObjLang transformation.
+Such a task is far from being trivial since XMLSchemas are rather complex and therefore it requires a significant engineering effort.
+Therefore we have decided for an alternative solution in which we transform Java classes that have been generated from an XML schema by the Java Architecture for XML Binding tool\footnote{\url{https://jaxb.java.net/}}.
+The advantage of this solution is that the JAXB already does all the hard work of parsing XML schema, resolving the element inheritance, substitutability, data types and others.
+The model of Java classes in an object oriented model and therefore the actual transformation into ObjLang is actually easier than in the case of the \FIXML messages.
+Finally, the JAXB can be thought of as a another model transformation and therefore our solution is still within the model driven engineering domain.
 
+The input is a location of the \FIXML XSD files and the new transformation workflow consists of the following steps:
+\begin{enumerate}[(1)]
+	\item XSD to Java sources using JAXB.
+	\item Compilation of Java source using regular Java compiler.
+	\item Java model to ObjLang transformation.
+	\item ObjLang to source transformation.
+\end{enumerate}
 
+The implementation involves following changes:
+\begin{enumerate}[(1)]
+	\item Extending the ObjLang model with a new classifier representing enumerated types.
+	\item Extending the ObjLang model with the notion of a simple class inheritance.
+	\item Extending the ObjLang model with the notion of abstract classes.
+	\item A new M2M transformation between Java class model represented by the Java reflection API and ObjLang model.
+	\item Extending the M2T transformation to cover the new ObjLang model concepts.
+\end{enumerate}
+
+The new transformation is about 30\% smaller than the one developed in the first extension and arguably less complex.
+It also demonstrates \SIGMA support for manipulating different models than EMF.
 The source concerning the extension 3 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-3}{\texttt{ttc14-fixml-extension-3}} directory.
+
+One limitation of the current implementation is that we do not extend the C code generator to support the notion of class inheritance neither it considers abstract classes.
+A potential solution is described in by Schreiner~\cite{Schreiner1993}, however it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.
+Similarly to the extension 1, we do not handle all the XML schema data types, but only the ones that appear in the \FIXML schema.
