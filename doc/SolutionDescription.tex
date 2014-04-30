@@ -412,6 +412,15 @@ abstract class BaseObjLang2Class extends BaseObjLangMTT {
 }  
 \end{scalacode}
 %
+Following the same pattern, a M2T transformation in \SIGMA is a Scala class extending from the \Scala|M2T| base class.
+Line 3 defines the type of model element, \Ie, the transformation source.
+A M2T transformation consists in a set of templates that are represented as methods with the \Scala{main} method as the entry point.
+From there, a transformation is split and logically organized into smaller templates in order to increase modularity and readability.
+%
+The most common operation in a M2T transformation is a text output.
+A convenient way to output text in our DSL is through a unary \Scala{!} (bang) operator that is provided on strings.
+The prefix \Scala{s} right before the string double quote denotes an interpolated string, which can include Scala expressions in a type-safe way.
+
 Together with the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} class, a complete ObjLang to Java transformer can be instantiated.
 The class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} contains the Java language specifics which in this case is only the name of the \Scala{string} data type.
 %
@@ -425,18 +434,5 @@ The generator for the \Csharp is exactly the same and the class \href{https://gi
 
 For C++, the situation is a bit more complicated, since we need to generate two files, a header and an implementation file.
 Also the C++ syntax differs from the one of Java a bit more.
-
-
-
-
-
-% An important aspect of any M2T transformation language is the template readability, \Eg, layout and indentation.
-% The internal DSL maintains it through dedicated support for decorators, smart whitespace handling and relaxed newlines.
-% Decorators are nestable string operations that reformat a given block.
-% For example, on line 4 we use \Codeinline{curlyIndent} decorator, that wraps its body into a pair of curly brackets and indent each line.
-% Smart whitespace handler removes extra whitespace from multi-line strings that are there only for the template readability.
-% For example the whitespaces prefixing the text on lines 14 and 15 will be discarded.
-% Relaxed newlines loosen the necessity to output new line characters by doing it automatically after every text output.
-% Both smart whitespace and newlines handlers are enabled by default, but can be turned off.
-
-
+Furthermore, C++ does not support fields initialization and therefore the code generator must generate the correct initialization in the constructor.
+We use the C++11 standard since it supports inline array creation in the similar way as Java or \Csharp which greatly simplifies the code generation.
