@@ -6,17 +6,17 @@
 \subsection{Extension 1 - Selection of Appropriate Data Types}
 \label{sec:Extension1}
 
-The aim of the first extension is to further refine the data type used by the XML node attributes and use more appropriate type than just a generic string.
+The aim of the first extension is to further refine the data types used by the XML node attributes and use more appropriate types than just a generic string.
 The source concerning this is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-1}{\texttt{ttc14-fixml-extension-1}} directory.
 
 There are three changes needed in order to implement this extension.
 \begin{itemize}[(1)]
 	\item The first one is in the ObjLang meta-model where we need to add new expression classes representing literals for the new data types.
-	In this extension we consider following new data types: \Scala{double}, \Scala{long} and \Scala{integer}.
-	While this list does not cover all the possible XML Schema data types, it provides a good base for demonstrating how a support for additional ones could be added.
+	In this extension we consider the following new data types: \Scala{double}, \Scala{long} and \Scala{integer}.
+	While this list does not cover all the possible XML Schema data types, it provides a good basis for demonstrating how some support for additional ones could be added.
 
-	\item The second one is in the M2M transformation where we need to add the necessary support for guessing the data type of an attribute based on the string values from all of the same-tag siblings that have have the attribute in question.
-	Following is the code snippet that realize it:
+	\item The second one is in the M2M transformation where we need to add the necessary support for guessing the data type of an attribute based on the string values from all of the same-tag siblings that have the attribute in question.
+	Following is the code snippet that realizes it:
 	%
 	\begin{scalacode}
 	  // basic types
@@ -25,7 +25,7 @@ There are three changes needed in order to implement this extension.
 	  val DTLong = DataType(name = "long")
 	  val DTInteger = DataType(name = "int")
 
-	  // it also stores the promotion ordering from righ to left
+	  // it also stores the promotion ordering from right to left
 	  val Builtins = Seq(DTString, DTDouble, DTLong, DTInteger)
 
 	  private val PDouble = """([+-]?\d+.\d+)""".r
