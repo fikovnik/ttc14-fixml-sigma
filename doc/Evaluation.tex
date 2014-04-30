@@ -4,10 +4,17 @@
 \label{sec:Evaluation}
 
 This section evaluation the proposed solution using the evaluation criteria proposed by the case study description~\cite{Lano2014}.
+For the brevity, we include the evaluation of the solution for the core problem only.
+Since each solution is represented as a separate project, further evaluation can be derived by a comparison of the changes that were required for their respective implementations.
+
 
 \paragraph{Complexity.}
 
-\Todo{Complexity}
+The case study description proposes to measure the complexity as the number of operator occurrences, features and entity type name references in the specification expressions.
+
+To the best of our knowledge we do not know about any tool that can provide this metric for Scala code.
+We can therefore only provide our own estimate which is a rough number since it depends at which depth an expression expression is considered atomic.
+The M2M transformation of the core problem solution contains about 450 expressions. It uses 18 meta-models classes with 23 references.
 
 \paragraph{Accuracy.}
 %
@@ -37,13 +44,41 @@ Finally, the most work has been spent on the last extensions.
 In total, the development effort could be estimated to be about 15 person-hours.
 
 \paragraph{Fault tolerance.}
-
-\Todo{Fault tolerance}
+%
+A high fault tolerance is in cases that the transformation can detect invalid XML input and produce accurate results.
+In our solution, the well-formedness of the XML document is verified by the underlying Scala XML parser that provides a rather verbose error message indicating at which input location it found errors.
+Our parser provides additional check that asserting the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FXIML DTD version.
+This check is however rather simple, but could be easily extended by attaching a \FIXML XML Schema location so the parser can verify the document correctness.
 
 \paragraph{Execution time.}
 
-\Todo{Execution time}
+The execution time for the transformations of the test data set provided by the case study is shown in Table~\ref{tab:ExecutionTime}.
+The times were collected by running the in the SHARE virtualized environment \texttt{Ubuntu12LTS\_TTC14\_64bit\SIGMA.vdi}.
+Therefore the following measures should be considered as micro-benchmark metrics with all the drawback that micro-benchmarking brings.
+
+\begin{table}[h!t]
+  \centering
+  \begin{tabular}{| l | r | r | r | r |}
+    \hline
+    \textbf{Message} & \textbf{T2M} & \textbf{M2M} & \textbf{M2T} & \textbf{Total} \\
+    \hline
+    \texttt{test1}   & 9      & 70     & 191   & 270  \\
+    \texttt{test2}   & 27     & 351    & 284   & 662  \\
+    \texttt{test5}   & 1201   & 2734   & 459   & 4394 \\
+    \texttt{test6}   & 376    & 1387   & 393   & 2156 \\
+    \hline
+    \textbf{Total}   & 1613   & 4542   & 1327  & 7482 \\
+    \hline
+  \end{tabular}
+  \caption{Execution times for the test \FIXML messages as measured on SHARE (in milliseconds)}
+  \label{tab:ExecutionTime}
+\end{table}
+
 
 \paragraph{Modularity.}
+%
+Modularity is defined as $1 - \frac{d}{r}$, where $d$ is the number of dependencies between rules (implicit or explicit calls, ordering dependencies, inheritance or other forms of control or data dependence) and $r$ is the number of rules~\cite{Lano2014}.
 
-\Todo{Modularity}
+The \Scala|XMLMM2ObjLang| for the core problem consists of $r=8$ rules.
+There is one top level rule and all the other rules are call explicitly making $d=7$.
+The modularity according to the formula is therefore $0.125$.
