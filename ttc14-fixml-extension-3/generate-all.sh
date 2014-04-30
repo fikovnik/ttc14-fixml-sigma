@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 JAXB="jaxb-ri-2.2.7.zip"
 FIXML="fixml-4.4.zip"
