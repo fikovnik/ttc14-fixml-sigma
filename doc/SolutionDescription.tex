@@ -411,16 +411,32 @@ abstract class BaseObjLang2Class extends BaseObjLangMTT {
     
 }  
 \end{scalacode}
+%
+Together with the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} class, a complete ObjLang to Java transformer can be instantiated.
+The class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} contains the Java language specifics which in this case is only the name of the \Scala{string} data type.
+%
+\begin{scalacode}
+trait ObjLang2Java extends BaseObjLangMTT {
+  override def class2Code(p: DataType) = "String"
+}
+\end{scalacode}
+
+The generator for the \Csharp is exactly the same and the class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CSharp.scala}{\Scala{ObjLang2CSharp}} also only defines the \Scala{string} data type.
+
+For C++, the situation is a bit more complicated, since we need to generate two files, a header and an implementation file.
+Also the C++ syntax differs from the one of Java a bit more.
 
 
 
-An important aspect of any M2T transformation language is the template readability, \Eg, layout and indentation.
-The internal DSL maintains it through dedicated support for decorators, smart whitespace handling and relaxed newlines.
-Decorators are nestable string operations that reformat a given block.
-For example, on line 4 we use \Codeinline{curlyIndent} decorator, that wraps its body into a pair of curly brackets and indent each line.
-Smart whitespace handler removes extra whitespace from multi-line strings that are there only for the template readability.
-For example the whitespaces prefixing the text on lines 14 and 15 will be discarded.
-Relaxed newlines loosen the necessity to output new line characters by doing it automatically after every text output.
-Both smart whitespace and newlines handlers are enabled by default, but can be turned off.
+
+
+% An important aspect of any M2T transformation language is the template readability, \Eg, layout and indentation.
+% The internal DSL maintains it through dedicated support for decorators, smart whitespace handling and relaxed newlines.
+% Decorators are nestable string operations that reformat a given block.
+% For example, on line 4 we use \Codeinline{curlyIndent} decorator, that wraps its body into a pair of curly brackets and indent each line.
+% Smart whitespace handler removes extra whitespace from multi-line strings that are there only for the template readability.
+% For example the whitespaces prefixing the text on lines 14 and 15 will be discarded.
+% Relaxed newlines loosen the necessity to output new line characters by doing it automatically after every text output.
+% Both smart whitespace and newlines handlers are enabled by default, but can be turned off.
 
 
