@@ -12,7 +12,7 @@ However, each extension is represented as a separate project and therefore furth
 The case study description proposes to measure the complexity as the number of operator occurrences, features and entity type name references in the specification expressions.
 
 To the best of our knowledge we do not know about any tool that can provide this metric for Scala code.
-We can therefore only provide our own estimate which is a rough number since it depends at which depth an expression expression is considered atomic.
+We can therefore only provide our own estimate which is a rough number since it depends at which depth an expression is considered atomic.
 The M2M transformation of the core problem solution contains about 450 expressions. It uses 18 meta-models classes with 23 references.
 
 \paragraph{Accuracy.}
@@ -46,13 +46,13 @@ In total, the development effort could be estimated to be about 15 person-hours.
 %
 A high fault tolerance is in cases that the transformation can detect invalid XML input and produce accurate results.
 In our solution, the well-formedness of the XML document is verified by the underlying Scala XML parser that provides a rather verbose error message indicating at which input location it found errors.
-Our parser provides additional check that asserting the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FIXML DTD version.
+Our parser provides additional checks that assert the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FIXML DTD version.
 This check is however rather simple, but could be easily extended by attaching a \FIXML XML Schema location so the parser can verify the document correctness.
 
 \paragraph{Execution time.}
 
 The execution time for the transformations of the test data set provided by the case study is shown in Table~\ref{tab:ExecutionTime}.
-The times were collected by running the in the SHARE virtualized environment \texttt{Ubuntu12LTS\_TTC14\_64bit\SIGMA.vdi}.
+The times were collected by running the transformations in the SHARE virtualized environment \texttt{Ubuntu12LTS\_TTC14\_64bit\SIGMA.vdi}.
 Therefore the following measures should be considered as micro-benchmark metrics with all the drawback that micro-benchmarking brings.
 
 \begin{table}[h!t]
@@ -79,5 +79,5 @@ Therefore the following measures should be considered as micro-benchmark metrics
 Modularity is defined as $1 - \frac{d}{r}$, where $d$ is the number of dependencies between rules (implicit or explicit calls, ordering dependencies, inheritance or other forms of control or data dependence) and $r$ is the number of rules~\cite{Lano2014}.
 
 The \Scala|XMLMM2ObjLang| for the core problem consists of $r=8$ rules.
-There is one top level rule and all the other rules are call explicitly making $d=7$.
+There is one top level rule and all the other rules are calls, explicitly making $d=7$.
 The modularity according to the formula is therefore $0.125$.

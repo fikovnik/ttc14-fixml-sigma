@@ -359,7 +359,7 @@ Unlike most of the external DSLs for M2T transformation, \SIGMA uses the code-ex
 From our experience, in non-trivial code generations, the quantity of text producing logic usually outweighs the text being produced.
 For the parts where there is more text than logic we rely on Scala multi-line string literals and string interpolations allowing one to embed variable references and expressions directly into strings.
 
-Since we target multiple programming languages at the same time, we organize the code generation in a set of Scala classes and rely on Scala class inheritance and class mix-ins to modularly compose configuration for the respective languages.
+Since we target multiple programming languages at the same time, we organize the code generation in a set of Scala classes and rely on Scala class inheritance and class mix-ins to compose, in a modular way, configuration for the respective languages.
 In the base class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLangMTT.scala}{\Scala{BaseObjLangMTT}} we define methods that synthesize expressions and data types.
 The default (Java) implementation can be then easily overwritten by other languages.
 Next we abstract a class generation into \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLang2Class.scala}{\Scala{BaseObjLang2Class}}.
@@ -413,7 +413,7 @@ abstract class BaseObjLang2Class extends BaseObjLangMTT {
 \end{scalacode}
 %
 Together with the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} class, a complete ObjLang to Java transformer can be instantiated.
-The class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} contains the Java language specifics which in this case is only the name of the \Scala{string} data type.
+The class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} contains the Java language specifics which, in this case, is only the name of the \Scala{string} data type.
 %
 \begin{scalacode}
 trait ObjLang2Java extends BaseObjLangMTT {
