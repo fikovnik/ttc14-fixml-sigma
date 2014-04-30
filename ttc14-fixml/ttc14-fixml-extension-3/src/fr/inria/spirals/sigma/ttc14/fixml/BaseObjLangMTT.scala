@@ -7,10 +7,17 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 abstract class BaseObjLangMTT extends M2T with ObjLang {
 
   protected def getClassDefinition(clazz: Class): String
-  
-  protected def header: Unit = {}  
+
+  protected def header: Unit = {}
+  protected def content: Unit = {}
   protected def footer: Unit = {}
-  
+
+  def main = {
+    header
+    content
+    footer
+  }
+
   protected def type2Code(e: TypedElement): String =
     if (e.many)
       s"${class2Code(e.type_)}[]"

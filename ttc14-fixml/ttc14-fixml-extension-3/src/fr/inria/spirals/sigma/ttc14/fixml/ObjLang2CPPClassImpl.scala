@@ -6,11 +6,13 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 
 class ObjLang2CPPClassImpl extends BaseObjLang2Class with ObjLang2CPP {
 
-  override def main = {
+  override def header = {
     !s"#include ${source.cppHeaderFile.quoted}"
 
     !endl
+  }
 
+  override def content = {
     source.constructors foreach genConstructor
   }
 
@@ -21,7 +23,7 @@ class ObjLang2CPPClassImpl extends BaseObjLang2Class with ObjLang2CPP {
       for (field <- c.parent.fields) {
         c.initialisations
           .find(_.field == field) // try to find field initialization within a constructor
-          .map(_.expression) 
+          .map(_.expression)
           .orElse(field.initialValue) // if there is none try field itself
           .foreach { e =>
             !s"this->${field.name} = ${toCode(e)};"

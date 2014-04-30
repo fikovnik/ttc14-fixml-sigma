@@ -7,10 +7,11 @@ import fr.inria.spirals.sigma.ttc14.fixml.objlang.Class
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.Enum
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.unice.i3s.sigma.m2t.M2TF
-import fr.unice.i3s.sigma.support.ScalaSigmaSupport
+import fr.unice.i3s.sigma.support.SigmaSupport
 import fr.unice.i3s.sigma.util.IOUtils
+import java.net.URL
 
-object Main extends App with ScalaSigmaSupport with ObjLang {
+object Main extends App with SigmaSupport with ObjLang {
 
   val FixmlPackageName = "fixml"
   val JaxbHome = System.getProperty("jaxb_home", "jaxb-ri-2.2.7")
@@ -21,7 +22,7 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
   val Java = JavaBin + "java"
   val Javac = JavaBin + "javac"
 
-  case class Driver(name: String, m2class: M2TF[Class], m2enum: M2TF[Enum])
+  case class Driver(name: String, m2class: M2TF[Class], m2enum: M2TF[Enum], resources: Set[URL] = Set())
 
   // currently implemented drivers
   val drivers = Seq(
@@ -42,6 +43,18 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
         (new ObjLang2CPPClassImpl, { s: Class ⇒ s"${s.name}.cpp" })
       ),
       M2TF((new ObjLang2CPPEnumHeader, { s: Enum ⇒ s"${s.name}.h" }))
+    ),
+    Driver(
+      "c",
+      M2TF(
+        (new ObjLang2CClassHeader, { s: Class ⇒ s"${s.name}.h" }),
+        (new ObjLang2CClassImpl, { s: Class ⇒ s"${s.name}.c" })
+      ),
+      M2TF((new ObjLang2CEnumHeader, { s: Enum ⇒ s"${s.name}.h" })),
+      Set(
+        getClass.getResource("resources/c/arrays.h"),
+        getClass.getResource("resources/c/arrays.c")
+      )
     )
   )
 
@@ -107,7 +120,7 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
         new Java2ObjLang().transformAll(classes)
       }
 
-      for (Driver(ext, m2class, m2enum) ← drivers) {
+      for (Driver(ext, m2class, m2enum, resources) ← drivers) {
         val output = new File(new File(dest, "results"), ext)
         //        IOUtils.mkdirs(output)
 
@@ -117,6 +130,11 @@ object Main extends App with ScalaSigmaSupport with ObjLang {
         timeStamp(s"Transformed ObjLang to $ext (M2T)") {
           classes foreach (m2class.transform(_, output))
           enums foreach (m2enum.transform(_, output))
+        }
+
+        resources foreach { r =>
+          val file = r.getFile
+          r.openStream() >> new File(output, file.substring(file.lastIndexOf('/')))
         }
       }
     }

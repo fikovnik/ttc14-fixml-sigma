@@ -4,10 +4,14 @@ import fr.unice.i3s.sigma.m2t.M2T
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang
 import fr.inria.spirals.sigma.ttc14.fixml.objlang.support.ObjLang._objlang._
 
-class ObjLang2CPPClassHeader extends BaseObjLang2Class with ObjLang2CPP with ObjLang2CPPHeader {
+class ObjLang2CPPClassHeader extends BaseObjLang2Class with ObjLang2CPP with CHeader {
 
   override def header = {
     super.header
+
+    !"#include <string>"
+
+    !endl
 
     source.fields map (_.type_) collect {
       case x: Class => x
@@ -22,7 +26,12 @@ class ObjLang2CPPClassHeader extends BaseObjLang2Class with ObjLang2CPP with Obj
 
     !endl
   }
-
+  
+  override def content = {
+    super.content
+    !";"
+  }
+  
   override def genFields = {
     !"public:" indent {
       super.genFields

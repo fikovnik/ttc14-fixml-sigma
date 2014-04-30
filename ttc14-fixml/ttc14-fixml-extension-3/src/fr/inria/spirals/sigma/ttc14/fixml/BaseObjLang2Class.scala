@@ -8,9 +8,7 @@ abstract class BaseObjLang2Class extends BaseObjLangMTT {
 
   type Source = Class
 
-  def main = {
-    header
-    
+  override def content = {
     !getClassDefinition(source) curlyIndent {
       genFields
 
@@ -18,8 +16,6 @@ abstract class BaseObjLang2Class extends BaseObjLangMTT {
 
       genConstructors
     }
-    
-    footer
   }
   
   def genConstructors =
