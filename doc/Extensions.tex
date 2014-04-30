@@ -9,13 +9,16 @@
 The aim of the first extension is to further refine the data type used by the XML node attributes and use more appropriate type than just a generic string.
 The source concerning this is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-1}{\texttt{ttc14-fixml-extension-1}} directory.
 
+\bigskip
+
 There are three changes needed in order to implement this extension.
 \begin{itemize}[(1)]
 	\item The first one is in the ObjLang meta-model where we need to add new expression classes representing literals for the new data types.
 	In this extension we consider following new data types: \Scala{double}, \Scala{long} and \Scala{integer}.
 	While this list does not cover all the possible XML Schema data types, it provides a good base for demonstrating how a support for additional ones could be added.
 
-	\item The second one is in the M2M transformation where we need to add the necessary support for guessing the data type of an attribute based on the string values from all of the same-tag siblings that have have the attribute in question.
+	\item The second one concerns the M2M transformation.
+	We have to add the necessary support for guessing the data type of an attribute based on the string values from all of the same-tag siblings that have have the attribute in question.
 	Following is the code snippet that realize it:
 	%
 	\begin{scalacode}
@@ -56,20 +59,69 @@ override def class2Code(p: DataType) = {
   }
 }		
 	\end{scalacode}
-
 \end{itemize}
-
-
-
 
 \subsection{Extension 2 - Extension to Additional Languages}
 \label{sec:Extension2}
 
-\Todo{Extension 2}
+This extension adds a support for the C language.
+Since C is not an object oriented language, more work have to be done in the code generator part.
+It is important to node, that the M2M or T2M transformations have to remain untouched.
 
+Instead of classes, in the case of the C language, we generate C structs with appropriate functions simulating object constructors.
+For each ObjLang class we generate a header file with a struct definition, a function for the struct creation and a set of functions representing class constructors.
+Following is an example of the C code synthesized from this \FIXML message (for the \Scala|Pty| node):
+%
+\inputminted[fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm]{xml}{listings/example-for-c-code.xml}
+%
+\begin{ccode}
+#ifndef _Pty_H_
+#define _Pty_H_
+
+#include <stdlib.h>
+
+#include "Sub.h"
+
+typedef struct {
+  char* _R;
+  char* _ID;
+  Sub** Sub_objects;
+} Pty;
+
+Pty* Pty_new();
+Pty* Pty_init_custom(Pty* this, char* _R, char* _ID, Sub** Sub_objects);
+Pty* Pty_init(Pty* this);
+
+#endif // _Pty_H_	
+\end{ccode}
+%
+\begin{ccode}
+#include "arrays.h"
+
+#include "Pty.h"
+
+Pty* Pty_new() {
+  return (Pty*) malloc(sizeof(Pty));
+}
+Pty* Pty_init_custom(Pty* this, char* _R, char* _ID, Sub** Sub_objects) {
+  this->_R = _R;
+  this->_ID = _ID;
+  this->Sub_objects = Sub_objects;
+  return this;
+}
+
+Pty* Pty_init(Pty* this) {
+  this->_R = "21";
+  this->_ID = "OCC";
+  this->Sub_objects = (Sub**) new_array(2, Sub_init_custom(Sub_new(), "2", "ZZZ"), NULL);
+  return this;
+}
+\end{ccode}
+
+In order to simplify the code generator, we use a helper function \cinline{void **new_array(int size, ...)} that allows us to initialize arrays using simple expressions.
+Something that is not directly supported by C language or by the standard C library.
 
 The source concerning the extension 2 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-2}{\texttt{ttc14-fixml-extension-2}} directory.
-
 
 \subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
