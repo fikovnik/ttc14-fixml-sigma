@@ -4,27 +4,27 @@
 \label{sec:Introduction}
 
 %% Overview
-In this paper we describe the solution for the \TTC \FIXML case study~\cite{Lano2014} using the \SIGMA internal DSLs.
+In this paper we describe the solution for the \TTC \FIXML case study~\cite{Lano2014} using the \SIGMA internal DSLs~\cite{Krikava2014}.
 The case study involves \emph{text-to-model} (T2M), \emph{model-to-model} (M2M) and \emph{model-to-text} (M2T) transformations, generating Java, \Csharp, C++ code from a \FIXML XML messages.
 Furthermore, we describe our approach to the three proposed extensions.
 The complete solution is available on a Github\footnote{\url{https://github.com/fikovnik/ttc14-fixml-sigma}} as well as in the SHARE\footnote{\url{http://is.ieis.tue.nl/staff/pvgorp/share/}} environment in the virtual machine image \texttt{Ubuntu12LTS\_TTC14\_64bit\_SIGMA.vdi}.
 
 %% SIGMA
 The solution is developed in \SIGMA, a family of Scala\footnote{\url{http://scala-lang.org/}} internal DSLs for model manipulation tasks such as model validation and model transformations.
-It is an open source project hosted on Github~\footnote{\url{https://fikovnik.github.io/Sigma}}.
-Essentially, it is a library that provides dedicated Scala API allowing to manipulate model manipulation using high-level constructs similar to ones found in the external model manipulation DSLs such as ETL~\cite{Kolovos2008a} or ATL~\cite{Jouault2006}.
+Developed as an open source project hosted on Github~\footnote{\url{https://fikovnik.github.io/Sigma}},
+\SIGMA is a library that provides a dedicated Scala API allowing to manipulate models using high-level constructs similar to ones found in the external model manipulation DSLs such as ETL~\cite{Kolovos2008a} or ATL~\cite{Jouault2006}.
 The intent is to provide an approach that developers can use to implement many of the practical model manipulations within a familiar environment, reduced learning overhead and improved usability.
 
-The solution uses the \emph{Eclipse Modeling Framework} (EMF)~\cite{EMF} which a popular meta-modeling framework widely used in both academia and in industry.
-It is directly supported by \SIGMA, however, other meta-modeling frameworks could be used as well since \SIGMA transformations are technologically agnostic.
+The solution uses the \emph{Eclipse Modeling Framework} (EMF)~\cite{EMF}, which is a popular meta-modeling framework widely used in both academia and industry.
+It is directly supported by \SIGMA, however, other meta-modeling frameworks could be used as well, since \SIGMA transformations are technologically agnostic.
 
 %% Organization
-The rest of the document is organized as follows:
+The remainder of this document is organized as follows:
 \begin{inparaitem}[]
 	\item Section~\ref{sec:SigmaOverview} gives a brief overview of \SIGMA.
 	\item Section~\ref{sec:SolutionDescription} describes the solution for the case study core problem.
 	\item Section~\ref{sec:Extensions} presents the solutions for the three case study extensions.
-	\item Section~\ref{sec:Evaluation} evaluates the solution using the proposed evaluation criteria and finally Section~\ref{sec:Conclusion} concludes the paper.
+	\item Section~\ref{sec:Evaluation} evaluates the solution using the evaluation criteria proposed in the case study, and finally Section~\ref{sec:Conclusion} concludes the paper.
 \end{inparaitem}
 %
 % Additionally, two appendixes are provided.
