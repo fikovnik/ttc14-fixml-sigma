@@ -1,0 +1,99 @@
+\documentclass[submission]{eptcs}
+\providecommand{\event}{TTC 2014} % Name of the event you are submitting to
+
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{paralist}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage{paralist}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{xspace}
+\usepackage{todonotes}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks, 
+  breaklinks, 
+  bookmarksnumbered=true,
+  pdftitle={Solving the TTC'14 FIXML Case Study with SIGMA},
+  pdfauthor={Filip Krikava and Philippe Collet}, 
+  linkcolor=Blue, 
+  citecolor=BrickRed, 
+  filecolor=Blue, 
+  urlcolor=Blue
+  }
+
+\renewcommand{\ttdefault}{pcr}
+
+\newcommand{\SIGMA}{\textsc{Sigma}\xspace}
+\newcommand{\FIXML}{FIXML\xspace}
+\newcommand{\TTC}{TTC'14\xspace}
+\newcommand{\Csharp}{C\#\xspace}
+\newcommand{\Ie}{\emph{i.e.}\xspace}
+\newcommand{\Eg}{\emph{e.g.}\xspace}
+\newcommand{\Etal}{\emph{et al.}\xspace}
+\newcommand{\Cf}{\emph{cf.}\xspace}
+
+\newcommand{\Todo}[1]{\todo[inline]{#1}}
+% \renewcommand{\Todo}[1]{}
+
+\newminted{scala}{fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm}
+\newminted{xml}{fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm}
+\newminted{java}{fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm}
+\newmintinline{xml}{fontsize=\fontsize{8}{8}}
+\newmintinline{scala}{fontsize=\fontsize{8}{8}}
+
+\newcommand{\Scala}{\scalainline}
+
+\title{Solving the \TTC \FIXML Case Study with SIGMA}
+
+\author{
+  Filip Křikava
+  \institute{University Lille 1 - LIFL}
+  \institute{INRIA Lille, Nord Europe}
+  \institute{France}
+  \email{\href{mailto:filip.krikava@inria.fr}{filip.krikava@inria.fr}}
+\and
+  Philippe Collet
+  \institute{University of Nice Sophia Antipolis}
+  \institute{I3S - CNRS UMR 7271}
+  \institute{France}
+  \email{\quad \href{mailto:philippe.collet@unice.fr}{philippe.collet@unice.fr}}
+}
+
+\def\titlerunning{Solving the \TTC \FIXML Case Study with SIGMA}
+\def\authorrunning{F. Křikava and P. Collet}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\SIGMA is a family of Scala internal \emph{Domain-Specific Languages} (DSLs) for model manipulation that provides expressive and efficient API for model consistency checking, model-to-model and model-to-text transformations.
+In this paper we describe a \SIGMA solution for the \emph{Transformation Tool Contest 2014} (\TTC) FIXML case study, a transformation of FIXML XML format into class definitions in Java, \Csharp and C++.
+The full case study including all three extensions have been realized and are publicly available on Github and in the SHARE environment.	
+\end{abstract}
+
+\input{Introduction.tex}
+\input{SigmaOverview.tex}
+\input{SolutionDescription.tex}
+\input{Extensions.tex}
+\input{Evaluation.tex}
+\input{Conclusion.tex}
+
+\bibliographystyle{eptcs}
+\bibliography{references.bib}	
+
+% \appendix
+
+% \section{Configuring SHARE Environment}
+% \label{sec:Configuration}
+
+% \section{Example of \texttt{test2.xml} Output}
+% \label{sec:Example}
+
+\end{document}
