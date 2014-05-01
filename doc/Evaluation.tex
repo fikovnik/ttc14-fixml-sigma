@@ -23,7 +23,7 @@ The generated code is checked to be compiled for all valid examples provided in 
 The compilation does not produce any warning and does not require any special compiler settings\footnote{The C/C++ \texttt{-fPIC} option is a standard option allowing the object files to be included in libraries, \Cf \url{http://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html\#Code-Gen-Options}}.
 
 We used array representation of the same-tag sibling nodes which improves the quality of the code in comparison to numbered fields, and also provides better scalability.
-By implementing the first extension, we have further improved the usefulness of the generated code by guessing the appropriate type~\ref{sec:Extension1}.
+By implementing the first extension, we have further improved the usefulness of the generated code by guessing the appropriate type (\Cf Section~\ref{sec:Extension1}).
 While we do not cover the complete XML Schema type system, the solution is extensible and adding a support for a new data type is just a matter of providing the correct mapping into the corresponding languages.
 Finally, we have also implemented the generic \FIXML Schema transformation that should result in a complete representation of \FIXML messages in the different languages.
 
