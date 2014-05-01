@@ -1,8 +1,7 @@
-The SIGMA solutions to the TTC'14 FIXML case study
-==================================================
+## The SIGMA solutions to the TTC'14 FIXML case study
 
-Requirements
-------------
+
+### Requirements
 
 - java 7
 - maven 3.2.1
@@ -11,8 +10,7 @@ Requirements
 - g++
 - curl
 
-Building
---------
+### Building
 
     ./build-all.sh
     ./test-all.sh
