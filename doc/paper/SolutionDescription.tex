@@ -1,0 +1,79 @@
+%!TEX root = ttc14-fixml.tex
+
+\section{Solution Description}
+\label{sec:SolutionDescription}
+
+This section describes the solution for the core problem of transforming \FIXML messages into source code.
+The input is a file representing an \FIXML 4.4 message~\cite{FIXML2004} and the output is a corresponding Java, \Csharp and C++ source representing the given \FIXML message. 
+As suggested, the solution is realized by a systematic model transformation from a FIXML message to XML model to an object-oriented language model to a source code.
+
+\vspace*{-5mm}
+\paragraph{Prerequisites}
+%
+In \SIGMA, EMF models are aligned with Scala through automatically generated extension traits\footnote{The generated code is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src-gen}{src-gen} folder} that allows for a seamless model navigation and modification using standard Scala expressions.
+This includes
+%
+\begin{inparaitem}[]
+  \item omitting \Scala|get| and \Scala|set| prefixes,
+  \item convenient first-order logic collection operations (\Eg, \Scala|map|, \Scala|filter|, \Scala|reduce|), and
+  \item first-class constructs for creating new model elements.
+\end{inparaitem}
+
+\subsection{\FIXML XML Message to XML Model}
+
+Parsing of an XML document is handled by a Scala library and therefore this tasks in essentially a M2M transformation between Scala XML model and the XML model specified in the case study description (\Cf Figure~\ref{fig:XMLMetaModel}).
+This is a trivial operational-style transformation that has been realized by the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/FIXMLParser.scala}{\Scala|FIXMLParser|} class.
+
+\subsection{XML Model to ObjLang Model}
+
+The ObjLang meta-model chosen for this solution is shown in Figure~\ref{fig:ObjLangMetaModel}.
+Originating from the Featherweight Java model~\cite{Igarashi2001}, it provides a reasonable abstraction for an object-oriented programming language, supporting classes, fields and expressions used for field initializations.
+
+In \SIGMA, a M2M transformation is represented as a Scala class that inherits from the \Scala|M2MT| base class, which itself brings M2M DSL constructs into the class scope.
+Concretely, the \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/XMLMM2ObjLang.scala}{\Scala|XMLMM2ObjLang|} class is defined as:
+%
+\begin{scalacode}
+class XMLMM2ObjLang extends M2MT with XMLMM with ObjLang { // mix -in generated extensions
+  sourceMetaModels = _xmlmm; targetMetaModels = _objlang // set source and target models
+}  
+\end{scalacode}
+%
+Within the class body, an arbitrary number of transformation rules can be specified as methods using parameters to define the transformation source-target relation.
+For example, the first rule of the transformation from \Scala|XMLNode| into a \Scala|Class| is defined as:
+%
+\begin{scalacode}
+def ruleXMLNode2Class(s: XMLNode, t: Class) {
+  s.allSameSiblings foreach (associate(_, t))
+  t.name = s.tag
+  t.members ++= s.sTargets[Constructor]
+  t.members ++= s.allAttributes.sTarget[Field]; t.members ++= s.allSubnodes.sTarget[Field]
+}
+\end{scalacode}
+%
+This rule represents a matched rule which is automatically applied for all matching elements.
+When such a rule is executed, the transformation engine first creates all the defined target elements and then calls the method whose body populates their content using arbitrary Scala code.
+A matched rule is applied once and only once for each matching source element, creating a 1:1 or 1:N mapping.
+However, in the current scenario, all XML node siblings with the same tag name should be mapped into the same class (N:1 mapping).
+This can be done by associating an explicit association (line 2)\footnote{The \Scala|allSameSiblings| is a helper collecting all same named siblings.}.
+%
+The \Scala|sTarget(s)| methods relate the corresponding target element(s) that has been already or can be transformed from source element(s).
+On lines 4 and 5 the use of these methods will populate the content of the newly created class by in turn executing corresponding rules \Scala|ruleXMLNode2DefaultConstructor|, \Scala|ruleXMLNode2NoneDefaultConstructor|, \Scala|ruleXMLAttribute2Field| and \Scala|ruleXMLNode2Field| (see Listings in~\ref{sec:TransformationRules}).
+
+The last rule converting XML nodes into fields has to handle multiple same-tag siblings.
+While the case description proposes to use either multiple fields or a collection, the former brings a scalability problem since in Java, there is a limit of the maximum number of method parameters already exceeded by the test case 5.
+Therefore we have opted for the latter and use arrays.
+Moreover, even though it has not been specifically requested in the case study, our transformation keeps the default values of the attributes of the different nodes and use them for constructing the instances.
+This is done by the \Scala|ruleXMLNode2ConstructorCall| rule (\Cf Section~\ref{ConstructorArguments}).
+
+\subsection{ObjLang Model to Source code}
+
+This task involves transforming the ObjLang model into source code.
+\SIGMA provides a template-based code-explicit\footnote{It is the output text instead of the transformation code that is escaped} M2T transformation DSL, relying Scala multi-line string literals and string interpolations.
+%
+Since we target multiple programming languages, we organize the code generation in a set of Scala classes and use inheritance and class mix-ins to modularly compose configuration for the respective languages (\Cf Section~\ref{sec:M2TClassHierarchy}).
+In the base classes we define methods that synthesize expressions and data types (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLangMTT.scala}{\Scala{BaseObjLangMTT}}) and abstract a class generation (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/BaseObjLang2Class.scala}{\Scala{BaseObjLang2Class}}).
+
+The class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2Java.scala}{\Scala{ObjLang2Java}} contains the Java language specifics.
+The generator for the \Csharp is exactly the same and the class \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CSharp.scala}{\Scala{ObjLang2CSharp}} only redefines the \Scala{string} data type.
+For C++, the situation is a bit more complicated since also a header file has to be generated and the ObjLang model is less suitable for C++ classes and thus more work has to be performed in the M2T transformation.
+More methods have to be overwritten in the transformations \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CPPClassHeader.scala}{\Scala{ObjLang2CPPClassHeader}} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-base/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CPPClassImpl.scala}{\Scala{ObjLang2CPPClassImpl}} making the C++ code generator 88 lines longer than Java or \Csharp ones.

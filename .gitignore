@@ -8,3 +8,14 @@ ttc14-fixml-extension-2/output
 ttc14-fixml-extension-2/target
 ttc14-fixml-extension-3/output
 ttc14-fixml-extension-3/target
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.bbl
+*.blg
+*.out
+*.pag
+*.pdf
+*.synctex.gz
+ttc14-fixml-base/.settings

@@ -43,7 +43,7 @@ There are three changes needed in order to implement this extension.
 
 	  def guessDataType(values: Seq[String]): DataType =
 	    values map guessDataType reduce { (a, b) =>
-	      if (Builtins.indexOf(a) < Builtins.indexOf(a)) a else b
+	      if (Builtins.indexOf(a) < Builtins.indexOf(b)) a else b
 	    }
 	\end{scalacode}
 
