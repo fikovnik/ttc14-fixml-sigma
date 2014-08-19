@@ -3,12 +3,12 @@
 \section{Extensions}
 \label{sec:Extensions}
 
-In this section we describe our solutions to the case study extensions.
+In this section we describe our solutions to the three proposed case study extensions.
 
 \subsection{Extension 1 - Selection of Appropriate Data Types}
 \label{sec:Extension1}
 
-The source concerning this is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-1}{\texttt{ttc14-fixml-extension-1}} directory.
+The source concerning this first extension is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-1}{\texttt{ttc14-fixml-extension-1}} directory.
 
 \bigskip
 
@@ -19,7 +19,7 @@ There are three changes needed in order to implement this extension.
 	While this list does not cover all the possible XML Schema data types, it provides a good basis for demonstrating how some support for additional ones could be added.
 
 	\item The second one concerns the M2M transformation.
-	We have to add the necessary support for guessing the data type of an attribute based on the string values of all of the same-tag siblings that have have the attribute in question.
+	We have to add the necessary support for guessing the data type of an attribute based on the string values of all of the same-tag siblings that have the attribute in question.
 	Following is the code snippet that realizes it:
 	%
 	\begin{scalacode}
@@ -66,10 +66,10 @@ override def class2Code(p: DataType) = {
 \label{sec:Extension2}
 
 This extension adds a support for the C language.
-Since C is not an object oriented language, more work have to be done in the code generator part.
-It is important to node, that the M2M or T2M transformations have to remain untouched.
+Since C is not an object-oriented language, more work have to be done in the code generator part.
+It is important to note, that the M2M or T2M transformations have to remain untouched.
 
-Instead of classes, in the case of the C language, we generate C structs with appropriate functions simulating object constructors.
+Instead of classes, in the case of the C language, we generate C struct declarations with appropriate functions simulating object constructors.
 For each ObjLang class we generate a header file with a struct definition, a function for the struct creation and a set of functions representing class constructors.
 Following is an example of the C code synthesized from this \FIXML message (for the \Scala|Pty| node):
 %
@@ -122,8 +122,8 @@ Pty* Pty_init(Pty* this) {
 
 In order to simplify the code generator, we use a helper function \cinline{void **new_array(int size, ...)} that allows us to initialize arrays using simple expressions, which is not directly supported by C language or by the standard C library.
 
-Despite the fact that C is not an object oriented language, our organization of the M2T transformation templates makes the implementation only 36 lines longer (30\%) than the C++ version.
-The source concerning the extension 2 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-2}{\texttt{ttc14-fixml-extension-2}} directory.
+Despite the fact that C is not object-oriented, our organization of the M2T transformation templates makes the implementation only 36 lines longer (30\%) than the C++ version.
+The source concerning the extension 2 solution can be found in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-2}{\texttt{ttc14-fixml-extension-2}} directory.
 
 \subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
@@ -131,11 +131,11 @@ The source concerning the extension 2 solution is in the \href{https://github.co
 The last extension aims at generic transformation between \FIXML Schema and ObjLang model.
 Providing such a generic transformation essentially means creating a generic XML schema to ObjLang transformation.
 Such a task is far from being trivial and it would require a significant engineering effort.
-Therefore we have decided for an alternative solution in which we transform Java classes generated from an XML schema by the Java Architecture for XML Binding tool\footnote{\url{https://jaxb.java.net/}}.
+Therefore we have decided for an alternative solution in which we transform Java classes generated from an XML schema by the Java Architecture for XML Binding (JAXB) tool\footnote{\url{https://jaxb.java.net/}}.
 
 The advantage of this solution is that the JAXB already does all the hard work of parsing XML schema, resolving the element inheritance, substitutability, data types and others.
-The model of Java classes in an object oriented model and therefore the actual transformation into ObjLang is actually easier than in the case of the \FIXML messages.
-Finally, the JAXB can be thought of as a another model transformation and therefore our solution is still within the model driven engineering domain.
+The model of Java classes in an object-oriented model and therefore the actual transformation into ObjLang is actually easier than in the case of the \FIXML messages.
+Finally, the JAXB can be thought of as a another model transformation and therefore our solution is still within the model-driven engineering domain.
 
 The new input is a location of the \FIXML XSD files and the new transformation workflow consists of the following stages:
 \begin{enumerate}[(1)]
@@ -157,9 +157,11 @@ The implementation involves following changes:
 \end{enumerate}
 
 The new transformation is about 30\% smaller than the one developed in the first extension and arguably less complex.
-It also demonstrates \SIGMA support for manipulating different models than EMF.
+It also demonstrates \SIGMA support for manipulating different models than EMF, as well as easily reusing existing libraries.
+This is typically the kind of benefits that one can get from \SIGMA, \textit{.i.e.}, being able to easily reuse an existing API (JAXB), while developing transformation rules in a domain-specific environment.
 The source concerning the extension 3 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-3}{\texttt{ttc14-fixml-extension-3}} directory.
 
 One limitation of the current implementation is that we do not extend the C code generator to support the notion of class inheritance and for abstract classes.
-A potential solution is described in by Schreiner~\cite{Schreiner1993}, however it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.
-Similarly to the extension 1, we do not handle all the XML schema data types, but only the ones that appear in the \FIXML schema.
+A potential solution is described by Schreiner~\cite{Schreiner1993}.
+However it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.
+Similarly to extension 1, we do not handle all the XML schema data types, but only the ones that appear in the \FIXML schema.
