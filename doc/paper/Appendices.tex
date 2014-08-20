@@ -267,7 +267,7 @@ In the pattern matching we need to cover all possible cases such as an attribute
   \label{fig:AppendixM2TClassHierarchy}
 \end{figure}
 
-\begin{table}
+\begin{table}[h!]
 	\centering
   \begin{tabular}{l|l}
   \hline
@@ -325,7 +325,7 @@ Input document:
 
 \inputminted[fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm]{xml}{listings/example-for-c-code.xml}
 
-Generated C code:
+\noindent Generated C code:
 
 \begin{ccode}
 #ifndef _Pty_H_
@@ -375,9 +375,9 @@ Pty* Pty_init(Pty* this) {
 \section{Execution Times of the Core Problem Solution}
 \label{sec:AppendixExecutionTime}
 
-\begin{table}[h!t]
+\begin{table}[h!]
   \centering
-  \begin{tabular}{| l | r | r | r | r |}
+  \begin{tabular}{ l | r | r | r | r }
     \hline
     \textbf{Message} & \textbf{T2M} & \textbf{M2M} & \textbf{M2T} & \textbf{Total} \\
     \hline
