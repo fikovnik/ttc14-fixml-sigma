@@ -1,6 +1,6 @@
 %!TEX root = ttc14-fixml.tex
 
-\enlargethispage{20mm}
+% \enlargethispage{15mm}
 
 \section{Introduction}
 \label{sec:Introduction}
@@ -9,7 +9,7 @@
 In this paper we describe our solution for the \TTC \FIXML case study~\cite{Lano2014} using the \SIGMA internal DSLs~\cite{Krikava2014}.
 Next to solving the core tasks that consists of generating Java, \Csharp and C++ code from \FIXML messages structure, we also solve all the proposed extensions for determining appropriate types of element attributes, generating C code and generic \FIXML schema transformation.
 Additionally, our solution supports array generation for multiple sibling XML nodes that share the same name, and most notably it generates proper constructor call keeping the initial values as they occur in the XML document.
-Purposely, we choose a non-trivial object-oriented model (\Cf Figure~\ref{fig:ObjLangMetaModel}) in order to demonstrate that \SIGMA can be easily applied in complex transformations.
+Purposely, we choose a non-trivial object-oriented model (\Cf Figure~\ref{fig:AppendixObjLangMetaModel}) in order to demonstrate that \SIGMA can be easily applied in complex transformations.
 Finally, for all languages, the generated code is complete including all necessary statements so it compiles without any problems or warning\footnote{Tested using OpenJDK 1.7, Mono 3.2 and Clang 6.0 on OSX 10.9}.
 
 %% Scala
@@ -25,6 +25,6 @@ The intent is to provide an approach that developers can use to implement many o
 The solution is based on \emph{Eclipse Modeling Framework} (EMF)~\cite{EMF}, which is a popular meta-modeling framework widely used in both academia and industry and which is directly supported by \SIGMA.
 
 %% Organization
-We first describe the solution to the case study core problem, then the solution for the extensions followed by an evaluation conclusion.
+% We first describe the solution to the case study core problem, then the solution for the extensions followed by an evaluation conclusion.
 Across the paper we provide references to code listings in the appendix for the reader to get additional details and have the paper self-contained.
 The complete source code is available on Github\footnote{\url{https://github.com/fikovnik/ttc14-fixml-sigma}} as well as directly runnable from a SHARE environment\footnote{\url{http://bit.ly/1sSWDeB}}.

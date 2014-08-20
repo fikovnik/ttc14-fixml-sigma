@@ -1,83 +1,44 @@
 %!TEX root = ttc14-fixml.tex
-
+\vspace*{-5mm}
 \section{Evaluation and Conclusion}
 \label{sec:EvaluationConclusion}
 
-In this section we evaluate the proposed solution using the evaluation criteria proposed in the case study description~\cite{Lano2014}.
-For the brevity, we only include the evaluation of the core problem solution.
-However, each extension is represented as a separate project and therefore further evaluation can be derived by comparing the changes required for their respective implementations.
+\enlargethispage{30mm}
 
-\paragraph{Complexity.}
+In this section we evaluate our solution to the core problem using the evaluation criteria proposed in the case study description~\cite{Lano2014}.
 
-The case study description proposes to measure the complexity as the number of operator occurrences, features and entity type name references in the specification expressions.
+\begin{itemize}[-]
+  \item The \emph{complexity} as the number of operator occurrences, features and entity type name references in the specification expressions.
+  To the best of our knowledge we do not know about any tool that can provide this metric for Scala code.
+  We can therefore only provide our own estimate for the M2M transformation which contains about 450 expressions and uses 18 meta-models classes with 23 references.
 
-To the best of our knowledge we do not know about any tool that can provide this metric for Scala code.
-We can therefore only provide our own estimate which is a rough number since it depends at which depth an expression is considered atomic.
-The M2M transformation of the core problem solution contains about 450 expressions. It uses 18 meta-models classes with 23 references.
+  \item The \emph{accuracy} measures the syntactical correctness of the generated source code and how well does the code represents the \FIXML messages.
+  The generated code compiles for all languages without any warning without any special compiler settings\footnote{The C/C++ \texttt{-fPIC} option is a standard option allowing the object files to be included in libraries.}.
+  Using arrays to represent same-tag sibling nodes improves the quality and scalability of the code which is further enhanced by data type heuristics for fields types.
+  Finally, we have also implemented the generic \FIXML Schema transformation that should result in a complete representation of \FIXML messages in the different languages.
 
-\paragraph{Accuracy.}
-%
-The accuracy measures the syntactical correctness of the generated source code and how well does the code represents the \FIXML messages.
+  \item The development effort is estimated to be about 15 person-hours for the core problem.
 
-The generated code is checked to be compiled for all valid examples provided in the case study.
-The compilation does not produce any warning and does not require any special compiler settings\footnote{The C/C++ \texttt{-fPIC} option is a standard option allowing the object files to be included in libraries, \Cf \url{http://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html\#Code-Gen-Options}}.
+  \item The \emph{fault tolerance} is high since the Scala XML library can detects invalid XML with accurate parsing errors.
 
-We used array representation of the same-tag sibling nodes which improves the quality of the code in comparison to numbered fields, and also provides better scalability.
-By implementing the first extension, we have further improved the usefulness of the generated code by guessing the appropriate type (\Cf Section~\ref{sec:Extension1}).
-While we do not cover the complete XML Schema type system, the solution is extensible and adding a support for a new data type is just a matter of providing the correct mapping into the corresponding languages.
-Finally, we have also implemented the generic \FIXML Schema transformation that should result in a complete representation of \FIXML messages in the different languages.
+  \item For all test cases (1, 2, 5 and 6), the \emph{execution time} for all the transformation is about 7500ms for all the transformations on SHARE (\Cf Section~\ref{sec:AppendixExecutionTime}).
 
-The case study did not require to provide additional features such as property getters and setters, or C/C++ destructors.
-As such the usability of the generated code is rather limited.
-However, the implementation of these features should be rather straightforward.
+  \item \emph{Modularity} for the M2M transformation is $1 - \frac{d}{r} = \frac{7}{8} = 0.125$, where $d$ is the number of dependencies between rules and $r$ is the number of rules.
 
-\paragraph{Development effort.}
+  \item The level of \emph{abstraction} for the M2M transformation is medium since the rules are defined declaratively (high abstraction), but their content is an imperative code (medium).
+  Similar applies for the M2T templates.
 
-Providing a correct measure of the complete development effort is not easy since by working on the case study we were also improving \SIGMA at the same time.
-The solution for the code problem generating only Java code took about 4 person-hours in which about half was spent on designing the right ObjLang model by \emph{trial-and-error}.
-Extending the code generator facilities for \Csharp was almost for free as it involves only few lines of code.
-The C++ version was ready in less than one person-hour.
-The first extension was also finished in less than one hour since the ObjLang meta-model already supported multiple data types.
-The second extension involved more effort to correctly synthesize C code.
-Finally, the most work has been spent on the last extensions.
-In total, the development effort could be estimated to be about 15 person-hours.
+\bigskip
 
-\paragraph{Fault tolerance.}
-%
-A high fault tolerance is in cases that the transformation can detect invalid XML input and produce accurate results.
-In our solution, the well-formedness of the XML document is verified by the underlying Scala XML parser that provides a rather verbose error message indicating at which input location it found errors.
-Our parser provides additional checks that assert the input document to be a \FIXML 4.4 Schema version and not just any well-formed XML document or \FIXML DTD version.
-This check is however rather simple, but could be easily extended by attaching a \FIXML XML Schema location so the parser can verify the document correctness.
-
-\paragraph{Execution time.}
-
-The execution time for the transformations of the test data set provided by the case study is shown in Table~\ref{tab:ExecutionTime}.
-The times were collected by running the transformations in the SHARE virtualized environment \texttt{Ubuntu12LTS\_TTC14\_64bit\SIGMA.vdi}.
-Therefore the following measures should be considered as micro-benchmark metrics with all the drawback that micro-benchmarking brings.
-
-\begin{table}[h!t]
-  \centering
-  \begin{tabular}{| l | r | r | r | r |}
-    \hline
-    \textbf{Message} & \textbf{T2M} & \textbf{M2M} & \textbf{M2T} & \textbf{Total} \\
-    \hline
-    \texttt{test1}   & 9      & 70     & 191   & 270  \\
-    \texttt{test2}   & 27     & 351    & 284   & 662  \\
-    \texttt{test5}   & 1201   & 2734   & 459   & 4394 \\
-    \texttt{test6}   & 376    & 1387   & 393   & 2156 \\
-    \hline
-    \textbf{Total}   & 1613   & 4542   & 1327  & 7482 \\
-    \hline
-  \end{tabular}
-  \caption{Execution times for the test \FIXML messages as measured on SHARE (in milliseconds)}
-  \label{tab:ExecutionTime}
-\end{table}
+Despite that we opted for a complex ObjLang model, the resulting transformations are rather expressive and quite concise.
+The complete implementation of the core problem consists of 500 lines of Scala code\footnote{The extension 1 consists of 550, extension 2 of 720 and extension 3 of 770 source lines of code.}.
+This \FIXML case study provides a good illustration for some of the capabilities of an internal DSL approach to model manipulations in the model-driven engineering domain.
 
 
-\paragraph{Modularity.}
-%
-Modularity is defined as $1 - \frac{d}{r}$, where $d$ is the number of dependencies between rules (implicit or explicit calls, ordering dependencies, inheritance or other forms of control or data dependence) and $r$ is the number of rules~\cite{Lano2014}.
+\end{itemize}
 
-The \Scala|XMLMM2ObjLang| for the core problem consists of $r=8$ rules.
-There is one top level rule and all the other rules are calls, explicitly making $d=7$.
-The modularity according to the formula is therefore $0.125$.
+
+
+
+
+

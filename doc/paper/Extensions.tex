@@ -1,165 +1,58 @@
 %!TEX root = ttc14-fixml.tex
 
-\section{Extensions}
+\Section{Extensions}
 \label{sec:Extensions}
 
-In this section we describe our solutions to the case study extensions.
+% \enlargethispage{20mm}
 
-\subsection{Extension 1 - Selection of Appropriate Data Types}
+In this section we describe our solutions to the case study extensions.
+Each of extension has been implemented as a separate project on GitHub and therefore an interested reader can easily see what exactly have been changed.
+
+\Subsection{Extension 1 - Selection of Appropriate Data Types}
 \label{sec:Extension1}
 
-The source concerning this is located in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-1}{\texttt{ttc14-fixml-extension-1}} directory.
+In this extension we use a simple heuristics to find an appropriate type for a field based on observed attribute values.
+We only cover numbers (\Scala|int|, \Scala|long|, \Scala|double|), but since the process is mechanical, it can be easily extended to cover all XML Schema data types.
 
-\bigskip
+The ObjLang meta-model was extended with new expressions representing the new type literals.
+In the M2M transformation we added a function, \Scala|guessDataType|, that uses regular expressions to guess a data type based on a single attribute value.
+An attribute can occur multiple times with different values and therefore we need to consider all values at the same time in order to infer a type that is wide enough.
+An overridden function \Scala|guessDataType| takes a sequence of attribute values, guesses their individual types and then simply reduces the type to the largest one (\Cf Section~\ref{sec:AppendixGuessDataType}).
 
-There are three changes needed in order to implement this extension.
-\begin{itemize}[(1)]
-	\item The first one is in the ObjLang meta-model where we need to add new expression classes representing literals for the new data types.
-	In this extension we consider the following new data types: \Scala{double}, \Scala{long} and \Scala{integer}.
-	While this list does not cover all the possible XML Schema data types, it provides a good basis for demonstrating how some support for additional ones could be added.
-
-	\item The second one concerns the M2M transformation.
-	We have to add the necessary support for guessing the data type of an attribute based on the string values of all of the same-tag siblings that have have the attribute in question.
-	Following is the code snippet that realizes it:
-	%
-	\begin{scalacode}
-	  // basic types
-	  val DTString = DataType(name = "string")
-	  val DTDouble = DataType(name = "double")
-	  val DTLong = DataType(name = "long")
-	  val DTInteger = DataType(name = "int")
-
-	  // it also stores the promotion ordering from right to left
-	  val Builtins = Seq(DTString, DTDouble, DTLong, DTInteger)
-
-	  private val PDouble = """([+-]?\d+.\d+)""".r
-	  private val PInteger = """([+-]?\d+)""".r
-
-	  def guessDataType(value: String): DataType = value match {
-	    case PDouble(_) => DTDouble
-	    case PInteger(_) => Try(Integer.parseInt(value)) map (_ => DTInteger) getOrElse (DTLong)
-	    case _ => DTString
-	  }
-
-	  def guessDataType(values: Seq[String]): DataType =
-	    values map guessDataType reduce { (a, b) =>
-	      if (Builtins.indexOf(a) < Builtins.indexOf(b)) a else b
-	    }
-	\end{scalacode}
-
-	\item Finally, we need to update the code transformers to generate the appropriate data types.
-	For example, in the C++ generator:
-	\begin{scalacode}
-override def class2Code(p: DataType) = {
-  import XMLMM2ObjLang._
-  p match {
-    case DTString => "std::string"
-    case DTDouble => "double"
-    case DTLong => "long"
-    case DTInteger => "int"
-  }
-}		
-	\end{scalacode}
-\end{itemize}
-
-\subsection{Extension 2 - Extension to Additional Languages}
+\Subsection{Extension 2 - Extension to Additional Languages}
 \label{sec:Extension2}
 
 This extension adds a support for the C language.
-Since C is not an object oriented language, more work have to be done in the code generator part.
-It is important to node, that the M2M or T2M transformations have to remain untouched.
-
-Instead of classes, in the case of the C language, we generate C structs with appropriate functions simulating object constructors.
-For each ObjLang class we generate a header file with a struct definition, a function for the struct creation and a set of functions representing class constructors.
-Following is an example of the C code synthesized from this \FIXML message (for the \Scala|Pty| node):
+Since C is not an object oriented language, more work have to be done in the code generator part, however, the M2M transformations remain untouched.
 %
-\inputminted[fontsize=\fontsize{8}{8},linenos,numbersep=5pt,frame=lines,framesep=2mm]{xml}{listings/example-for-c-code.xml}
+Instead of classes, we generate C structs with appropriate functions simulating object constructors (\Cf Section~\ref{sec:AppendixGeneratingCCode}).
+In order to simplify the code generator, we use a helper function that allows us to initialize arrays using simple expressions, which is not directly supported by C language or by the standard C library.
 %
-\begin{ccode}
-#ifndef _Pty_H_
-#define _Pty_H_
+Despite the fact that C is not an object oriented language, our organization of the M2T transformation templates makes the implementation only 36 lines longer than the C++ version (\Cf \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassHeader|} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassImpl|}).
 
-#include <stdlib.h>
-
-#include "Sub.h"
-
-typedef struct {
-  char* _R;
-  char* _ID;
-  Sub** Sub_objects;
-} Pty;
-
-Pty* Pty_new();
-Pty* Pty_init_custom(Pty* this, char* _R, char* _ID, Sub** Sub_objects);
-Pty* Pty_init(Pty* this);
-
-#endif // _Pty_H_	
-\end{ccode}
-%
-\begin{ccode}
-#include "arrays.h"
-
-#include "Pty.h"
-
-Pty* Pty_new() {
-  return (Pty*) malloc(sizeof(Pty));
-}
-
-Pty* Pty_init_custom(Pty* this, char* _R, char* _ID, Sub** Sub_objects) {
-  this->_R = _R;
-  this->_ID = _ID;
-  this->Sub_objects = Sub_objects;
-  return this;
-}
-
-Pty* Pty_init(Pty* this) {
-  this->_R = "21";
-  this->_ID = "OCC";
-  this->Sub_objects = (Sub**) new_array(2, Sub_init_custom(Sub_new(), "2", "ZZZ"), NULL);
-  return this;
-}
-\end{ccode}
-
-In order to simplify the code generator, we use a helper function \cinline{void **new_array(int size, ...)} that allows us to initialize arrays using simple expressions, which is not directly supported by C language or by the standard C library.
-
-Despite the fact that C is not an object oriented language, our organization of the M2T transformation templates makes the implementation only 36 lines longer (30\%) than the C++ version.
-The source concerning the extension 2 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-2}{\texttt{ttc14-fixml-extension-2}} directory.
-
-\subsection{Extension 3 - Generic Transformation}
+\Subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
 
-The last extension aims at generic transformation between \FIXML Schema and ObjLang model.
-Providing such a generic transformation essentially means creating a generic XML schema to ObjLang transformation.
-Such a task is far from being trivial and it would require a significant engineering effort.
-Therefore we have decided for an alternative solution in which we transform Java classes generated from an XML schema by the Java Architecture for XML Binding tool\footnote{\url{https://jaxb.java.net/}}.
+\enlargethispage{20mm}
 
+Essentially, a generic \FIXML Schema to ObjLang model transformation means creating a generic XML schema to ObjLang transformation.
+Such a task is far from being trivial and it would require a significant engineering effort.
+Therefore we have decided for an alternative solution in which we transform Java classes generated from an XML schema by the JAXB tool\footnote{Java Architecture for XML Binding \url{https://jaxb.java.net/}}.
 The advantage of this solution is that the JAXB already does all the hard work of parsing XML schema, resolving the element inheritance, substitutability, data types and others.
-The model of Java classes in an object oriented model and therefore the actual transformation into ObjLang is actually easier than in the case of the \FIXML messages.
+The resulting Java classes in fact represents an object oriented model and therefore the actual M2M transformation into ObjLang is rather straight forward.
 Finally, the JAXB can be thought of as a another model transformation and therefore our solution is still within the model driven engineering domain.
 
-The new input is a location of the \FIXML XSD files and the new transformation workflow consists of the following stages:
-\begin{enumerate}[(1)]
-	\item XSD to Java sources using JAXB.
-	\item Compilation of Java source using regular Java compiler.
-	\item Java model to ObjLang transformation.
-	\item ObjLang to source transformation.
-\end{enumerate}
-
-\bigskip
-
-The implementation involves following changes:
-\begin{enumerate}[(1)]
-	\item Extending the ObjLang model with a new classifier representing enumerated types.
-	\item Extending the ObjLang model with the notion of a simple class inheritance.
-	\item Extending the ObjLang model with the notion of abstract classes.
-	\item A new M2M transformation between Java class model represented by the Java reflection API and ObjLang model.
-	\item Extending the M2T transformation to cover the new ObjLang model concepts.
-\end{enumerate}
-
-The new transformation is about 30\% smaller than the one developed in the first extension and arguably less complex.
-It also demonstrates \SIGMA support for manipulating different models than EMF.
-The source concerning the extension 3 solution is in the \href{https://github.com/fikovnik/ttc14-fixml-sigma/tree/master/ttc14-fixml-extension-3}{\texttt{ttc14-fixml-extension-3}} directory.
-
-One limitation of the current implementation is that we do not extend the C code generator to support the notion of class inheritance and for abstract classes.
-A potential solution is described in by Schreiner~\cite{Schreiner1993}, however it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.
-Similarly to the extension 1, we do not handle all the XML schema data types, but only the ones that appear in the \FIXML schema.
+The new input is a location of the \FIXML XSD files and the new transformation workflow consists of 
+\begin{inparaenum}[(1)]
+	\item XSD to Java sources using JAXB,
+	\item Java source to Java classes using a Java compiler,
+	\item Java classes to ObjLang,
+	\item ObjLang to source source.
+\end{inparaenum}
+%
+The ObjModel had to be extended to cover enumerated types a notion of inheritance and abstract classes.
+%
+The new transformation (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/Java2ObjLang.scala}{\Scala|Java2ObjLang|}) is about 30\% smaller than the original transformation and arguably less complex.
+It also demonstrates \SIGMA support for manipulating different models than EMF, \Ie, Java model implemented using Java reflection (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/javamm/JavaClassModel.scala}{\Scala|JavaClassModel|}).
+The M2T transformation remained mostly untouched apart from the model extensions.
+It is important to note that the C code generator supports neither class inheritance nor abstract classes\footnote{A potential solution is described in by Schreiner~\cite{Schreiner1993}, however it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.}.

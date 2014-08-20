@@ -56,6 +56,10 @@
 
 \newcommand{\Scala}{\scalainline}
 
+\newcommand{\Section}[1]{\vspace*{-4mm}\section{#1}}
+\newcommand{\Subsection}[1]{\vspace*{-2mm}\subsection{#1}}
+
+
 \title{Solving the \TTC \FIXML Case Study with SIGMA}
 
 \author{
@@ -83,26 +87,17 @@ The solution solves the core transformation task as well as all the three extens
 
 \input{Introduction.tex}
 \input{SolutionDescription.tex}
-% \input{Extensions.tex}
-% \input{EvaluationConclusion.tex}
+\input{Extensions.tex}
+\input{EvaluationConclusion.tex}
 
 \paragraph{Acknowledgment}
-This work is partially supported by the Datalyse project \url{www.datalyse.fr}.
+This work is partially supported by the Datalyse project \href{http://www.datalyse.fr/}{\Scala|www.datalyse.fr|}.
 
 \bibliographystyle{eptcs}
 \bibliography{references.bib}	
 
 \appendix
 
-\input{MetaModels.tex}
-\input{Listings.tex}
-\input{ConstructorArguments.tex}
-\input{M2TTransformationClassHierarchy.tex}
-
-% \section{Configuring SHARE Environment}
-% \label{sec:Configuration}
-
-% \section{Example of \texttt{test2.xml} Output}
-% \label{sec:Example}
+\input{Appendices.tex}
 
 \end{document}
