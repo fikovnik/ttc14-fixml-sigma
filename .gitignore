@@ -16,7 +16,6 @@ ttc14-fixml-extension-3/target
 *.blg
 *.out
 *.pag
-*.pdf
 *.synctex.gz
 ttc14-fixml-base/.settings
 *.pygtex
