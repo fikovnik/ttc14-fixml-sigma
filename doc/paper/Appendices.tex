@@ -3,7 +3,7 @@
 \section{Meta-Models}
 \label{sec:AppendixMetaModels}
 
-\enlargethispage{20mm}
+%\enlargethispage{20mm}
 
 \subsection{XML Meta-Model}
 
@@ -197,7 +197,7 @@ public Pty[] Pty_objects = new Pty[] {
 };
 \end{javacode}
 %
-Note that the first and second instances of \Scala|Pty| contains two and one \Scala|null| respectively in the place of missing \Scala|Sub| subnode.
+Note that the first and second instances of \Scala|Pty| contain two and one \Scala|null| respectively in the place of missing \Scala|Sub| subnode.
 
 The \Scala|ConstructorCall| used for field initializations in the \Scala|ruleXMLNode2Field| is created from an XML node using the last rule in the transformation:
 %
@@ -250,7 +250,7 @@ def ruleXMLNode2ConstructorCall(s: XMLNode, t: ConstructorCall) {
 }
 \end{scalacode}  
 
-First we need to find which constructor shall be used depending whether the given XML node (or any of its same-tag siblings) contains any attributes or subnodes.
+First we need to find which constructor shall be used depending on whether the given XML node (or any of its same-tag siblings) contains any attributes or subnodes.
 Next, we need to resolve the arguments for the case of non-default constructor.
 We do this by using the sources, \Ie, the source elements (XML node or XML attribute) that were used to create the constructor parameters.
 \SIGMA provides \Scala|sSource| method that is the inverse of \Scala|sTarget| call with the difference that it will not trigger any rule execution.

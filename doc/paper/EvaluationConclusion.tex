@@ -1,41 +1,40 @@
 %!TEX root = ttc14-fixml.tex
-\vspace*{-5mm}
+\vspace*{-3mm}
 \section{Evaluation and Conclusion}
 \label{sec:EvaluationConclusion}
 
-\enlargethispage{30mm}
+\enlargethispage{7mm}
 
-In this section we evaluate our solution to the core problem using the evaluation criteria proposed in the case study description~\cite{Lano2014}.
+We evaluate our solution to the core problem using the evaluation criteria proposed in the case study description~\cite{Lano2014}.
 
 \begin{itemize}[-]
   \item The \emph{complexity} as the number of operator occurrences, features and entity type name references in the specification expressions.
-  To the best of our knowledge we do not know about any tool that can provide this metric for Scala code.
-  We can therefore only provide our own estimate for the M2M transformation which contains about 450 expressions and uses 18 meta-models classes with 23 references.
+  To the best of our knowledge there is no tool providing this metric for Scala code.
+  We therefore only provide our own estimate for the M2M transformation, which contains about 450 expressions and uses 18 meta-models classes with 23 references.
 
-  \item The \emph{accuracy} measures the syntactical correctness of the generated source code and how well does the code represents the \FIXML messages.
-  The generated code compiles for all languages without any warning without any special compiler settings\footnote{The C/C++ \texttt{-fPIC} option is a standard option allowing the object files to be included in libraries.}.
-  Using arrays to represent same-tag sibling nodes improves the quality and scalability of the code which is further enhanced by data type heuristics for fields types.
+  \item The \emph{accuracy} measures the syntactical correctness of the generated source code and how well the code represents the \FIXML messages.
+  The generated code compiles for all languages without any warning nor any special compiler settings\footnote{The C/C++ \texttt{-fPIC} option is a standard option allowing the object files to be included in libraries.}.
+  Using arrays to represent same-tag sibling nodes improves the quality and scalability of the code which is further enhanced by data type heuristics for field types.
   Finally, we have also implemented the generic \FIXML Schema transformation that should result in a complete representation of \FIXML messages in the different languages.
 
   \item The development effort is estimated to be about 15 person-hours for the core problem.
 
-  \item The \emph{fault tolerance} is high since the Scala XML library can detects invalid XML with accurate parsing errors.
+  \item The \emph{fault tolerance} is high since the Scala XML library can detect invalid XML with accurate parsing errors.
 
-  \item For all test cases (1, 2, 5 and 6), the \emph{execution time} for all the transformation is about 7500ms for all the transformations on SHARE (\Cf Section~\ref{sec:AppendixExecutionTime}).
+  \item For all test cases (1, 2, 5 and 6), the \emph{execution time} is about 7500ms for all the transformations on SHARE (\Cf Section~\ref{sec:AppendixExecutionTime}).
 
   \item \emph{Modularity} for the M2M transformation is $1 - \frac{d}{r} = \frac{7}{8} = 0.125$, where $d$ is the number of dependencies between rules and $r$ is the number of rules.
 
-  \item The level of \emph{abstraction} for the M2M transformation is medium since the rules are defined declaratively (high abstraction), but their content is an imperative code (medium).
-  Similar applies for the M2T templates.
+  \item The level of \emph{abstraction} for both the M2M and M2T transformations is medium since the rules are defined declaratively (high abstraction), but their content is an imperative code (medium).
 
-\bigskip
+\end{itemize}
 
 Despite that we opted for a complex ObjLang model, the resulting transformations are rather expressive and quite concise.
 The complete implementation of the core problem consists of 500 lines of Scala code\footnote{The extension 1 consists of 550, extension 2 of 720 and extension 3 of 770 source lines of code.}.
 This \FIXML case study provides a good illustration for some of the capabilities of an internal DSL approach to model manipulations in the model-driven engineering domain.
 
 
-\end{itemize}
+
 
 
 

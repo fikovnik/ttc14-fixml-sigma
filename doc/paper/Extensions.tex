@@ -6,16 +6,16 @@
 % \enlargethispage{20mm}
 
 In this section we describe our solutions to the case study extensions.
-Each of extension has been implemented as a separate project on GitHub and therefore an interested reader can easily see what exactly have been changed.
+Each extension has been implemented as a separate project on GitHub and therefore an interested reader can easily see what exactly has been changed.
 
 \Subsection{Extension 1 - Selection of Appropriate Data Types}
 \label{sec:Extension1}
 
 In this extension we use a simple heuristics to find an appropriate type for a field based on observed attribute values.
 We only cover numbers (\Scala|int|, \Scala|long|, \Scala|double|), but since the process is mechanical, it can be easily extended to cover all XML Schema data types.
-
+%
 The ObjLang meta-model was extended with new expressions representing the new type literals.
-In the M2M transformation we added a function, \Scala|guessDataType|, that uses regular expressions to guess a data type based on a single attribute value.
+In the M2M transformation we added a function, \Scala|guessDataType|, which uses regular expressions to guess a data type based on a single attribute value.
 An attribute can occur multiple times with different values and therefore we need to consider all values at the same time in order to infer a type that is wide enough.
 An overridden function \Scala|guessDataType| takes a sequence of attribute values, guesses their individual types and then simply reduces the type to the largest one (\Cf Section~\ref{sec:AppendixGuessDataType}).
 
@@ -23,12 +23,12 @@ An overridden function \Scala|guessDataType| takes a sequence of attribute value
 \label{sec:Extension2}
 
 This extension adds a support for the C language.
-Since C is not an object oriented language, more work have to be done in the code generator part, however, the M2M transformations remain untouched.
+Since C is not an object-oriented language, more work has to be done in the code generator part, but the M2M transformations remain untouched.
 %
 Instead of classes, we generate C structs with appropriate functions simulating object constructors (\Cf Section~\ref{sec:AppendixGeneratingCCode}).
-In order to simplify the code generator, we use a helper function that allows us to initialize arrays using simple expressions, which is not directly supported by C language or by the standard C library.
+In order to simplify the code generator, we use a helper function that allows us to initialize arrays using simple expressions, which is not directly supported by the C language or by its standard library.
 %
-Despite the fact that C is not an object oriented language, our organization of the M2T transformation templates makes the implementation only 36 lines longer than the C++ version (\Cf \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassHeader|} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassImpl|}).
+Despite the lack of object orientation, our organization of the M2T transformation templates makes the implementation only 36 lines longer than the C++ version (\Cf \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassHeader|} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassImpl|}).
 
 \Subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
@@ -37,10 +37,10 @@ Despite the fact that C is not an object oriented language, our organization of 
 
 Essentially, a generic \FIXML Schema to ObjLang model transformation means creating a generic XML schema to ObjLang transformation.
 Such a task is far from being trivial and it would require a significant engineering effort.
-Therefore we have decided for an alternative solution in which we transform Java classes generated from an XML schema by the JAXB tool\footnote{Java Architecture for XML Binding \url{https://jaxb.java.net/}}.
+Therefore we have chosen an alternative solution in which we transform Java classes generated from an XML schema by the JAXB tool\footnote{Java Architecture for XML Binding \url{https://jaxb.java.net/}}.
 The advantage of this solution is that the JAXB already does all the hard work of parsing XML schema, resolving the element inheritance, substitutability, data types and others.
-The resulting Java classes in fact represents an object oriented model and therefore the actual M2M transformation into ObjLang is rather straight forward.
-Finally, the JAXB can be thought of as a another model transformation and therefore our solution is still within the model driven engineering domain.
+The resulting Java classes in fact represents an object-oriented model and therefore the actual M2M transformation into ObjLang is rather straight forward.
+Finally, the JAXB can be thought of as a another model transformation. Therefore our solution is still within the model-driven engineering domain while demonstrating a strong advantage of internal DSL in reusing very easily another API with the host language.
 
 The new input is a location of the \FIXML XSD files and the new transformation workflow consists of 
 \begin{inparaenum}[(1)]
@@ -55,4 +55,4 @@ The ObjModel had to be extended to cover enumerated types a notion of inheritanc
 The new transformation (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/Java2ObjLang.scala}{\Scala|Java2ObjLang|}) is about 30\% smaller than the original transformation and arguably less complex.
 It also demonstrates \SIGMA support for manipulating different models than EMF, \Ie, Java model implemented using Java reflection (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/javamm/JavaClassModel.scala}{\Scala|JavaClassModel|}).
 The M2T transformation remained mostly untouched apart from the model extensions.
-It is important to note that the C code generator supports neither class inheritance nor abstract classes\footnote{A potential solution is described in by Schreiner~\cite{Schreiner1993}, however it requires to build a lot of supporting infrastructure which is out of the scope of this \TTC case.}.
+It is important to note that the C code generator supports neither class inheritance nor abstract classes\footnote{A potential, and heavy, solution is described  by Schreiner~\cite{Schreiner1993}, but is out of the scope of this \TTC case.}.
