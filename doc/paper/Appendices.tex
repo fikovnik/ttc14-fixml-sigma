@@ -18,7 +18,7 @@ The XML model specified in the case study description~\cite{Lano2014}.
 
 \subsection{ObjLang Meta-Model}
 
-The meta-model representing an object oriented language originating from the Featherweight Java model~\cite{Igarashi2001} (concretely from the version available at the EMFtext website\footnote{\url{http://www.emftext.org/index.php/EMFText_Concrete_Syntax_Zoo_Featherweight_Java}}).
+The meta-model representing an object oriented language originating from the Featherweight Java model, concretely from the version available at the EMFtext website\footnote{\url{http://bit.ly/1mHRkwM}}.
 
 \begin{figure}[h!bt]
   \centering
@@ -257,36 +257,36 @@ We do this by using the sources, \Ie, the source elements (XML node or XML attri
 In the pattern matching we need to cover all possible cases such as an attribute defined locally or an attribute defined in a same-tag sibling, thus using \Scala|null| for its initialization.
 
 
-\section{M2T Transformation Class Hierarchy}
-\label{sec:AppendixM2TClassHierarchy}
+% \section{M2T Transformation Class Hierarchy}
+% \label{sec:AppendixM2TClassHierarchy}
 
-\begin{figure}[h!bt]
-  \centering
-  \includegraphics[width=\textwidth]{figures/M2TClassHierarchy.pdf}
-  \caption{M2T transformation class hierarchy including C code generation}
-  \label{fig:AppendixM2TClassHierarchy}
-\end{figure}
+% \begin{figure}[h!bt]
+%   \centering
+%   \includegraphics[width=\textwidth]{figures/M2TClassHierarchy.pdf}
+%   \caption{M2T transformation class hierarchy including C code generation}
+%   \label{fig:AppendixM2TClassHierarchy}
+% \end{figure}
 
-\begin{table}[h!]
-	\centering
-  \begin{tabular}{l|l}
-  \hline
-  \textbf{File name}                  & \textbf{Source line of code} \\ \hline
-  ObjLang2C.scala              & 50                  \\
-  ObjLang2CClassImpl.scala     & 42                  \\
-  ObjLang2CPPClassHeader.scala & 38                  \\
-  BaseObjLangMTT.scala         & 35                  \\
-  ObjLang2CClassHeader.scala   & 35                  \\
-  BaseObjLang2Class.scala      & 33                  \\
-  ObjLang2CPP.scala            & 27                  \\
-  ObjLang2CPPClassImpl.scala   & 26                  \\
-  ObjLang2Java.scala           & 15                  \\
-  ObjLang2CSharp.scala         & 15                  \\
-  CHeader.scala                & 15                  \\ \hline
-  \textbf{Total}                        & \textbf{331}                 \\ \hline
-  \end{tabular}
-  \caption{Source lines of code for the complete M2T transformation including C code generation}
-\end{table}
+% \begin{table}[h!]
+% 	\centering
+%   \begin{tabular}{l|l}
+%   \hline
+%   \textbf{File name}                  & \textbf{Source line of code} \\ \hline
+%   ObjLang2C.scala              & 50                  \\
+%   ObjLang2CClassImpl.scala     & 42                  \\
+%   ObjLang2CPPClassHeader.scala & 38                  \\
+%   BaseObjLangMTT.scala         & 35                  \\
+%   ObjLang2CClassHeader.scala   & 35                  \\
+%   BaseObjLang2Class.scala      & 33                  \\
+%   ObjLang2CPP.scala            & 27                  \\
+%   ObjLang2CPPClassImpl.scala   & 26                  \\
+%   ObjLang2Java.scala           & 15                  \\
+%   ObjLang2CSharp.scala         & 15                  \\
+%   CHeader.scala                & 15                  \\ \hline
+%   \textbf{Total}                        & \textbf{331}                 \\ \hline
+%   \end{tabular}
+%   \caption{Source lines of code for the complete M2T transformation including C code generation}
+% \end{table}
 
 
 \section{Data Type Heuristics}
@@ -372,24 +372,24 @@ Pty* Pty_init(Pty* this) {
 }
 \end{ccode}
 
-\section{Execution Times of the Core Problem Solution}
-\label{sec:AppendixExecutionTime}
+% \section{Execution Times of the Core Problem Solution}
+% \label{sec:AppendixExecutionTime}
 
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{ l | r | r | r | r }
-    \hline
-    \textbf{Message} & \textbf{T2M} & \textbf{M2M} & \textbf{M2T} & \textbf{Total} \\
-    \hline
-    \texttt{test1}   & 9      & 70     & 191   & 270  \\
-    \texttt{test2}   & 27     & 351    & 284   & 662  \\
-    \texttt{test5}   & 1201   & 2734   & 459   & 4394 \\
-    \texttt{test6}   & 376    & 1387   & 393   & 2156 \\
-    \hline
-    \textbf{Total}   & 1613   & 4542   & 1327  & 7482 \\
-    \hline
-  \end{tabular}
-  \caption{Execution times for the test \FIXML messages as measured on SHARE (in milliseconds)}
-  \label{tab:ExecutionTime}
-\end{table}
+% \begin{table}[h!]
+%   \centering
+%   \begin{tabular}{ l | r | r | r | r }
+%     \hline
+%     \textbf{Message} & \textbf{T2M} & \textbf{M2M} & \textbf{M2T} & \textbf{Total} \\
+%     \hline
+%     \texttt{test1}   & 9      & 70     & 191   & 270  \\
+%     \texttt{test2}   & 27     & 351    & 284   & 662  \\
+%     \texttt{test5}   & 1201   & 2734   & 459   & 4394 \\
+%     \texttt{test6}   & 376    & 1387   & 393   & 2156 \\
+%     \hline
+%     \textbf{Total}   & 1613   & 4542   & 1327  & 7482 \\
+%     \hline
+%   \end{tabular}
+%   \caption{Execution times for the test \FIXML messages as measured on SHARE (in milliseconds)}
+%   \label{tab:ExecutionTime}
+% \end{table}
 

@@ -17,7 +17,7 @@ We only cover numbers (\Scala|int|, \Scala|long|, \Scala|double|), but since the
 The ObjLang meta-model was extended with new expressions representing the new type literals.
 In the M2M transformation we added a function, \Scala|guessDataType|, which uses regular expressions to guess a data type based on a single attribute value.
 An attribute can occur multiple times with different values and therefore we need to consider all values at the same time in order to infer a type that is wide enough.
-An overridden function \Scala|guessDataType| takes a sequence of attribute values, guesses their individual types and then simply reduces the type to the largest one (\Cf Section~\ref{sec:AppendixGuessDataType}).
+An overridden function \Scala|guessDataType| takes a sequence of attribute values, guesses their individual types and then simply reduces the type to the largest one.
 
 \Subsection{Extension 2 - Extension to Additional Languages}
 \label{sec:Extension2}
@@ -25,10 +25,11 @@ An overridden function \Scala|guessDataType| takes a sequence of attribute value
 This extension adds a support for the C language.
 Since C is not an object-oriented language, more work has to be done in the code generator part, but the M2M transformations remain untouched.
 %
-Instead of classes, we generate C structs with appropriate functions simulating object constructors (\Cf Section~\ref{sec:AppendixGeneratingCCode}).
+Instead of classes, we generate C structs with appropriate functions simulating object constructors.
 In order to simplify the code generator, we use a helper function that allows us to initialize arrays using simple expressions, which is not directly supported by the C language or by its standard library.
 %
-Despite the lack of object orientation, our organization of the M2T transformation templates makes the implementation only 36 lines longer than the C++ version (\Cf \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassHeader|} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassImpl|}).
+Despite the lack of object orientation, our organization of the M2T transformation templates makes the implementation only 36 lines longer than the C++ version.
+ % (\Cf \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassHeader|} and \href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-2/src/fr/inria/spirals/sigma/ttc14/fixml/ObjLang2CClassHeader.scala}{\Scala|ObjLang2CClassImpl|}).
 
 \Subsection{Extension 3 - Generic Transformation}
 \label{sec:Extension3}
@@ -55,4 +56,4 @@ The ObjModel had to be extended to cover enumerated types a notion of inheritanc
 The new transformation (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/Java2ObjLang.scala}{\Scala|Java2ObjLang|}) is about 30\% smaller than the original transformation and arguably less complex.
 It also demonstrates \SIGMA support for manipulating different models than EMF, \Ie, Java model implemented using Java reflection (\href{https://github.com/fikovnik/ttc14-fixml-sigma/blob/master/ttc14-fixml-extension-3/src/fr/inria/spirals/sigma/ttc14/fixml/javamm/JavaClassModel.scala}{\Scala|JavaClassModel|}).
 The M2T transformation remained mostly untouched apart from the model extensions.
-It is important to note that the C code generator supports neither class inheritance nor abstract classes\footnote{A potential, and heavy, solution is described  by Schreiner~\cite{Schreiner1993}, but is out of the scope of this \TTC case.}.
+It is important to note that the C code generator supports neither class inheritance nor abstract classes.

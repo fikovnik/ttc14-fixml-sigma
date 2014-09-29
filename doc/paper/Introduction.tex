@@ -1,6 +1,6 @@
 %!TEX root = ttc14-fixml.tex
 
-% \enlargethispage{15mm}
+% \enlargethispage{10mm}
 
 \section{Introduction}
 \label{sec:Introduction}
@@ -13,17 +13,17 @@ Purposely, we choose a non-trivial object-oriented model (\Cf Figure~\ref{fig:Ap
 Finally, for all target languages, the generated code is complete, including all necessary statements so it compiles without any problems or warning\footnote{Tested using OpenJDK 1.7, Mono 3.2 and Clang 6.0 on OSX 10.9}.
 
 %% Scala
-The solution was developed in \SIGMA, a family of Scala~\cite{Odersky2004} internal DSLs for model manipulation tasks such as model validation, model to model (M2M), and model to text (M2T) transformations.
+The solution was developed in \SIGMA, a family of Scala\footnote{\url{http://scala-lang.org}} internal DSLs for model manipulation tasks such as model validation, model to model (M2M), and model to text (M2T) transformations.
 Scala is a statically typed production-ready \emph{General-Purpose Language} (GPL) that supports both object-oriented and functional styles of programming.
 It uses type inference to combine static type safety with a \emph{``look and feel''} close to dynamically typed languages.
 % It is interoperable with Java and has been designed to host internal DSLs~\cite{Chafi2010}.
 % Furthermore, it is supported by the major integrated development environments.
 %% SIGMA
-\SIGMA DSLs are embedded in Scala as a library allowing one to manipulate models using high-level constructs similar to the ones found in the external model manipulation DSLs such as ETL~\cite{Kolovos2008a} or ATL~\cite{Jouault2006}.
+\SIGMA DSLs are embedded in Scala as a library allowing one to manipulate models using high-level constructs similar to the ones found in the external model manipulation DSLs such as ETL or ATL~\footnote{Epsilon $-$ \url{https://www.eclipse.org/epsilon/}, ATL $-$ \url{https://www.eclipse.org/atl/}}.
 The intent is to provide an approach that developers can use to implement many of the practical model manipulations within a familiar environment, with a reduced learning overhead as well as improved usability and performance.
-The solution is based on the \emph{Eclipse Modeling Framework} (EMF)~\cite{EMF}, which is a popular meta-modeling framework widely used in both academia and industry, and which is directly supported by \SIGMA.
+The solution is based on the \emph{Eclipse Modeling Framework} (EMF), which is a popular meta-modeling framework widely used in both academia and industry, and which is directly supported by \SIGMA.
 
 %% Organization
 % We first describe the solution to the case study core problem, then the solution for the extensions followed by an evaluation conclusion.
-Across the paper we provide references to code listings in the appendix for the reader to get additional details.
-The complete source code is available on Github\footnote{\url{https://github.com/fikovnik/ttc14-fixml-sigma}} as well as directly runnable from a SHARE environment\footnote{\url{http://bit.ly/1sSWDeB}}.
+% The appendix provides additional code listings for the reader to get further details.
+The complete source code is available on Github as well as directly runnable from a SHARE environment\footnote{Github $-$ \url{http://bit.ly/1mHSCHY}, SHARE $-$ \url{http://bit.ly/1sSWDeB}}.
