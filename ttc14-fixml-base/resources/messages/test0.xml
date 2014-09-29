@@ -1,0 +1,13 @@
+  <FIXML>
+    <PosRpt RptID="541386431">
+      <Pty ID="OCC" R="21"/>
+      <Pty ID="C" R="38">
+        <Sub ID="ZZZ" Typ="2"/>
+        <Mnn Q="A" />
+      </Pty>
+      <Pty ID="C" R="38" Z="Q">
+        <Sub ID="ZZZ" Typ="2"/>
+        <Sub ID="ZZZ" Typ="3" Oed="X"/>
+      </Pty>
+    </PosRpt>
+  </FIXML>

@@ -20,3 +20,5 @@ ttc14-fixml-extension-3/target
 ttc14-fixml-base/.settings
 *.pygtex
 default.pygstyle
+doc/paper/ttc14-fixml.pdf
+doc/report/ttc14-fixml.pdf
